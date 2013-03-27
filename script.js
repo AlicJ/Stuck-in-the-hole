@@ -77,34 +77,40 @@
 
 //Motion
 	  //Animation
-      var gameLoop = setInterval(function(){animate(myRectangle, canvas, context)}, 1000/60);
+      var gameLoop = setInterval(function(){animate(myObj, canvas, context)}, 1000/60);
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
 	  var score = 10000;
-	  var myRectangle = {
+	  var imageObj = new Image();
+
+
+
+	  var myObj = {
         x: 0,
         y: 75,
         width: 200,
         height: 50,
         borderWidth: 2
       };
-      function drawRectangle(myRectangle, context) {
-        context.beginPath();
-        context.rect(myRectangle.x, myRectangle.y, myRectangle.width, myRectangle.height);
-        context.fillStyle = '#8ED6FF';
-        context.fill();
-        context.lineWidth = myRectangle.borderWidth;
+      function drawRectangle(myObj, context) {
+		context.drawImage(imageObj, myObj.x, myObj.y);
+        imageObj.src = 'obj.png';
+        //context.beginPath();
+        //context.rect(myObj.x, myObj.y, myObj.width, myObj.height);
+        //context.fillStyle = '#8ED6FF';
+        //context.fill();
+        context.lineWidth = myObj.borderWidth;
 		context.fillStyle = '#FFF';
 		context.font = 'bold 15px Calibri';
-      	context.fillText(question, myRectangle.x, myRectangle.y - 5);
-        context.strokeStyle = 'black';
+      	context.fillText(question, myObj.x, myObj.y - 5);
+        //context.strokeStyle = 'black';
         context.stroke();
       }
-      function animate(myRectangle, canvas, context) {
-        var newX = myRectangle.x + 2;
+      function animate(myObj, canvas, context) {
+        var newX = myObj.x + 2;
 		score = Math.round(score-1000/60);
-        if(newX < canvas.width - myRectangle.width - myRectangle.borderWidth / 2) {
-          myRectangle.x = newX;
+        if(newX < canvas.width - myObj.width - myObj.borderWidth / 2) {
+          myObj.x = newX;
         }
 		else
 		{
@@ -115,10 +121,10 @@
         // clear
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        drawRectangle(myRectangle, context);
+        drawRectangle(myObj, context);
 
       }		
-	      drawRectangle(myRectangle, context);
+	      drawRectangle(myObj, context);
 
 
 		
