@@ -93,12 +93,12 @@
         borderWidth: 2
       };
       function drawRectangle(myObj, context) {
-		context.drawImage(imageObj, myObj.x, myObj.y);
-        imageObj.src = 'obj.png';
-        //context.beginPath();
-        //context.rect(myObj.x, myObj.y, myObj.width, myObj.height);
-        //context.fillStyle = '#8ED6FF';
-        //context.fill();
+		//context.drawImage(imageObj, myObj.x, myObj.y);
+        //imageObj.src = 'obj.png';
+        context.beginPath();
+        context.rect(myObj.x, myObj.y, myObj.width, myObj.height);
+        context.fillStyle = '#8ED6FF';
+        context.fill();
         context.lineWidth = myObj.borderWidth;
 		context.fillStyle = '#FFF';
 		context.font = 'bold 15px Calibri';
