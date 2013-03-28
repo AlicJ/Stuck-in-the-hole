@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //Question Maker
     var range = 20;
 	var num1 = Math.floor(Math.random()*range)+1;
@@ -129,7 +128,6 @@
 
 
 		
-=======
 //Question Maker
     var range = 20;
 	var num1 = Math.floor(Math.random()*range)+1;
@@ -260,4 +258,3 @@
 
 
 		
->>>>>>> fa58bc8990a31c4a8b26b259b03328158c30488b
