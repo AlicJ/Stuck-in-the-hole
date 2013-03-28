@@ -82,19 +82,19 @@
       var context = canvas.getContext('2d');
 	  var score = 10000;
 	  var imageObj = new Image();
-
+     imageObj.src = 'obj.png';
 
 
 	  var myObj = {
         x: 0,
         y: 75,
-        width: 200,
+        width: 180,
         height: 50,
         borderWidth: 2
       };
       function drawRectangle(myObj, context) {
 		context.drawImage(imageObj, myObj.x, myObj.y);
-        imageObj.src = 'obj.png';
+        
         //context.beginPath();
         //context.rect(myObj.x, myObj.y, myObj.width, myObj.height);
         //context.fillStyle = '#8ED6FF';
