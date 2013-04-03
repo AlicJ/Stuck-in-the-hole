@@ -71,7 +71,9 @@
 			clearInterval(gameLoop);
 		}else{
 			$("#result").text("You are wrong.");
-			}
+            input="";
+			$("#input").text(input);
+        }
 	}
 
 
@@ -107,7 +109,7 @@
         context.stroke();
       }
       function animate(myObj, canvas, context) {
-        var newX = myObj.x + 2;
+        var newX = myObj.x + 1;
 		score = Math.round(score-1000/60);
         if(newX < canvas.width - myObj.width - myObj.borderWidth / 2) {
           myObj.x = newX;
