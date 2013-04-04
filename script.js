@@ -77,7 +77,7 @@
 
 //Motion
 	  //Animation
-      var gameLoop = setInterval(function(){animate(myObj, canvas, context)}, 1000/60);
+      var gameLoop = setInterval(function(){animate(enemy1, canvas, context)}, 1000/60);
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
 	  canvas.width = window.innerWidth*0.8;
@@ -85,61 +85,78 @@
 	  var score = 10000;
 	  var imageObj = new Image();
 	  
-	  var rectX = 50;
+	  var rectX = canvas.width/2-50;
 	  var rectY = canvas.height/2-50;
      imageObj.src = 'obj.png';
 
 
-	  var myObj = {
-        x: canvas.width+50,
-        y: Math.floor(Math.random()*canvas.height)+1,
-		fixedX: canvas.width+50,
-		fixedY: Math.floor(Math.random()*canvas.height)+1,
-        width: 80,
-        height: 50,
-        borderWidth: 2
-      };
-      function drawRectangle(myObj, context) {
-		context.drawImage(imageObj, myObj.x, myObj.y);
+	  function enemy (side) {
+        if(side==2||side==4)
+		{
+			this.y= Math.floor(Math.random()*canvas.height)+1;
+			if(side==2)
+				this.x= canvas.width+50;
+			else
+				this.x=-50;
+		}
+		else if(side==1||side==3)
+		{
+			this.x= Math.floor(Math.random()*canvas.width)+1;
+			if(side==3)
+				this.y= canvas.height+50;
+			else
+				this.y=-50;
+		}
+       
+	
+		this.fixedX= this.x;
+		this.fixedY= this.y;
+        this.width= 80;
+        this.height= 50;
+        this.borderWidth=  2
+     }
+	  var enemy1 = new enemy (4);
+      function drawRectangle(enemy1, context) {
+		context.drawImage(imageObj, enemy1.x, enemy1.y);
         
         //context.beginPath();
         context.rect(rectX,rectY,50,50);
         context.fillStyle = '#8ED6FF';
         context.fill();
-        context.lineWidth = myObj.borderWidth;
+        context.lineWidth = enemy1.borderWidth;
 		context.fillStyle = '#FFF';
 		context.font = 'bold 15px Calibri';
-      	context.fillText(question, myObj.x, myObj.y - 5);
+      	context.fillText(question, enemy1.x, enemy1.y - 5);
         //context.strokeStyle = 'black';
         context.stroke();
       }
-      function animate(myObj, canvas, context) {
-        newX = (myObj.fixedX - rectX)/2000*60;
-		newY = Math.abs((myObj.fixedY - rectY)/2000*60);
+      function animate(target, canvas, context) {
+        newX = (target.fixedX - rectX)/2000*60;
+		newY = (target.fixedY - rectY)/2000*60;
 		score = Math.round(score-1000/60);
-		var X = canvas.width - myObj.width - myObj.borderWidth / 2;
-		var Y = canvas.width - myObj.width - myObj.borderWidth / 2;
-        if(myObj.x > rectX+100) {
-          myObj.x -= newX;
-		  if(myObj.fixedY > rectY){
-          	  myObj.y -= newY;
-		  }else if(myObj.fixedY < rectY){
-			  myObj.y += newY;
-		  }else{}
-        }
-		else
+		
+        if(target.x > rectX||target.x<rectX-80) {
+          target.x -= newX;
+		 }
+		
+		 if(target.y > rectY-50||target.y<rectY){
+			target.y-= newY;
+		 }
+        
+		if(target.x < rectX+80&&target.x>rectX-100&&target.y < rectY+80&&target.y>rectY-100)
 		{
 			clearInterval(gameLoop);
 			$("#result").text("You Lose.");
+			 context.clearRect(target.x, target.y, target.width, target.height);
 		}
 
         // clear
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        drawRectangle(myObj, context);
+        drawRectangle(enemy1, context);
 
       }		
-	      drawRectangle(myObj, context);
+	      drawRectangle(enemy1, context);
 
 
 		
