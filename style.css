@@ -2,13 +2,13 @@
 /* CSS Document */
 
 body {
-	margin: 0px;
+    margin: 0px;
 	padding: 0px;
 }
 canvas {
 	border:1px solid #999;
 	float:left;
-	background:url(bg.jpg) center;
+	background:url(space.jpg) repeat scroll 0 0;
 }
 .keypad {
 	width:60px;
