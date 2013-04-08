@@ -107,8 +107,6 @@
     	$("canvas").css({backgroundPosition: (bgPosition * 1) + "px 0px"});
 		if(Math.abs(bgPosition)>=bgImg.width){
 			bgPosition = 0;
-			bgInterval = null;
-			bgInterval = window.setInterval(bgAnimation, 1000);
 			}
 		}
 
