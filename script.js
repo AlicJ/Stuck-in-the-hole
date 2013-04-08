@@ -1,13 +1,13 @@
 //Question Maker
-    var range = 20;
+   
+    function QuestionMaker(){
+	var range = 20;
     var num1 = Math.floor(Math.random()*range)+1;
-	var num2 = Math.floor(Math.random()*range)+1;
+    var num2 = Math.floor(Math.random()*range)+1;
 	var operation = Math.floor(Math.random()*4)+1;
 	var answer;
 	var question;
-			
-    function QuestionMaker(){
-		if (Math.max(num1, num2)== num2){
+        if (Math.max(num1, num2)== num2){
 			var switcher = num2;
 			num2=num1;
 			num1=switcher;
@@ -67,7 +67,7 @@
 	
 	function submit(){
 		if(input == answer){
-			$("#result").text("You are correct.");// + score);	
+			//$("#result").text("You are correct.");// + score);	
 			clearInterval(gameLoop);
 			context.clearRect(enemy1.x-5, enemy1.y-20, enemy1.width, enemy1.height);
 			enemy1 = new enemy (Math.floor(Math.random()*4)+1);
@@ -84,9 +84,11 @@
 	  var bgInterval = null;
 	  var bgPosition = 0;
       var gameLoop = setInterval(function(){
-		  bgInterval = window.setInterval(bgAnimation, 200);
-		  animate(enemy1, canvas, context);
-		  }, 1000/60);
+		  bgInterval = window.setInterval(bgAnimation, 200);}, 1000/60);
+       var enemyLoop = setInterval(function()
+          {
+             enemyMaker[enemyNum] = new manyTargets();
+             }, 2000);
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
 	  canvas.width = window.innerWidth*0.8;
@@ -94,11 +96,12 @@
 	  var score = 10000;
 	  var lives = 3;
 	  var imageObj = new Image();
-	  
+	  var enemyNum=0;
 	  var rectX = canvas.width/2-50;
 	  var rectY = canvas.height/2-50;
       imageObj.src = 'obj.png';
-
+      var enemies = new Array();
+      var enemyMaker = new Array();
 	  var bgImg = new Image();
 	  bgImg.src = "space.jpg";
 	  //Background Animation
@@ -128,28 +131,37 @@
 			else
 				this.y=-50;
 		}
-       
-	
+        questions = new QuestionMaker();
+        this.question = questions.question;
+        this.answer = questions.answer;
+	    this.alive = true;
 		this.fixedX= this.x;
 		this.fixedY= this.y;
         this.width= 100;
         this.height= 125;
-        this.borderWidth=  2
+        this.borderWidth=2;
+        
      }
-	  var enemy1 = new enemy (Math.floor(Math.random()*4)+1);
-      function drawEnemy(enemy1, context) {
-		context.drawImage(imageObj, enemy1.x, enemy1.y);
+      function drawEnemy(target, context) {
+		context.drawImage(imageObj, target.x, target.y);
         
         //context.beginPath();
         context.rect(rectX,rectY,50,50);
         context.fillStyle = '#8ED6FF';
         context.fill();
-        context.lineWidth = enemy1.borderWidth;
+        context.lineWidth = target.borderWidth;
 		context.fillStyle = '#FFF';
 		context.font = 'bold 15px Calibri';
-      	context.fillText(question, enemy1.x, enemy1.y - 5);
+      	context.fillText(target.question, target.x, target.y - 5);
         //context.strokeStyle = 'black';
         context.stroke();
+      }
+      function manyTargets()
+      {
+          enemies [enemyNum] = new enemy (Math.floor(Math.random()*4)+1);
+          var enemyNum1 = enemyNum;
+          var tooDeep = setInterval(animate(enemies[enemyNum1], canvas, context), 1000/60);
+          enemyNum+=1;
       }
       function animate(target, canvas, context) {
         newX = (target.fixedX - rectX)/30000*60;
@@ -167,22 +179,20 @@
 		// clear
         context.clearRect(0, 0, canvas.width, canvas.height);
 		//draw again
-        drawEnemy(enemy1, context);
+        drawEnemy(target, context);
         
 		if(target.x < rectX+80&&target.x>rectX-100&&target.y < rectY+80&&target.y>rectY-100)
 		{
 			clearInterval(gameLoop);
 			$("#result").text("You Lose.");
 			lives-=1;
-			context.clearRect(enemy1.x-5, enemy1.y-20, enemy1.width, enemy1.height);
-			enemy1 = new enemy (Math.floor(Math.random()*4)+1);
-			drawEnemy(enemy1, context);
-			QuestionMaker();
+			context.clearRect(target.x-5, target.y-20, target.width, target.height);
+			
 		}
 
 
 
       }		
-	      drawEnemy(enemy1, context);
+	      
 
 
