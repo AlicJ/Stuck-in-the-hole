@@ -81,18 +81,39 @@
 
 //Motion
 	  //Animation
-	  var bgInterval = null;
-	  var bgPosition = 0;
-		  bgInterval = window.setInterval(bgAnimation, 1000/15);
-       var enemyLoop = setInterval(function()
-          {
-             enemyMaker[enemyNum] = new manyTargets();
-             }, 2000);
+	  
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
 	  canvas.width = window.innerWidth*0.8;
 	  canvas.height = window.innerHeight*0.8;
-	  var score = 10000;
+	   var gameLoop = setInterval(function(){
+          context.clearRect(0, 0, canvas.width, canvas.height);
+         counter++;
+             if(counter>60)
+             {
+                 counter=0;
+                 if(enemyNum >8)
+                 {
+                     maxEnemy= true;
+                 }
+                   
+                if(!maxEnemy)
+                {
+                    enemies [enemyNum] = new enemy (Math.floor(Math.random()*4)+1);
+                    enemyNum +=1;
+                }
+             }
+         for(var i =0; i<=enemyNum;i++)
+         {
+             if(enemies[i].alive)
+             {
+                 animate(enemies[i], canvas, context);
+             }
+           
+         }
+           
+    }, 50);
+      var score = 10000;
 	  var lives = 3;
 	  var imageObj = new Image();
 	  var enemyNum=0;
@@ -101,6 +122,12 @@
       imageObj.src = 'obj.png';
       var enemies = new Array();
       var enemyMaker = new Array();
+      var bgInterval = null;
+      var bgPosition = 0;
+      var counter = 0;
+      var maxEnemy = false;
+		  bgInterval = window.setInterval(bgAnimation, 1000/15);
+   
 	  var bgImg = new Image();
 	  bgImg.src = "space.jpg";
 	  //Background Animation
@@ -155,13 +182,6 @@
         //context.strokeStyle = 'black';
         context.stroke();
       }
-      function manyTargets()
-      {
-          enemies [enemyNum] = new enemy (Math.floor(Math.random()*4)+1);
-          var enemyNum1 = enemyNum;
-          var tooDeep = setInterval(animate(enemies[enemyNum1], canvas, context), 1000/60);
-          enemyNum+=1;
-      }
       function animate(target, canvas, context) {
         newX = (target.fixedX - rectX)/30000*60;
 		newY = (target.fixedY - rectY)/30000*60;
@@ -175,8 +195,7 @@
 			target.y-= newY;
 		 }
 		 
-		// clear
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        
 		//draw again
         drawEnemy(target, context);
         
@@ -188,9 +207,6 @@
 			context.clearRect(target.x-5, target.y-20, target.width, target.height);
 			
 		}
-
-
-
       }		
 	      
 
