@@ -65,26 +65,25 @@
 		$("#input").text(input);
 	}
 	
-	function submit(){
-		if(input == answer){
-			//$("#result").text("You are correct.");// + score);	
-			clearInterval(gameLoop);
-			context.clearRect(enemy1.x-5, enemy1.y-20, enemy1.width, enemy1.height);
-			enemy1 = new enemy (Math.floor(Math.random()*4)+1);
-			drawEnemy(enemy1, context);
-			QuestionMaker();
-		}else{
-			$("#result").text("You are wrong.");
-			}
-	}
+	// function submit(){
+	// 	if(input == answer){
+	// 		//$("#result").text("You are correct.");// + score);	
+	// 		clearInterval(gameLoop);
+	// 		context.clearRect(enemy1.x-5, enemy1.y-20, enemy1.width, enemy1.height);
+	// 		enemy1 = new enemy (Math.floor(Math.random()*4)+1);
+	// 		drawEnemy(enemy1, context);
+	// 		QuestionMaker();
+	// 	}else{
+	// 		$("#result").text("You are wrong.");
+	// 		}
+	// }
 
 
 //Motion
 	  //Animation
 	  var bgInterval = null;
 	  var bgPosition = 0;
-      var gameLoop = setInterval(function(){
-		  bgInterval = window.setInterval(bgAnimation, 200);}, 1000/60);
+		  bgInterval = window.setInterval(bgAnimation, 1000/15);
        var enemyLoop = setInterval(function()
           {
              enemyMaker[enemyNum] = new manyTargets();
@@ -107,7 +106,7 @@
 	  //Background Animation
 	  function bgAnimation() {
     	bgPosition--;
-    	$("canvas").css({backgroundPosition: (bgPosition * 1) + "px 0px"});
+    	$("canvas").css({backgroundPosition: (bgPosition * 2) + "px 0px"});
 		if(Math.abs(bgPosition)>=bgImg.width){
 			bgPosition = 0;
 			}
