@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="Kinetic.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 <title>Whatever</title>
 </head>
@@ -42,7 +43,41 @@
     
     <img src="logo.JPG" width="175" height="100"/>
 <script src="script.js" type="text/javascript"></script>
+<canvas id="container"></canvas>
+    <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.4.1.min.js"></script>
+    <script defer="defer">
+      var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 578,
+        height: 200
+      });
+      var layer = new Kinetic.Layer();
 
+      var hexagon = new Kinetic.RegularPolygon({
+        x: stage.getWidth() / 2,
+        y: stage.getHeight() / 2,
+        sides: 6,
+        radius: 70,
+        fill: 'red',
+        stroke: 'black',
+        strokeWidth: 4
+      });
+
+      layer.add(hexagon);
+      stage.add(layer);
+
+      var amplitude = 150;
+      var period = 2000;
+      // in ms
+      var centerX = stage.getWidth() / 2;
+
+      var anim = new Kinetic.Animation(function(frame) {
+        hexagon.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period) + centerX);
+      }, layer);
+
+      anim.start();
+
+    </script>
 <script>
       QuestionMaker();
 </script>
