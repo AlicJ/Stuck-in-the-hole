@@ -86,33 +86,43 @@
       var context = canvas.getContext('2d');
 	  canvas.width = window.innerWidth*0.8;
 	  canvas.height = window.innerHeight*0.8;
-	   var gameLoop = setInterval(function(){
-          context.clearRect(0, 0, canvas.width, canvas.height);
-         counter++;
-             if(counter>60)
-             {
-                 counter=0;
-                 if(enemyNum >8)
+      var gamestart = false;
+
+      
+          bgInterval = window.setInterval(function(){
+              if(gamestart){
+                  bgAnimation();
+              }
+          }, 1000/15);
+    	  var gameLoop = setInterval(function(){
+              if(gamestart){
+                  context.clearRect(0, 0, canvas.width, canvas.height);
+                  counter++;
+                     if(counter>60)
+                     {
+                         counter=0;
+                         if(enemyNum >8)
+                         {
+                             maxEnemy= true;
+                         }
+                           
+                        if(!maxEnemy)
+                        {
+                            enemies [enemyNum] = new enemy (Math.floor(Math.random()*4)+1);
+                            enemyNum +=1;
+                        }
+                     }
+                 for(var i =0; i<=enemyNum;i++)
                  {
-                     maxEnemy= true;
-                 }
+                     if(enemies[i].alive)
+                     {
+                         animate(enemies[i], canvas, context);
+                     }
                    
-                if(!maxEnemy)
-                {
-                    enemies [enemyNum] = new enemy (Math.floor(Math.random()*4)+1);
-                    enemyNum +=1;
-                }
-             }
-         for(var i =0; i<=enemyNum;i++)
-         {
-             if(enemies[i].alive)
-             {
-                 animate(enemies[i], canvas, context);
-             }
-           
-         }
-           
-    }, 50);
+                 }
+              }  
+        }, 50);
+
       var score = 10000;
 	  var lives = 3;
 	  var imageObj = new Image();
@@ -126,14 +136,13 @@
       var bgPosition = 0;
       var counter = 0;
       var maxEnemy = false;
-		  bgInterval = window.setInterval(bgAnimation, 1000/15);
    
 	  var bgImg = new Image();
 	  bgImg.src = "space.jpg";
 	  //Background Animation
 	  function bgAnimation() {
     	bgPosition--;
-    	$("canvas").css({backgroundPosition: (bgPosition * 2) + "px 0px"});
+    	$("canvas").css({backgroundPosition: (bgPosition * 5) + "px 0px"});
 		if(Math.abs(bgPosition)>=bgImg.width){
 			bgPosition = 0;
 			}

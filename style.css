@@ -1,6 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
-
+@font-face {
+    font-family: "SpaceFont";
+    src: url(Orena.ttf) format("truetype");
+}
 body {
     margin: 0px;
 	padding: 0px;
@@ -20,4 +23,35 @@ canvas {
 }
 span {
 	visibility:hidden;
+}
+#main {
+	background:url(space.jpg) repeat scroll 0 0;
+	border:1px solid #999;
+	color:cyan;
+	font-family:"SpaceFont";
+	font-size:xx-large;
+	height:80%;
+	margin:0 auto;
+	text-align:center;	
+	width:80%;
+}
+#main h1, #main ul, #main div {
+	opacity:0.75;
+	cursor:default;
+}
+#main h1 {
+	margin:45px 0 85px 0;
+}
+#main ul {
+	list-style:none;
+	padding:0;
+}
+#main li {
+	margin:45px 0;
+}
+#main li:active, .exit:active, .back:active {
+	color:#F00;
+}
+.exit, .back {
+	position:fixed;
 }
