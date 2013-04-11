@@ -4,47 +4,124 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="jquery-1.9.1.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
-<title>Whatever</title>
+<title>Stuck-in-the-Hole</title>
 </head>
 
 <body>
-    <canvas id="myCanvas"></canvas>
-    <div id="container">
-        <div id="question"></div>
-        <div id="result"><span>haha</span></div>
+    <div id="main">
+    	<div id="menu">
+            <h1>Stuck in the Hole</h1>
+            <ul>
+                <li class="newgame" >New Game</li>
+                <li class="continue" >Continue</li>
+                <li class="setting" >Setting</li>
+                <li class="help" >Help</li>
+            </ul>
+            <div class="exit">Exit</div>
+        </div>
+        
+        <div id="setting">
+            <h1>Setting</h1>
+            <ul>
+                <li>Volume</li>
+                <li>Sound FX</li>
+                <li>Font</li>
+                <li>Background Scrolling</li>
+            </ul>
+            <div class="back">Back</div>
+        </div>
+        
+        <div id="help">
+            <h1>Help</h1>
+            <ul>
+                <li>This is help</li>
+                <li>Blah Blah Blah</li>
+                <li>Blah Blah Blah</li>
+                <li>Pretty helpful, huh?</li>
+            </ul>
+            <div class="back">Back</div>
+        </div>
+
     </div>
-
-    <div id="input"></div>
-    <table>
-        <tbody>
-            <tr>
-                <td><button type="button"  class="keypad" onclick="addNum(7)" id="seven">7</button></td>
-                <td><button type="button"  class="keypad" onclick="addNum(8)" id="eight">8</button></td>
-                <td><button type="button"  class="keypad" onclick="addNum(9)" id="nine">9</button></td>
-            </tr>
-            <tr>
-                <td><button type="button"  class="keypad" onclick="addNum(4)" id="four">4</button></td>
-                <td><button type="button"  class="keypad" onclick="addNum(5)" id="five">5</button></td>
-                <td><button type="button"  class="keypad" onclick="addNum(6)" id="six">6</button></td>
-            </tr>
-            <tr>
-                <td><button type="button"  class="keypad" onclick="addNum(1)" id="one">1</button></td>
-                <td><button type="button"  class="keypad" onclick="addNum(2)" id="two">2</button></td>
-                <td><button type="button"  class="keypad" onclick="addNum(3)" id="three">3</button></td>
-            </tr>
-            <tr>
-                <td><button type="button"  class="keypad" onclick="clean()" id="clear">clear</button></td>
-                <td><button type="button"  class="keypad" onclick="addNum(0)" id="zero">0</button></td>
-                <td><button type="button"  class="keypad" onclick="submit()" id="submit">submit</button></td>
-            </tr>
-        </tbody>
-    </table>
     
-    <img src="logo.JPG" width="175" height="100"/>
-<script src="script.js" type="text/javascript"></script>
-
-<script>
-      QuestionMaker();
-</script>
+	<div id="gamefield">
+        <canvas id="myCanvas"></canvas>
+        <div id="container">
+            <div id="question"></div>
+            <div id="result"></div>
+        </div>
+        <div id="input"></div>
+        <table>
+            <tbody>
+                <tr>
+                    <td><button type="button"  class="keypad" onclick="addNum(7)" id="seven">7</button></td>
+                    <td><button type="button"  class="keypad" onclick="addNum(8)" id="eight">8</button></td>
+                    <td><button type="button"  class="keypad" onclick="addNum(9)" id="nine">9</button></td>
+                </tr>
+                <tr>
+                    <td><button type="button"  class="keypad" onclick="addNum(4)" id="four">4</button></td>
+                    <td><button type="button"  class="keypad" onclick="addNum(5)" id="five">5</button></td>
+                    <td><button type="button"  class="keypad" onclick="addNum(6)" id="six">6</button></td>
+                </tr>
+                <tr>
+                    <td><button type="button"  class="keypad" onclick="addNum(1)" id="one">1</button></td>
+                    <td><button type="button"  class="keypad" onclick="addNum(2)" id="two">2</button></td>
+                    <td><button type="button"  class="keypad" onclick="addNum(3)" id="three">3</button></td>
+                </tr>
+                <tr>
+                    <td><button type="button"  class="keypad" onclick="clean()" id="clear">clear</button></td>
+                    <td><button type="button"  class="keypad" onclick="addNum(0)" id="zero">0</button></td>
+                    <td><button type="button"  class="keypad" onclick="submit()" id="submit">submit</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <img src="logo.JPG" width="175" height="100"/>
+		<script src="script.js" type="text/javascript"></script>
+		<script>
+			$('#gamefield').css('display','none');
+			$('#setting').css('display','none');
+			$('#help').css('display','none');
+			$('body').css('width',window.innerWidth);
+			$('body').css('height',window.innerHeight);
+			$('.exit, .back').css('bottom',window.innerHeight*0.2);
+			$('.exit, .back').css('right',window.innerWidth*0.105);
+			
+			var gamestart = false;
+			var mainInterval = null;
+	 		var mainPosition = 0;
+			var mainInterval = window.setInterval(mainAnimation, 1000/60);
+			
+			function mainAnimation() {
+				mainPosition--;
+				$("#main").css({backgroundPosition: (mainPosition * 5) + "px 0px"});
+				if(Math.abs(mainPosition)>=bgImg.width){
+					mainPosition = 0;
+				}
+			}
+			
+			$(document).ready(function() {
+				$('.newgame').click(function(){
+					$('#main').css('display','none');
+					$('#gamefield').css('display','inline');
+					gamestart = true;
+					window.clearInterval(mainInterval);
+				});
+                $('.setting').click(function(){
+					$('#menu').css('display','none');
+					$('#setting').css('display','inline');
+				});
+				$('.help').click(function(){
+					$('#menu').css('display','none');
+					$('#help').css('display','inline');
+				});
+				$('.back').click(function(){
+					$('#menu').css('display','inline');
+					$('#setting').css('display','none');
+					$('#help').css('display','none');
+				});
+            });
+	  QuestionMaker();
+        </script>
+    </div>
 </body>
 </html>
