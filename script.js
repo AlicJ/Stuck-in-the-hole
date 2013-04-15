@@ -81,52 +81,80 @@
 
 //Motion
 	  //Animation
-	  
-      var canvas = document.getElementById('myCanvas');
-      var context = canvas.getContext('2d');
-	  canvas.width = window.innerWidth*0.8;
-	  canvas.height = window.innerHeight*0.8;
-      var gamestart = false;
-
-      
-          bgInterval = window.setInterval(function(){
-              if(gamestart){
-                  bgAnimation();
-              }
-          }, 1000/15);
-    	  var gameLoop = setInterval(function(){
-              if(gamestart){
-                  context.clearRect(0, 0, canvas.width, canvas.height);
-                  counter++;
-                     if(counter>60)
-                     {
-                         counter=0;
-                         if(enemyNum >8)
-                         {
-                             maxEnemy= true;
-                         }
-                           
-                        if(!maxEnemy)
-                        {
-                            enemies [enemyNum] = new enemy (Math.floor(Math.random()*4)+1);
-                            enemyNum +=1;
-                        }
-                     }
-                 for(var i =0; i<=enemyNum;i++)
-                 {
-                     if(enemies[i].alive)
-                     {
-                         animate(enemies[i], canvas, context);
-                     }
-                   
-                 }
-              }  
-        }, 50);
+    
+    
+    
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+	canvas.width = window.innerWidth*0.8;
+	canvas.height = window.innerHeight*0.8;
+    var gamestart = false;
+    var enemies = new Array();
+    var enemyNum=0;
+    var stage = new Kinetic.Stage({
+            container: 'myCanvas',
+            width:canvas.width,
+            height:canvas.height
+        });
+    var layer = new Kinetic.Laver();
+    bgInterval = window.setInterval(function(){
+        if(gamestart){
+            bgAnimation();
+                  
+             }
+        }, 1000/15);
+    	var gameLoop = setInterval(function(){
+        if(gamestart&&enemyNum<8)
+        {
+            var side= Math.Floor(Math.random())*4+1;
+            var questions = new QuestionMaker();
+            var x;
+            var y;
+            if(side==2||side==4)
+            {
+                y= Math.floor(Math.random()*canvas.height)+1;
+                if(side==2){
+                    x= canvas.width+50;
+                }
+                else{
+                    x=-50;
+                }
+            }
+            else if(side==1||side==3)
+            {
+                x= Math.floor(Math.random()*canvas.width)+1;
+                if(side==3){
+                	y= canvas.height+50;
+                }
+                else{
+                	y=-50;
+                }
+            }
+            enemies[enemyNum] = new Kinetic.Image({
+            question: questions.question,
+            answer: questions.answer,
+            currentX: x,
+            currentY: y,
+            alive: true,
+	       	fixedX: x,
+	    	fixedY: y,
+            width: 100,
+            height: 125,
+            borderWidth: 2   
+                        
+            });
+            enemyNum++;
+            animate();
+        
+       
+              }   
+        }, 3000);
+       
 
       var score = 10000;
 	  var lives = 3;
 	  var imageObj = new Image();
-	  var enemyNum=0;
+
 	  var rectX = canvas.width/2-50;
 	  var rectY = canvas.height/2-50;
       imageObj.src = 'obj.png';
@@ -136,7 +164,12 @@
       var bgPosition = 0;
       var counter = 0;
       var maxEnemy = false;
-   
+      var stage= new Kinetic.Stage({
+          container: 'myCanvas',
+          width: canvas.width,
+          height:canvas.height
+      });
+      var layer = new Kinetic.layer();
 	  var bgImg = new Image();
 	  bgImg.src = "space.jpg";
 	  //Background Animation
@@ -150,31 +183,7 @@
 
 
 	  function enemy (side) {
-        if(side==2||side==4)
-		{
-			this.y= Math.floor(Math.random()*canvas.height)+1;
-			if(side==2)
-				this.x= canvas.width+50;
-			else
-				this.x=-50;
-		}
-		else if(side==1||side==3)
-		{
-			this.x= Math.floor(Math.random()*canvas.width)+1;
-			if(side==3)
-				this.y= canvas.height+50;
-			else
-				this.y=-50;
-		}
-        questions = new QuestionMaker();
-        this.question = questions.question;
-        this.answer = questions.answer;
-	    this.alive = true;
-		this.fixedX= this.x;
-		this.fixedY= this.y;
-        this.width= 100;
-        this.height= 125;
-        this.borderWidth=2;
+       
         
      }
       function drawEnemy(target, context) {
@@ -203,13 +212,13 @@
 		 if(target.y > rectY-50||target.y<rectY){
 			target.y-= newY;
 		 }
-		 
-        
-		//draw again
-        drawEnemy(target, context);
+  		 
+         
+ 		//draw again
+         drawEnemy(target, context);
         
 		if(target.x < rectX+80&&target.x>rectX-100&&target.y < rectY+80&&target.y>rectY-100)
-		{
+ 		{
 			clearInterval(gameLoop);
 			$("#result").text("You Lose.");
 			lives-=1;
