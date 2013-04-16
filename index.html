@@ -4,19 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="jquery-1.9.1.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
-<title>Stuck-in-the-Hole</title>
+<title>Cyber blaster</title>
 </head>
 
 <body>
     <div id="main">
+    	<!--<div id="splash">-->
+        	<!--<img id="splash" src="logo.JPG" />-->
+        <!--</div>-->
+        
     	<div id="menu">
-            <h1>Stuck in the Hole</h1>
-            <ul>
-                <li class="newgame" >New Game</li>
-                <li class="continue" >Continue</li>
-                <li class="setting" >Setting</li>
-                <li class="help" >Help</li>
-            </ul>
+            <div><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h1></div>
+            <div class="newgame" ><p><span class="bigger">P</span>lay</p></div>
+            <div class="continue" ><p><span class="bigger">C</span>ontinue</p></div>
+            <div class="setting" ><p><span class="bigger">S</span>etting</p></div>
+            <div class="help" ><p><span class="bigger">I</span>nstructions</p></div>
             <div class="exit">Exit</div>
         </div>
         
@@ -33,12 +35,11 @@
         
         <div id="help">
             <h1>Help</h1>
-            <ul>
-                <li>This is help</li>
-                <li>Blah Blah Blah</li>
-                <li>Blah Blah Blah</li>
-                <li>Pretty helpful, huh?</li>
-            </ul>
+	    <img src="base.jpg" height="100px" class="base"/>
+            <img src="obj.png" height="100px" class="ship"/>
+	    <div class="text enemy">This is the enemy you are suppose to destroy</div>
+
+            <div class="text user">This is the base you are suppose to defend</div>
             <div class="back">Back</div>
         </div>
 
@@ -79,6 +80,7 @@
 		<script src="script.js" type="text/javascript"></script>
 		<script>
 			$('#gamefield').css('display','none');
+			//$('#menu').css('display','none');
 			$('#setting').css('display','none');
 			$('#help').css('display','none');
 			$('body').css('width',window.innerWidth);
@@ -89,7 +91,15 @@
 			var gamestart = false;
 			var mainInterval = null;
 	 		var mainPosition = 0;
+			var count = 0;
 			var mainInterval = window.setInterval(mainAnimation, 1000/60);
+			var splashscreen;
+			var main;
+			
+			if(count == 0){
+				//splashscreen = window.setInterval(splash, 2000);
+				count+=1;
+			}
 			
 			function mainAnimation() {
 				mainPosition--;
@@ -98,17 +108,34 @@
 					mainPosition = 0;
 				}
 			}
+			function splash() {
+				$('#splash').fadeOut("1000");
+				main = window.setInterval(function () {
+					if (count == 1){
+						$('#menu').fadeIn("1000");
+						count+=1;
+					}
+				},500);
+			}
+			window.clearInterval(main)
+			window.clearInterval(splash)
+			
+			
 			
 			$(document).ready(function() {
 				$('.newgame').click(function(){
 					$('#main').css('display','none');
 					$('#gamefield').css('display','inline');
+					//$('#main').fadeOut();
+					//$('#gamefield').fadeIn();
 					gamestart = true;
 					window.clearInterval(mainInterval);
 				});
                 $('.setting').click(function(){
 					$('#menu').css('display','none');
 					$('#setting').css('display','inline');
+					//$('#menu').fadeOut();
+					//$('#setting').fadeIn();
 				});
 				$('.help').click(function(){
 					$('#menu').css('display','none');

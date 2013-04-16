@@ -21,13 +21,19 @@ canvas {
 #input {
 	height:30px;
 }
-span {
-	visibility:hidden;
+.bigger {
+	font-size:larger;
+}
+#splash {
+	margin-top:2%;
+	width:95%;
+	height:90%;
+	border:cyan 10px solid;
 }
 #main {
 	background:url(space.jpg) repeat scroll 0 0;
 	border:1px solid #999;
-	color:cyan;
+	color:#00E8E8;
 	font-family:"SpaceFont";
 	font-size:xx-large;
 	height:80%;
@@ -35,12 +41,12 @@ span {
 	text-align:center;	
 	width:80%;
 }
-#main h1, #main ul, #main div {
-	opacity:0.75;
+#menu p, #menu h2, #menu .exit {
+	opacity:0.8;
 	cursor:default;
 }
 #main h1 {
-	margin:45px 0 85px 0;
+	rmargin:45px 0 85px 0;
 }
 #main ul {
 	list-style:none;
@@ -49,9 +55,54 @@ span {
 #main li {
 	margin:45px 0;
 }
-#main li:active, .exit:active, .back:active {
+#main p:active, .exit:active, .back:active {
 	color:#F00;
+}
+#menu {
+	opacity:0.9;
+	background:#E7EBF7;
+	float:right;
+	height:100%;
+	width:350px;
+	text-align:right;
+}
+
+#menu h2 {
+	margin:35px 15px 10px 0;
+}
+#menu div {
+	margin:35px 0 0 0;
+	padding-bottom:25px;
+	border-bottom:#CCC 2px solid;
+}
+#menu div p {
+	margin:0;
+	padding:0;
+	margin-right:15px;
+}
+.newgame {
+	color:#FF2B2B;
+}
+#help img {
+	border:solid 2px cyan;
+}
+.ship {
+	float:left;
+	margin-left:50px;
+}
+#help .text {
+	width:300px;
+}
+#help .enemy {
+	float:left;
+}
+#help .user {
+	float:right;
+}
+#help .base {
+	float:right;
 }
 .exit, .back {
 	position:fixed;
+	border:0!important;
 }
