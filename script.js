@@ -49,7 +49,7 @@
 		if(number>10){
 			number /=2;
 		}
-		return Math.floor(number);
+		    return Math.floor(number);
 		}		
 
 
@@ -97,6 +97,7 @@
             height:canvas.height
         });
     var layer = new Kinetic.Laver();
+    
     bgInterval = window.setInterval(function(){
         if(gamestart){
             bgAnimation();
@@ -145,47 +146,40 @@
             });
             enemyNum++;
             animate();
-        
-       
-              }   
+            
+            }
+            layer.add(enemies[enemyNum]);
+            stage.add(layer);  
         }, 3000);
        
 
-      var score = 10000;
-	  var lives = 3;
-	  var imageObj = new Image();
+    var score = 10000;
+	var lives = 3;
+	var imageObj = new Image();
 
-	  var rectX = canvas.width/2-50;
-	  var rectY = canvas.height/2-50;
-      imageObj.src = 'obj.png';
-      var enemies = new Array();
-      var enemyMaker = new Array();
-      var bgInterval = null;
-      var bgPosition = 0;
-      var counter = 0;
-      var maxEnemy = false;
-      var stage= new Kinetic.Stage({
-          container: 'myCanvas',
-          width: canvas.width,
-          height:canvas.height
-      });
-      var layer = new Kinetic.layer();
-	  var bgImg = new Image();
-	  bgImg.src = "space.jpg";
-	  //Background Animation
-	  function bgAnimation() {
-    	bgPosition--;
-    	$("canvas").css({backgroundPosition: (bgPosition * 5) + "px 0px"});
+	var rectX = canvas.width/2-50;
+	var rectY = canvas.height/2-50;
+    imageObj.src = 'obj.png';
+    var enemies = new Array();
+    var enemyMaker = new Array();
+    var bgInterval = null;
+    var bgPosition = 0;
+    var stage= new Kinetic.Stage({
+        container: 'myCanvas',
+        width: canvas.width,
+        height:canvas.height
+    });
+    var layer = new Kinetic.layer();
+	var bgImg = new Image();
+	bgImg.src = "space.jpg";
+	//Background Animation
+	function bgAnimation() {
+        bgPosition--;
+        $("canvas").css({backgroundPosition: (bgPosition * 5) + "px 0px"});
 		if(Math.abs(bgPosition)>=bgImg.width){
 			bgPosition = 0;
 			}
 		}
-
-
-	  function enemy (side) {
-       
-        
-     }
       function drawEnemy(target, context) {
 		context.drawImage(imageObj, target.x, target.y);
         
@@ -201,30 +195,24 @@
         context.stroke();
       }
       function animate(target, canvas, context) {
-        newX = (target.fixedX - rectX)/30000*60;
-		newY = (target.fixedY - rectY)/30000*60;
-		score = Math.round(score-1000/60);
-		
-        if(target.x > rectX||target.x<rectX-80) {
-          target.x -= newX;
-		 }
-		
-		 if(target.y > rectY-50||target.y<rectY){
-			target.y-= newY;
-		 }
-  		 
-         
- 		//draw again
-         drawEnemy(target, context);
         
-		if(target.x < rectX+80&&target.x>rectX-100&&target.y < rectY+80&&target.y>rectY-100)
- 		{
-			clearInterval(gameLoop);
-			$("#result").text("You Lose.");
-			lives-=1;
-			context.clearRect(target.x-5, target.y-20, target.width, target.height);
-			
-		}
+  	    anim.stop();
+        var anim = new Kinetic.Animation(function(frame) {
+            for(var i = 0;i<enemies.length();i++)
+          {
+              enemy[i].setX(enemy[i].fixedX+ ((((canvas.width/2)-enemy[i].fixedX))/100)*frame.time);
+              enemy[i].setY(enemy[i].fixedY+ ((((canvas.height/2)-enemy[i].fixedY))/100)*frame.time);
+            if(enemy[i].currentX < rectX+80&&enemy[i].currentX>rectX-100&&enemy[i].currentY < rectY+80&&enemy[i].currentY>rectY-100)
+ 		    {
+			    clearInterval(gameLoop);
+			    $("#result").text("You Lose.");
+			    lives-=1;
+			}
+          }
+      }, layer);
+          anim.start();
+        
+	
       }		
 	      
 
