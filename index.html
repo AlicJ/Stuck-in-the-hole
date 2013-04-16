@@ -30,7 +30,7 @@
                 <li>Font</li>
                 <li>Background Scrolling</li>
             </ul>
-            <div class="back">Back</div>
+            <!--<div class="back">Back</div>-->
         </div>
         
         <div id="help">
@@ -40,7 +40,7 @@
 	    <div class="text enemy">This is the enemy you are suppose to destroy</div>
 
             <div class="text user">This is the base you are suppose to defend</div>
-            <div class="back">Back</div>
+            <!--<div class="back">Back</div>-->
         </div>
 
     </div>
@@ -132,17 +132,19 @@
 					window.clearInterval(mainInterval);
 				});
                 $('.setting').click(function(){
-					$('#menu').css('display','none');
+					//$('#menu').css('display','none');
+					$('#help').css('display','none');
 					$('#setting').css('display','inline');
 					//$('#menu').fadeOut();
 					//$('#setting').fadeIn();
 				});
 				$('.help').click(function(){
-					$('#menu').css('display','none');
+					//$('#menu').css('display','none');
+					$('#setting').css('display','none');
 					$('#help').css('display','inline');
 				});
 				$('.back').click(function(){
-					$('#menu').css('display','inline');
+					//$('#menu').css('display','inline');
 					$('#setting').css('display','none');
 					$('#help').css('display','none');
 				});
