@@ -80,10 +80,7 @@
 
 
 //Motion
-	  //Animation
-    
-    
-    
+	  //Animation 
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
 	canvas.width = window.innerWidth*0.8;
@@ -91,12 +88,14 @@
     var gamestart = false;
     var enemies = new Array();
     var enemyNum=0;
+    var imageObj = new Image();
+    imageObj.src = 'obj.png';
     var stage = new Kinetic.Stage({
             container: 'myCanvas',
             width:canvas.width,
             height:canvas.height
         });
-    var layer = new Kinetic.Laver();
+    var layer = new Kinetic.Layer();
     
     bgInterval = window.setInterval(function(){
         if(gamestart){
@@ -104,10 +103,29 @@
                   
              }
         }, 1000/15);
-    	var gameLoop = setInterval(function(){
+    var score = 10000;
+	var lives = 3;
+
+	var rectX = canvas.width/2-50;
+	var rectY = canvas.height/2-50;
+   
+    var enemies = new Array();
+    var enemyMaker = new Array();
+    var bgInterval = null;
+    var bgPosition = 0;
+    var stage= new Kinetic.Stage({
+        container: 'myCanvas',
+        width: canvas.width,
+        height:canvas.height
+    });
+    var layer = new Kinetic.Layer();
+	var bgImg = new Image();
+	bgImg.src = "space.jpg";
+    
+        var gameLoop = setInterval(function(){
         if(gamestart&&enemyNum<8)
         {
-            var side= Math.Floor(Math.random())*4+1;
+            var side= Math.floor(Math.random())*4+1;
             var questions = new QuestionMaker();
             var x;
             var y;
@@ -125,53 +143,40 @@
             {
                 x= Math.floor(Math.random()*canvas.width)+1;
                 if(side==3){
-                	y= canvas.height+50;
+                    y= canvas.height+50;
                 }
                 else{
                 	y=-50;
                 }
             }
             enemies[enemyNum] = new Kinetic.Image({
-            question: questions.question,
-            answer: questions.answer,
-            currentX: x,
-            currentY: y,
-            alive: true,
-	       	fixedX: x,
-	    	fixedY: y,
-            width: 100,
-            height: 125,
-            borderWidth: 2   
-                        
-            });
-            enemyNum++;
-            animate();
             
+                    
+            });
+            enemies[enemyNum]= new enemy(x, y, questions);
+            enemyNum++;
+            layer.add(enemies[enemyNum].image);
+            stage.add(layer);
+            animate();
             }
-            layer.add(enemies[enemyNum]);
-            stage.add(layer);  
         }, 3000);
-       
-
-    var score = 10000;
-	var lives = 3;
-	var imageObj = new Image();
-
-	var rectX = canvas.width/2-50;
-	var rectY = canvas.height/2-50;
-    imageObj.src = 'obj.png';
-    var enemies = new Array();
-    var enemyMaker = new Array();
-    var bgInterval = null;
-    var bgPosition = 0;
-    var stage= new Kinetic.Stage({
-        container: 'myCanvas',
-        width: canvas.width,
-        height:canvas.height
-    });
-    var layer = new Kinetic.layer();
-	var bgImg = new Image();
-	bgImg.src = "space.jpg";
+    function enemy (x, y, questions)
+    {
+        this.question= questions.question;
+        this.answer= questions.answer;
+        this.alive= true;
+       	this.fixedX= x;
+		this.fixedY= y;
+        this.image = new Kinetic.Image({
+            x:x,
+            y:y,
+            image:imageObj,
+            width: 100,
+            height: 125
+        }); 
+        this.borderWidth= 2;   
+    }
+    
 	//Background Animation
 	function bgAnimation() {
         bgPosition--;
@@ -194,12 +199,13 @@
         //context.strokeStyle = 'black';
         context.stroke();
       }
-      function animate(target, canvas, context) {
+      function animate() 
+      {
         
-  	    anim.stop();
-        var anim = new Kinetic.Animation(function(frame) {
+  	    
+        var anim = new Kinetic.Animation(function(frame) {  
             for(var i = 0;i<enemies.length();i++)
-          {
+            {
               enemy[i].setX(enemy[i].fixedX+ ((((canvas.width/2)-enemy[i].fixedX))/100)*frame.time);
               enemy[i].setY(enemy[i].fixedY+ ((((canvas.height/2)-enemy[i].fixedY))/100)*frame.time);
             if(enemy[i].currentX < rectX+80&&enemy[i].currentX>rectX-100&&enemy[i].currentY < rectY+80&&enemy[i].currentY>rectY-100)
@@ -208,7 +214,8 @@
 			    $("#result").text("You Lose.");
 			    lives-=1;
 			}
-          }
+         
+         }
       }, layer);
           anim.start();
         

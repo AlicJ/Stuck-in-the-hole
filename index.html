@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="Kinetic.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 <title>Cyber blaster</title>
 </head>
@@ -35,7 +36,7 @@
         
         <div id="help">
             <h1>Help</h1>
-	    <img src="base.jpg" height="100px" class="base"/>
+	    <img src="obj.png" height="100px" class="base"/>
             <img src="obj.png" height="100px" class="ship"/>
 	    <div class="text enemy">This is the enemy you are suppose to destroy</div>
 
@@ -95,7 +96,6 @@
 			var mainInterval = window.setInterval(mainAnimation, 1000/60);
 			var splashscreen;
 			var main;
-			
 			if(count == 0){
 				//splashscreen = window.setInterval(splash, 2000);
 				count+=1;
@@ -147,7 +147,6 @@
 					$('#help').css('display','none');
 				});
             });
-	  QuestionMaker();
         </script>
     </div>
 </body>
