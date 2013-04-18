@@ -199,7 +199,7 @@
             {
               enemies[i].image.setX(enemies[i].fixedX+ ((((canvas.width/2)-enemies[i].fixedX))/100)*frame.time);
               enemies[i].image.setY(enemies[i].fixedY+ ((((canvas.height/2)-enemies[i].fixedY))/100)*frame.time);
-            if(enemies[i].image.x < rectX+80&&enemies[i].image.x>rectX-100&&enemies[i].image.y < rectY+80&&enemies[i].image.yY>rectY-100)
+            if(enemies[i].image.x < rectX+80&&enemies[i].image.x>rectX-100&&enemies[i].image.y < rectY+80&&enemies[i].image.y>rectY-100)
  		    {
 			    clearInterval(gameLoop);
 			    $("#result").text("You Lose.");
