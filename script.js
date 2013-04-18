@@ -113,12 +113,6 @@
     var enemyMaker = new Array();
     var bgInterval = null;
     var bgPosition = 0;
-    var stage= new Kinetic.Stage({
-        container: 'myCanvas',
-        width: canvas.width,
-        height:canvas.height
-    });
-    var layer = new Kinetic.Layer();
 	var bgImg = new Image();
 	bgImg.src = "space.jpg";
     
@@ -149,14 +143,11 @@
                 	y=-50;
                 }
             }
-            enemies[enemyNum] = new Kinetic.Image({
-            
-                    
-            });
             enemies[enemyNum]= new enemy(x, y, questions);
-            enemyNum++;
+           
             layer.add(enemies[enemyNum].image);
             stage.add(layer);
+            enemyNum++;
             animate();
             }
         }, 3000);
@@ -167,14 +158,14 @@
         this.alive= true;
        	this.fixedX= x;
 		this.fixedY= y;
-        this.image = new Kinetic.Image({
-            x:x,
-            y:y,
-            image:imageObj,
-            width: 100,
-            height: 125
-        }); 
         this.borderWidth= 2;   
+        this.image = new Kinetic.Image({
+                x:x,
+                y:y,
+                image:imageObj,
+                width: 100,
+                height: 125    
+            });
     }
     
 	//Background Animation
@@ -204,11 +195,11 @@
         
   	    
         var anim = new Kinetic.Animation(function(frame) {  
-            for(var i = 0;i<enemies.length();i++)
+            for(var i = 0;i<enemies.length;i++)
             {
-              enemy[i].setX(enemy[i].fixedX+ ((((canvas.width/2)-enemy[i].fixedX))/100)*frame.time);
-              enemy[i].setY(enemy[i].fixedY+ ((((canvas.height/2)-enemy[i].fixedY))/100)*frame.time);
-            if(enemy[i].currentX < rectX+80&&enemy[i].currentX>rectX-100&&enemy[i].currentY < rectY+80&&enemy[i].currentY>rectY-100)
+              enemies[i].image.setX(enemies[i].fixedX+ ((((canvas.width/2)-enemies[i].fixedX))/100)*frame.time);
+              enemies[i].image.setY(enemies[i].fixedY+ ((((canvas.height/2)-enemies[i].fixedY))/100)*frame.time);
+            if(enemies[i].image.x < rectX+80&&enemies[i].image.x>rectX-100&&enemies[i].image.y < rectY+80&&enemies[i].image.yY>rectY-100)
  		    {
 			    clearInterval(gameLoop);
 			    $("#result").text("You Lose.");
