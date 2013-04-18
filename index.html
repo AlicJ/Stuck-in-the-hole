@@ -12,7 +12,7 @@
 <body>
     <div id="main">
     	<!--<div id="splash">-->
-        	<!--<img id="splash" src="logo.JPG" />-->
+        	<img id="splash" src="logo.JPG" />
         <!--</div>-->
         
     	<div id="menu">
@@ -82,7 +82,7 @@
 		<script src="script.js" type="text/javascript"></script>
 		<script>
 			$('#gamefield').css('display','none');
-			//$('#menu').css('display','none');
+			$('#menu').css('display','none');
 			$('#setting').css('display','none');
 			$('#help').css('display','none');
 			$('body').css('width',window.innerWidth);
@@ -98,7 +98,7 @@
 			var splashscreen;
 			var main;
 			if(count == 0){
-				//splashscreen = window.setInterval(splash, 2000);
+				splashscreen = window.setInterval(splash, 2000);
 				count+=1;
 			}
 			
