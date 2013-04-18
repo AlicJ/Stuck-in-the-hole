@@ -35,18 +35,15 @@ canvas {
 	border:1px solid #999;
 	color:#00E8E8;
 	font-family:"SpaceFont";
-	font-size:xx-large;
-	height:80%;
+	font-size:26px;
+	height:600px;
 	margin:0 auto;
 	text-align:center;	
-	width:80%;
+	width:1024px;
 }
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
 	cursor:default;
-}
-#main h1 {
-	rmargin:45px 0 85px 0;
 }
 #main ul {
 	list-style:none;
@@ -68,10 +65,11 @@ canvas {
 }
 
 #menu h2 {
-	margin:35px 15px 10px 0;
+    font-size:36px;
+	margin:25px 15px 10px 0;
 }
 #menu div {
-	margin:25px 0 0 0;
+	margin:15px 0 0 0;
 	padding-bottom:10px;
 	border-bottom:#CCC 2px solid;
 }
@@ -86,23 +84,12 @@ canvas {
 #help img {
 	border:solid 2px cyan;
 }
-.ship {
-	float:left;
-	margin-left:50px;
-}
-#help .text {
-	width:300px;
-}
-#help .enemy {
-	float:left;
-}
-#help .user {
-	float:right;
-}
-#help .base {
-	float:right;
-}
-.exit, .back {
-	position:fixed;
+
+.exit {
 	border:0!important;
+}
+.exit p {
+    padding:0;
+    margin:0;
+    margin-right:15px;
 }

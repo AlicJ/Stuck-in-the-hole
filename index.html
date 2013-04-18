@@ -16,16 +16,16 @@
         <!--</div>-->
         
     	<div id="menu">
-            <div><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h1></div>
+            <div><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h2></div>
             <div class="newgame" ><p><span class="bigger">P</span>lay</p></div>
             <div class="continue" ><p><span class="bigger">C</span>ontinue</p></div>
             <div class="setting" ><p><span class="bigger">S</span>etting</p></div>
             <div class="help" ><p><span class="bigger">I</span>nstructions</p></div>
-            <div class="exit">Exit</div>
+            <div class="exit"><p><span class="bigger">E</span>xit</p></div>
         </div>
         
         <div id="setting">
-            <h1>Setting</h1>
+            <h2>Setting</h2>
             <ul>
                 <li>Volume</li>
                 <li>Sound FX</li>
@@ -36,12 +36,11 @@
         </div>
         
         <div id="help">
-            <h1>Help</h1>
-	        <img src="obj.png" height="100px" class="base"/>
-            <img src="obj.png" height="100px" class="ship"/>
-	    <div class="text enemy">This is the enemy you are suppose to destroy</div>
-
-            <div class="text user">This is the base you are suppose to defend</div>
+            <h2>Help</h2>
+	        <img src="obj.png" height="100px"/>
+            <p>This is the enemy you are suppose to destroy</p>
+            <img src="base.jpg" height="100px"/>
+            <p>This is the base you are suppose to defend</p>
             <!--<div class="back">Back</div>-->
         </div>
 
@@ -79,17 +78,17 @@
             </tbody>
         </table>
         <img src="logo.JPG" width="175" height="100"/>
+        
+        
 		<script src="script.js" type="text/javascript"></script>
 		<script>
 			$('#gamefield').css('display','none');
 			$('#menu').css('display','none');
 			$('#setting').css('display','none');
 			$('#help').css('display','none');
-			$('body').css('width',window.innerWidth);
-			$('body').css('height',window.innerHeight);
-			$('.exit, .back').css('bottom',window.innerHeight*0.2);
-			$('.exit, .back').css('right',window.innerWidth*0.105);
-			
+			//$('body').css('width',window.innerWidth);
+			//$('body').css('height',window.innerHeight);
+						
 			var gamestart = false;
 			var mainInterval = null;
 	 		var mainPosition = 0;
@@ -110,10 +109,10 @@
 				}
 			}
 			function splash() {
-				$('#splash').fadeOut("1000");
+				$('#splash').fadeOut("800");
 				main = window.setInterval(function () {
 					if (count == 1){
-						$('#menu').fadeIn("1000");
+						$('#menu').fadeIn("500");
 						count+=1;
 					}
 				},500);
@@ -133,16 +132,16 @@
 					window.clearInterval(mainInterval);
 				});
                 $('.setting').click(function(){
-					//$('#menu').css('display','none');
                     $('#help').css('display','none');
-					$('#setting').css('display','inline');
-					//$('#menu').fadeOut();
-					//$('#setting').fadeIn();
+					//$('#setting').css('display','inline');
+					//$('#help').fadeOut();
+					$('#setting').fadeIn();
 				});
 				$('.help').click(function(){
-					//$('#menu').css('display','none');
                     $('#setting').css('display','none');
-					$('#help').css('display','inline');
+					//$('#help').css('display','inline');
+    				//$('#setting').fadeOut();
+                    $('#help').fadeIn();
 				});
 				//$('.back').click(function(){
 					//$('#menu').css('display','inline');
