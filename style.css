@@ -71,8 +71,8 @@ canvas {
 	margin:35px 15px 10px 0;
 }
 #menu div {
-	margin:35px 0 0 0;
-	padding-bottom:25px;
+	margin:25px 0 0 0;
+	padding-bottom:10px;
 	border-bottom:#CCC 2px solid;
 }
 #menu div p {
