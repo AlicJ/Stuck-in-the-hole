@@ -92,7 +92,7 @@
     var enemies = new Array();
     var enemyNum=0;
     var imageObj = new Image();
-    imageObj.src = 'obj.png';
+    
     var stage = new Kinetic.Stage({
             container: canvas,
             width:canvas.width,
@@ -147,9 +147,14 @@
                 }
             }
             enemies[enemyNum]= new enemy(x, y, questions);
-            layer.add(enemies[enemyNum].image);  
+           imageObj.onload = new function()
+           {
+               
+                layer.add(enemies[enemyNum].image); 
+           };
+           imageObj.src = 'obj.png';
             enemyNum++;
-            //animate();
+            animate();
             }
         }, 3000);
     function enemy (x, y, questions)
