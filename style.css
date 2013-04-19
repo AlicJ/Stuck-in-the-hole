@@ -29,7 +29,7 @@ canvas {
 	height:50px;
 	text-align:center;
 }
-#input, #question {
+#input, #question, #result {
 	height:30px;
 }
 .bigger {

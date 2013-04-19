@@ -99,10 +99,10 @@
             height:canvas.height
         });
     var layer = new Kinetic.Layer();
-    stage.add(layer);
+    
     bgInterval = window.setInterval(function(){
         if(gamestart){
-            bgAnimation();
+            //bgAnimation();
                   
              }
         }, 1000/15);
@@ -147,14 +147,15 @@
                 }
             }
             enemies[enemyNum]= new enemy(x, y, questions);
-           imageObj.onload = new function()
-           {
-               
-                layer.add(enemies[enemyNum].image); 
-           };
-           imageObj.src = 'obj.png';
-            enemyNum++;
+           //imageObj.onload = new function()
+           //{
+                
+           //};
+            imageObj.src = 'obj.png';
+            layer.add(enemies[enemyNum].image);
+        stage.add(layer);
             animate();
+            enemyNum++;
             }
         }, 3000);
     function enemy (x, y, questions)
@@ -167,12 +168,19 @@
         this.borderWidth= 2;   
         this.xGap = ((canvas.width/2)-x)/30000;
         this.yGap = ((canvas.height/2)-y)/30000;
-        this.image = new Kinetic.Image({
+        this.image = new Kinetic.RegularPolygon({
                 x:x,
                 y:y,
-                image:imageObj,
-                width: 100,
-                height: 125    
+                
+                sides: 6,
+                radius: 70,
+                fill: 'red',
+                stroke: 'black',
+                strokeWidth: 4,
+                
+                //image:imageObj,
+                //width: 100,
+                //height: 125    
             });
     }
     
@@ -184,24 +192,23 @@
 			bgPosition = 0;
 			}
 		}
-      function drawEnemy(target, context) {
-		context.drawImage(imageObj, target.x, target.y);
+      //function drawEnemy(target, context) {
+		//context.drawImage(imageObj, target.x, target.y);
         
         //context.beginPath();
-        context.rect(rectX,rectY,50,50);
-        context.fillStyle = '#8ED6FF';
-        context.fill();
-        context.lineWidth = target.borderWidth;
-		context.fillStyle = '#FFF';
-		context.font = 'bold 15px Calibri';
-      	context.fillText(target.question, target.x, target.y - 5);
+        //context.rect(rectX,rectY,50,50);
+        //context.fillStyle = '#8ED6FF';
+        //context.fill();
+        //context.lineWidth = target.borderWidth;
+		//context.fillStyle = '#FFF';
+		//context.font = 'bold 15px Calibri';
+      	//context.fillText(target.question, target.x, target.y - 5);
         //context.strokeStyle = 'black';
-        context.stroke();
-      }
+        //context.stroke();
+      //}
       function animate() 
       {
         
-  	    
         var anim = new Kinetic.Animation(function(frame) {  
             for(var i = 0;i<enemies.length;i++)
             {
@@ -216,11 +223,9 @@
             
          
             }
+            
       }, layer);
           anim.start();
         
 	
-      }		
-	      
-
-
+      }
