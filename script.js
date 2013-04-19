@@ -86,8 +86,8 @@
       
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
-	canvas.width = window.innerWidth*0.8;
-	canvas.height = window.innerHeight*0.8;
+	canvas.width = 1024*0.8;
+	canvas.height = 600;
     var gamestart = false;
     var enemies = new Array();
     var enemyNum=0;
