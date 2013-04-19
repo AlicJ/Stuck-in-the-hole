@@ -7,18 +7,29 @@
 body {
     margin: 0px;
 	padding: 0px;
+    cursor:default;
 }
 canvas {
-	border:1px solid #999;
-	float:left;
-	background:url(space.jpg) repeat scroll 0 0;
+	background:url(space.png) repeat scroll 0 0;
+}
+#gamefield {
+    background:#ccc;
+    border:1px solid #999;
+    width:1024px;
+    height:600px;
+    margin:0 auto;
+}
+#ui {
+    float:right;
+    margin-right:5px;
+    text-align:center;
 }
 .keypad {
 	width:60px;
 	height:50px;
 	text-align:center;
 }
-#input {
+#input, #question {
 	height:30px;
 }
 .bigger {
@@ -29,9 +40,10 @@ canvas {
 	width:95%;
 	height:90%;
 	border:cyan 10px solid;
+    opacity:0.95;
 }
 #main {
-	background:url(space.jpg) repeat scroll 0 0;
+	background:url(space.png) repeat scroll 0 0;
 	border:1px solid #999;
 	color:#00E8E8;
 	font-family:"SpaceFont";
@@ -43,7 +55,6 @@ canvas {
 }
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
-	cursor:default;
 }
 #main ul {
 	list-style:none;
@@ -52,15 +63,15 @@ canvas {
 #main li {
 	margin:45px 0;
 }
-#main p:active, .exit:active, .back:active {
+#main p:active, .exit:active {
 	color:#F00;
 }
 #menu {
 	opacity:0.9;
-	background:#E7EBF7;
+	background:#aaa;
 	float:right;
 	height:100%;
-	width:350px;
+	width:320px;
 	text-align:right;
 }
 
@@ -80,6 +91,10 @@ canvas {
 }
 .newgame {
 	color:#FF2B2B;
+}
+#help, #setting {
+    opacity:0.9;
+    width:704px;
 }
 #help img {
 	border:solid 2px cyan;
