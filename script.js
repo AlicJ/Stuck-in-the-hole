@@ -80,7 +80,10 @@
 
 
 //Motion
-	  //Animation 
+	  //Animation
+      
+      
+      
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
 	canvas.width = window.innerWidth*0.8;
@@ -91,12 +94,12 @@
     var imageObj = new Image();
     imageObj.src = 'obj.png';
     var stage = new Kinetic.Stage({
-            container: 'myCanvas',
+            container: canvas,
             width:canvas.width,
             height:canvas.height
         });
     var layer = new Kinetic.Layer();
-    
+    stage.add(layer);
     bgInterval = window.setInterval(function(){
         if(gamestart){
             bgAnimation();
@@ -144,11 +147,9 @@
                 }
             }
             enemies[enemyNum]= new enemy(x, y, questions);
-           
-            layer.add(enemies[enemyNum].image);
-            stage.add(layer);
+            layer.add(enemies[enemyNum].image);  
             enemyNum++;
-            animate();
+            //animate();
             }
         }, 3000);
     function enemy (x, y, questions)
@@ -159,6 +160,8 @@
        	this.fixedX= x;
 		this.fixedY= y;
         this.borderWidth= 2;   
+        this.xGap = ((canvas.width/2)-x)/30000;
+        this.yGap = ((canvas.height/2)-y)/30000;
         this.image = new Kinetic.Image({
                 x:x,
                 y:y,
@@ -197,16 +200,17 @@
         var anim = new Kinetic.Animation(function(frame) {  
             for(var i = 0;i<enemies.length;i++)
             {
-              enemies[i].image.setX(enemies[i].fixedX+ ((((canvas.width/2)-enemies[i].fixedX))/100)*frame.time);
-              enemies[i].image.setY(enemies[i].fixedY+ ((((canvas.height/2)-enemies[i].fixedY))/100)*frame.time);
-            if(enemies[i].image.x < rectX+80&&enemies[i].image.x>rectX-100&&enemies[i].image.y < rectY+80&&enemies[i].image.y>rectY-100)
+              enemies[i].image.setX(enemies[i].fixedX + frame.time*enemies[i].xGap);
+              enemies[i].image.setY(enemies[i].fixedY + frame.time*enemies[i].yGap);
+            if(enemies[i].image.attrs.x < rectX+80&&enemies[i].image.attrs.x>rectX-100&&enemies[i].image.attrs.y < rectY+80&&enemies[i].image.attrs.y>rectY-100)
  		    {
 			    clearInterval(gameLoop);
 			    $("#result").text("You Lose.");
 			    lives-=1;
 			}
+            
          
-         }
+            }
       }, layer);
           anim.start();
         
