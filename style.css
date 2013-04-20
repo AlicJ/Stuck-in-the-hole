@@ -1,9 +1,14 @@
 @charset "utf-8";
 /* CSS Document */
 @font-face {
-    font-family: "SpaceFont";
-    src: url(Orena.ttf) format("truetype");
+    font-family: "Orena";
+    src: url("Orena.ttf") format("truetype");
 }
+@font-face {
+    font-family: "Starjedi";
+    src: url("Starjedi.ttf") format("truetype");
+}
+
 body {
     margin: 0px;
 	padding: 0px;
@@ -46,7 +51,7 @@ canvas {
 	background:url(space.png) repeat scroll 0 0;
 	border:1px solid #999;
 	color:#00E8E8;
-	font-family:"SpaceFont";
+	font-family:"orena";
 	font-size:26px;
 	height:600px;
 	margin:0 auto;
@@ -63,7 +68,7 @@ canvas {
 #main li {
 	margin:45px 0;
 }
-#main p:active, .exit:active {
+#main p:active, .exit:active, li:active {
 	color:#F00;
 }
 #menu {
@@ -87,11 +92,15 @@ canvas {
 #menu div p {
 	margin:0;
 	padding:0;
-	margin-right:15px;
+	margin: 0 15px;
 }
 .newgame {
 	color:#FF2B2B;
 }
+/*.credit {
+    float:left;
+    border:0!important;
+}*/
 #help, #setting {
     opacity:0.9;
     width:704px;
@@ -101,6 +110,7 @@ canvas {
 }
 
 .exit {
+    float:right;
 	border:0!important;
 }
 .exit p {
