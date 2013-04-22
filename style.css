@@ -14,7 +14,8 @@ body {
 	padding: 0px;
     cursor:default;
 }
-canvas {
+#myCanvas {
+    width:819;
 	background:url(space.png) repeat scroll 0 0;
 }
 #gamefield {
@@ -38,7 +39,7 @@ canvas {
 	height:30px;
 }
 .bigger {
-	font-size:larger;
+	font-size:125%;
 }
 #splash {
 	margin-top:2%;
@@ -81,7 +82,7 @@ canvas {
 }
 
 #menu h2 {
-    font-size:36px;
+    font-size:42px;
 	margin:25px 15px 10px 0;
 }
 #menu div {
