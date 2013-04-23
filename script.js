@@ -1,12 +1,12 @@
 //Question Maker
-   
+    var problem = new Object();
+
     function QuestionMaker(){
 	var range = 20;
     var num1 = Math.floor(Math.random()*range)+1;
     var num2 = Math.floor(Math.random()*range)+1;
 	var operation = Math.floor(Math.random()*4)+1;
-	var answer;
-	var question;
+
         if (Math.max(num1, num2)== num2){
 			var switcher = num2;
 			num2=num1;
@@ -20,27 +20,27 @@
 		
 		switch(operation){
 			case 1: //addition
-				answer = num1 + num2;
+				problem.answer = num1 + num2;
 				$("#question").text("What is " + num1 + " plus " + num2+ "? ");
-				question = num1 + " + " + num2+ " = ? ";
-				break;
+				problem.question = num1 + " + " + num2+ " = ? ";
+				return problem;
 			case 2: //subtraction
-				answer = num1 - num2;
+				problem.answer = num1 - num2;
 				$("#question").text("What is " + num1 + " minus " + num2+ "? ");
-				question = num1 + " - " + num2+ " = ? ";
-				break;
+				problem.question = num1 + " - " + num2+ " = ? ";
+				return problem;
 			case 3: //multiplication
-				answer = num1 * num2;
+				problem.answer = num1 * num2;
 				$("#question").text("What is " + num1 + " multiplied by " + num2+ "? ");
-				question = num1 + " x " + num2+ " = ? ";
-				break;
+				problem.question = num1 + " x " + num2+ " = ? ";
+				return problem;
 			case 4: //division
-				answer = num1;
+				var answer = num1;
 				num1 *= num2;
-				answer = num1 / num2;
+				problem.answer = num1 / num2;
 				$("#question").text("What is " + num1 + " divided by " + num2+ "? ");
-				question = num1 + " / " + num2+ " = ? ";
-				break;
+				problem.question = num1 + " / " + num2+ " = ? ";
+				return problem;
 		}
     }
 		
@@ -49,8 +49,8 @@
 		if(number>10){
 			number /=2;
 		}
-		    return Math.floor(number);
-		}		
+            return Math.floor(number);
+		}
 
 
 //Keypad
@@ -113,14 +113,14 @@
     var bgInterval = null;
     var bgPosition = 0;
 	var bgImg = new Image();
-	bgImg.src = "space.jpg";
+	bgImg.src = "space.png";
     imageObj.src = 'obj.png';
     
         var gameLoop = setInterval(function(){
         if(gamestart&&enemyNum<8)
         {
             var side= Math.floor((Math.random())*4+1);
-            var questions = new QuestionMaker();
+            QuestionMaker();
             var x=0;
             var y=0;
             if(side==2||side==4)
@@ -157,7 +157,7 @@
         }, 3000);
     function enemy (x_bron, y_bron, questions)
     {
-        this.answer= questions.answer;
+        this.answer= problem.answer;
         this.alive= true;
        	this.fixedX= x_bron;
 		this.fixedY= y_bron;
@@ -172,13 +172,13 @@
                 image:imageObj,    
             });
         this.text = new Kinetic.Text({
-        x: x_bron,
-        y: y_bron,
-        text: '2+2',
-        fontSize: 20,
-        fontFamily: 'Calibri',
-        fill: 'white'
-      });
+            x: x_bron,
+            y: y_bron,
+            text: problem.question,
+            fontSize: 20,
+            fontFamily: 'Calibri',
+            fill: 'white'
+        });
     }
     
 	//Background Animation
