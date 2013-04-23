@@ -99,7 +99,7 @@
     var layer = new Kinetic.Layer();
     
     bgInterval = window.setInterval(function(){
-        if(gamestart){
+        if(gamestart&&bgscrolling){
             bgAnimation();
                   
              }
@@ -143,7 +143,7 @@
                 	y=-50;
                 }
             }
-            enemies[enemyNum]= new enemy(x, y, questions);
+            enemies[enemyNum]= new enemy(x, y);
                
             layer.add(enemies[enemyNum].image);
             layer.add(enemies[enemyNum].text);
@@ -155,7 +155,7 @@
              enemyNum++;
             }
         }, 3000);
-    function enemy (x_bron, y_bron, questions)
+    function enemy (x_bron, y_bron)
     {
         this.answer= problem.answer;
         this.alive= true;
