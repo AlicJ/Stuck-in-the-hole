@@ -82,8 +82,7 @@
 //Motion
 	  //Animation
       
-      
-      
+  
     var canvas = document.getElementById('myCanvas');
 	canvas.width = 1024*0.8;
 	canvas.height = 600;
@@ -93,7 +92,7 @@
     var imageObj = new Image();
     
     var stage = new Kinetic.Stage({
-            container:'myCanvas',
+            container: 'myCanvas',
             width:canvas.width,
             height:canvas.height
         });
@@ -105,81 +104,81 @@
                   
              }
         }, 1000/15);
-    var score = 10000;
 	var lives = 3;
 
 	var rectX = canvas.width/2-50;
 	var rectY = canvas.height/2-50;
    
     var enemies = new Array();
-    var enemyMaker = new Array();
     var bgInterval = null;
     var bgPosition = 0;
 	var bgImg = new Image();
 	bgImg.src = "space.jpg";
+    imageObj.src = 'obj.png';
     
         var gameLoop = setInterval(function(){
         if(gamestart&&enemyNum<8)
         {
-            var side= Math.floor(Math.random())*4+1;
+            var side= Math.floor((Math.random())*4+1);
             var questions = new QuestionMaker();
-            var x_bron;
-            var y_bron;
+            var x=0;
+            var y=0;
             if(side==2||side==4)
             {
-                y_bron= Math.floor(Math.random()*canvas.height)+1;
+                y= Math.floor(Math.random()*canvas.height)+1;
                 if(side==2){
-                    x_bron= canvas.width+50;
+                    x= canvas.width+50;
                 }
                 else{
-                    x_bron=-50;
+                    x=-50;
                 }
             }
             else if(side==1||side==3)
             {
-                x_bron= Math.floor(Math.random()*canvas.width)+1;
+                x= Math.floor(Math.random()*canvas.width)+1;
                 if(side==3){
-                    y_bron= canvas.height+50;
+                    y= canvas.height+50;
                 }
                 else{
-                	y_bron=-50;
+                	y=-50;
                 }
             }
-            enemies[enemyNum]= new enemy(x_bron, y_bron, questions);
-            //imageObj.onload = new function()
-            //{
-                
-            //};
-            //imageObj.src = 'obj.png';
+            enemies[enemyNum]= new enemy(x, y, questions);
+               
             layer.add(enemies[enemyNum].image);
-            stage.add(layer);
+            layer.add(enemies[enemyNum].text);
+           
+           stage.add(layer);
+           
             animate();
-            enemyNum++;
+            
+             enemyNum++;
             }
         }, 3000);
     function enemy (x_bron, y_bron, questions)
     {
-        this.question= questions.question;
         this.answer= questions.answer;
         this.alive= true;
        	this.fixedX= x_bron;
 		this.fixedY= y_bron;
-        this.borderWidth= 2;   
-        this.xGap = ((canvas.width/2)-x_bron)/30000;
-        this.yGap = ((canvas.height/2)-y_bron)/30000;
-        this.image = new Kinetic.Rect({
+        //this.borderWidth= 2;   
+        this.xGap = ((canvas.width/2)-x_bron)/10000;
+        this.yGap = ((canvas.height/2)-y_bron)/10000;
+        this.image = new Kinetic.Image({
                 x: x_bron,
                 y: y_bron,
-                width: 50,
-                height: 50,
-                fill: 'blue',
-                stroke: 'white',
-                strokeWidth: 2
-                
-                //image:imageObj,
-                //width: 100,
-                //height: 125    
+                width: 100,
+                height:120,
+                image:imageObj,    
             });
+        this.text = new Kinetic.Text({
+        x: x_bron,
+        y: y_bron,
+        text: '2+2',
+        fontSize: 20,
+        fontFamily: 'Calibri',
+        fill: 'white'
+      });
     }
     
 	//Background Animation
@@ -206,24 +205,31 @@
       //}
       function animate() 
       {
-        
+        for(var i=0;i<enemies.length;i++)
+        {
+            enemies[i].fixedX = enemies[i].image.attrs.x;
+            enemies[i].fixedY = enemies[i].image.attrs.y;
+        }
         var anim = new Kinetic.Animation(function(frame) {  
+            
             for(var i = 0;i<enemies.length;i++)
             {
-                if(enemies[i].alive){
-                    enemies[i].image.setX(enemies[i].fixedX + frame.time*enemies[i].xGap);
-                    enemies[i].image.setY(enemies[i].fixedY + frame.time*enemies[i].yGap);
-                    if(enemies[i].image.attrs.x < rectX+80&&enemies[i].image.attrs.x>rectX-100&&enemies[i].image.attrs.y < rectY+80&&enemies[i].image.attrs.y>rectY-100)
-                    {
-                        clearInterval(gameLoop);
-                        $("#result").text("You Lose.");
-                        lives-=1;
-                    }
-                }
-            }
+              enemies[i].image.setX(enemies[i].fixedX + frame.time*enemies[i].xGap);
+              enemies[i].image.setY(enemies[i].fixedY + frame.time*enemies[i].yGap);
+              enemies[i].text.setX(enemies[i].fixedX + frame.time*enemies[i].xGap+10);
+              enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
+              
+            if(enemies[i].image.attrs.x < rectX+30&&enemies[i].image.attrs.x>rectX-30&&enemies[i].image.attrs.y-30 < rectY&&enemies[i].image.attrs.y>rectY+40)
+ 		    {
+			    clearInterval(gameLoop);
+			    $("#result").text("You Lose.");
+			    lives-=1;
+			}
             
-      }, layer);
-          anim.start();
-        
-	
+         
+           }
+        }, layer);
+          
+        anim.start();
+	    
       }
