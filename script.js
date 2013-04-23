@@ -82,8 +82,7 @@
 //Motion
 	  //Animation
       
-      
-      
+  
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
 	canvas.width = 1024*0.8;
@@ -94,7 +93,7 @@
     var imageObj = new Image();
     
     var stage = new Kinetic.Stage({
-            container: canvas,
+            container: 'myCanvas',
             width:canvas.width,
             height:canvas.height
         });
@@ -120,12 +119,12 @@
 	bgImg.src = "space.jpg";
     
         var gameLoop = setInterval(function(){
-        if(gamestart&&enemyNum<8)
+        if(gamestart&&enemyNum<2)
         {
             var side= Math.floor(Math.random())*4+1;
             var questions = new QuestionMaker();
-            var x;
-            var y;
+            var x=0;
+            var y=0;
             if(side==2||side==4)
             {
                 y= Math.floor(Math.random()*canvas.height)+1;
@@ -147,33 +146,34 @@
                 }
             }
             enemies[enemyNum]= new enemy(x, y, questions);
-           imageObj.onload = new function()
-           {
                
-                layer.add(enemies[enemyNum].image); 
-           };
+            layer.add(enemies[enemyNum].image); 
            imageObj.src = 'obj.png';
-            enemyNum++;
+           stage.add(layer);
+           
             animate();
+             enemyNum++;
             }
         }, 3000);
-    function enemy (x, y, questions)
+    function enemy (x_born, y_born, questions)
     {
-        this.question= questions.question;
-        this.answer= questions.answer;
+       // this.question= questions.question;
+       // this.answer= questions.answer;
         this.alive= true;
-       	this.fixedX= x;
-		this.fixedY= y;
+       	this.fixedX= x_born;
+		this.fixedY= y_born;
         this.borderWidth= 2;   
-        this.xGap = ((canvas.width/2)-x)/30000;
-        this.yGap = ((canvas.height/2)-y)/30000;
-        this.image = new Kinetic.Image({
-                x:x,
-                y:y,
-                image:imageObj,
-                width: 100,
-                height: 125    
-            });
+        this.xGap = ((canvas.width/2)-x_born)/30000;
+        this.yGap = ((canvas.height/2)-y_born)/30000;
+        this.image = new Kinetic.Rect({
+        x: x_born,
+        y: y_born,
+        width: 50,
+        height: 50,
+        fill: 'green',
+        stroke: 'black',
+        strokeWidth: 4
+      });
     }
     
 	//Background Animation
@@ -215,7 +215,7 @@
 			}
             
          
-            }
+           }
       }, layer);
           anim.start();
         
