@@ -15,8 +15,9 @@ body {
     cursor:default;
 }
 #myCanvas {
-    width:819;
+    width:80%;
 	background:url(space.png) repeat scroll 0 0;
+    float:left;
 }
 #gamefield {
     background:#ccc;
