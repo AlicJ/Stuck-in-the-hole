@@ -67,7 +67,7 @@
 	
 	// function submit(){
 	// 	if(input == answer){
-	// 		//$("#result").text("You are correct.");// + score);	
+	// 	    $("#result").text("You are correct.");// + score);	
 	// 		clearInterval(gameLoop);
 	// 		context.clearRect(enemy1.x-5, enemy1.y-20, enemy1.width, enemy1.height);
 	// 		enemy1 = new enemy (Math.floor(Math.random()*4)+1);
@@ -84,7 +84,6 @@
       
   
     var canvas = document.getElementById('myCanvas');
-    var context = canvas.getContext('2d');
 	canvas.width = 1024*0.8;
 	canvas.height = 600;
     var gamestart = false;
@@ -98,30 +97,29 @@
             height:canvas.height
         });
     var layer = new Kinetic.Layer();
-    stage.add(layer);
+    
     bgInterval = window.setInterval(function(){
         if(gamestart){
             bgAnimation();
                   
              }
         }, 1000/15);
-    var score = 10000;
 	var lives = 3;
 
 	var rectX = canvas.width/2-50;
 	var rectY = canvas.height/2-50;
    
     var enemies = new Array();
-    var enemyMaker = new Array();
     var bgInterval = null;
     var bgPosition = 0;
 	var bgImg = new Image();
 	bgImg.src = "space.jpg";
+    imageObj.src = 'obj.png';
     
         var gameLoop = setInterval(function(){
-        if(gamestart&&enemyNum<2)
+        if(gamestart&&enemyNum<8)
         {
-            var side= Math.floor(Math.random())*4+1;
+            var side= Math.floor((Math.random())*4+1);
             var questions = new QuestionMaker();
             var x=0;
             var y=0;
@@ -147,67 +145,82 @@
             }
             enemies[enemyNum]= new enemy(x, y, questions);
                
-            layer.add(enemies[enemyNum].image); 
-           imageObj.src = 'obj.png';
+            layer.add(enemies[enemyNum].image);
+            layer.add(enemies[enemyNum].text);
+           
            stage.add(layer);
            
             animate();
+            
              enemyNum++;
             }
         }, 3000);
-    function enemy (x_born, y_born, questions)
+    function enemy (x_bron, y_bron, questions)
     {
-       // this.question= questions.question;
-       // this.answer= questions.answer;
+        this.answer= questions.answer;
         this.alive= true;
-       	this.fixedX= x_born;
-		this.fixedY= y_born;
-        this.borderWidth= 2;   
-        this.xGap = ((canvas.width/2)-x_born)/30000;
-        this.yGap = ((canvas.height/2)-y_born)/30000;
-        this.image = new Kinetic.Rect({
-        x: x_born,
-        y: y_born,
-        width: 50,
-        height: 50,
-        fill: 'green',
-        stroke: 'black',
-        strokeWidth: 4
+       	this.fixedX= x_bron;
+		this.fixedY= y_bron;
+        //this.borderWidth= 2;   
+        this.xGap = ((canvas.width/2)-x_bron)/10000;
+        this.yGap = ((canvas.height/2)-y_bron)/10000;
+        this.image = new Kinetic.Image({
+                x: x_bron,
+                y: y_bron,
+                width: 100,
+                height:120,
+                
+                image:imageObj,    
+            });
+        this.text = new Kinetic.Text({
+        x: x_bron,
+        y: y_bron,
+        text: '2+2',
+        fontSize: 20,
+        fontFamily: 'Calibri',
+        fill: 'white'
       });
     }
     
 	//Background Animation
 	function bgAnimation() {
         bgPosition--;
-        $("canvas").css({backgroundPosition: (bgPosition * 5) + "px 0px"});
+        $("myCanvas").css({backgroundPosition: (bgPosition * 5) + "px 0px"});
 		if(Math.abs(bgPosition)>=bgImg.width){
 			bgPosition = 0;
 			}
 		}
-      function drawEnemy(target, context) {
-		context.drawImage(imageObj, target.x, target.y);
+      //function drawEnemy(target, context) {
+		//context.drawImage(imageObj, target.x, target.y);
         
         //context.beginPath();
-        context.rect(rectX,rectY,50,50);
-        context.fillStyle = '#8ED6FF';
-        context.fill();
-        context.lineWidth = target.borderWidth;
-		context.fillStyle = '#FFF';
-		context.font = 'bold 15px Calibri';
-      	context.fillText(target.question, target.x, target.y - 5);
+        //context.rect(rectX,rectY,50,50);
+        //context.fillStyle = '#8ED6FF';
+        //context.fill();
+        //context.lineWidth = target.borderWidth;
+		//context.fillStyle = '#FFF';
+		//context.font = 'bold 15px Calibri';
+        //context.fillText(target.question, target.x, target.y - 5);
         //context.strokeStyle = 'black';
-        context.stroke();
-      }
+        //context.stroke();
+      //}
       function animate() 
       {
-        
-  	    
+        for(var i=0;i<enemies.length;i++)
+        {
+            enemies[i].fixedX = enemies[i].image.attrs.x;
+            enemies[i].fixedY = enemies[i].image.attrs.y;
+        }
         var anim = new Kinetic.Animation(function(frame) {  
+            
             for(var i = 0;i<enemies.length;i++)
             {
               enemies[i].image.setX(enemies[i].fixedX + frame.time*enemies[i].xGap);
               enemies[i].image.setY(enemies[i].fixedY + frame.time*enemies[i].yGap);
-            if(enemies[i].image.attrs.x < rectX+80&&enemies[i].image.attrs.x>rectX-100&&enemies[i].image.attrs.y < rectY+80&&enemies[i].image.attrs.y>rectY-100)
+              enemies[i].text.setX(enemies[i].fixedX + frame.time*enemies[i].xGap+10);
+              enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
+              
+            if(enemies[i].image.attrs.x < rectX+30&&enemies[i].image.attrs.x>rectX-30&&enemies[i].image.attrs.y-30 < rectY&&enemies[i].image.attrs.y>rectY+40)
  		    {
 			    clearInterval(gameLoop);
 			    $("#result").text("You Lose.");
@@ -216,11 +229,8 @@
             
          
            }
-      }, layer);
-          anim.start();
-        
-	
-      }		
-	      
-
-
+        }, layer);
+          
+        anim.start();
+	    
+      }

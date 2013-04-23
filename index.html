@@ -20,6 +20,7 @@
             <div class="continue" ><p><span class="bigger">C</span>ontinue</p></div>
             <div class="setting" ><p><span class="bigger">S</span>etting</p></div>
             <div class="help" ><p><span class="bigger">I</span>nstructions</p></div>
+            <div class="credit"><p><span class="bigger">C</span>redit</p></div>
             <div class="exit"><p><span class="bigger">E</span>xit</p></div>
         </div>
         
@@ -28,8 +29,7 @@
             <ul>
                 <li>Volume</li>
                 <li>Sound FX</li>
-                <li>Font</li>
-                <li>Background Scrolling</li>
+                <li class="bg">Background Scrolling ON</li>
             </ul>
             <!--<div class="back">Back</div>-->
         </div>
@@ -46,8 +46,8 @@
     </div>
     
 	<div id="gamefield">
-        <canvas id="myCanvas"></canvas>
-        
+        <div id="myCanvas"></div>
+                
         <div id="ui">
             <div id="container">
                 <div id="question"></div>
@@ -97,17 +97,22 @@
 		var mainInterval = window.setInterval(mainAnimation, 1000/60);
 		var splashscreen;
 		var main;
-		if(count == 0){
-			splashscreen = window.setInterval(splash, 2000);
+        var bgscrolling = true;
+        
+	    if(count == 0){
+			splashscreen = window.setInterval(splash, 1000);
 			count+=1;
 		}
 		
 		function mainAnimation() {
-			mainPosition--;
-			$("#main").css({backgroundPosition: (mainPosition * 5) + "px 0px"});
-			if(Math.abs(mainPosition)>=bgImg.width){
+            if(bgscrolling){
+                mainPosition--;
+                $("#main").css({backgroundPosition: (mainPosition * 5) + "px 0px"});
+                if(Math.abs(mainPosition)>=bgImg.width){
 				mainPosition = 0;
 			}
+            }
+			
 		}
 		function splash() {
 			$('#splash').fadeOut("800");
@@ -118,38 +123,39 @@
 				}
 			},500);
 		}
-		window.clearInterval(main)
-		window.clearInterval(splash)
+		//window.clearInterval(main)
+		//window.clearInterval(splash)
 		
 		
 		
-		$(document).ready(function() {
+		$('#main').ready(function() {
 			$('.newgame').click(function(){
 				$('#main').css('display','none');
-				//$('#gamefield').css('display','inline');
-				//$('#main').fadeOut();
 				$('#gamefield').fadeIn();
 				gamestart = true;
 				window.clearInterval(mainInterval);
 			});
             $('.setting').click(function(){
                 $('#help').css('display','none');
-				//$('#setting').css('display','inline');
-				//$('#help').fadeOut();
 				$('#setting').fadeIn();
 			});
 			$('.help').click(function(){
                 $('#setting').css('display','none');
-				//$('#help').css('display','inline');
-    			//$('#setting').fadeOut();
                 $('#help').fadeIn();
 			});
-			//$('.back').click(function(){
-				//$('#menu').css('display','inline');
-				//$('#setting').css('display','none');
-				//$('#help').css('display','none');
-			//});
+            $('.bg').click(function(){
+                if(bgscrolling){
+                    bgscrolling = false;
+                    $('.bg').text("Background Scrolling OFF");
+                }else{
+                    bgscrolling = true;
+                    $('.bg').text("Background Scrolling ON");
+                }
+            });
         });
     </script>
+    
+    
+    
 </body>
 </html>
