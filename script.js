@@ -217,10 +217,10 @@ var switcher=0;
                     enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
                 }
                 
-                if(enemies[i].image.attrs.x < rectX+30&&enemies[i].image.attrs.x>rectX-30&&enemies[i].image.attrs.y-30 < rectY&&enemies[i].image.attrs.y>rectY+40)
+                if(enemies[i].image.attrs.x < canvas.width/2+100&&enemies[i].image.attrs.x>canvas.width/2&&enemies[i].image.attrs.y < canvas.height/2&&enemies[i].image.attrs.y>canvas.height/2-100)
                 {
-                    //clearInterval(gameLoop);
-                    layer.remove(enemies[i]);
+                    clearInterval(gameLoop);
+
                     $("#result").text("You Lose.");
                     lives-=1;
 			    }

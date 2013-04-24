@@ -16,12 +16,12 @@
         
     	<div id="menu">
             <div><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h2></div>
-            <div class="newgame" ><p><span class="bigger">P</span>lay</p></div>
-            <div class="continue" ><p><span class="bigger">C</span>ontinue</p></div>
-            <div class="setting" ><p><span class="bigger">S</span>etting</p></div>
+            <div class="newgame" ><p><span class="bigger">J</span>ouer</p></div>
+            <div class="continue" ><p><span class="bigger">M</span>agasin</p></div>
+            <div class="setting" ><p><span class="bigger">R</span>églage</p></div>
             <div class="help" ><p><span class="bigger">I</span>nstructions</p></div>
-            <div class="credit"><p><span class="bigger">C</span>redit</p></div>
-            <div class="exit"><p><span class="bigger">E</span>xit</p></div>
+            <div class="credit"><p><span class="bigger">C</span>rédit</p></div>
+            <div class="exit"><p><span class="bigger">S</span>ortie</p></div>
         </div>
         
         <div id="setting">
@@ -41,6 +41,15 @@
             <img src="base.jpg" height="100px"/>
             <p>This is the base you are suppose to defend</p>
             <!--<div class="back">Back</div>-->
+        </div>
+        
+        <div id="credit">
+            <h2>Art/Music/Design</h2>
+            <p>JTR Jeux</p>
+            <h2>Code/Develop</h2>
+            <p>Alic Jiang</p>
+            <p>Peter Kim</p>
+            </h2>
         </div>
 
     </div>
@@ -87,6 +96,7 @@
 		$('#menu').css('display','none');
 		$('#setting').css('display','none');
 		$('#help').css('display','none');
+        $('#credit').css('display','none');
 		//$('body').css('width',window.innerWidth);
 		//$('body').css('height',window.innerHeight);
 			
@@ -141,10 +151,6 @@
                 $('#help').css('display','none');
 				$('#setting').fadeIn();
 			});
-			$('.help').click(function(){
-                $('#setting').css('display','none');
-                $('#help').fadeIn();
-			});
             $('.bg').click(function(){
                 if(bgscrolling){
                     bgscrolling = false;
@@ -154,6 +160,20 @@
                     $('.bg').text("Background Scrolling ON");
                 }
             });
+			$('.help').click(function(){
+                $('#setting').css('display','none');
+                $('#help').fadeIn();
+			});
+            $('.credit').click(function(){
+                $('#setting').css('display','none');
+                $('#help').css('display','none');
+                $('#menu').css('display','none');
+                $('#credit').fadeIn();
+    		});
+            $('#credit').click(function(){
+                $('#credit').css('display','none');
+                $('#menu').fadeIn();
+        	});
         });
     </script>
     

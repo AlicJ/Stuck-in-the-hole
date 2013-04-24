@@ -1,12 +1,20 @@
 @charset "utf-8";
 /* CSS Document */
 @font-face {
-    font-family: "Orena";
-    src: url("Orena.ttf") format("truetype");
+    font-family: Orena;
+    src: url('Orena.ttf') format("truetype");
 }
 @font-face {
-    font-family: "Starjedi";
-    src: url("Starjedi.ttf") format("truetype");
+    font-family: Starjedi;
+    src: url('Starjedi.ttf') format("truetype");
+}
+@font-face {
+    font-family: TIE-Wing;
+    src: url('TIE-Wing.ttf') format("truetype");
+}
+@font-face {
+    font-family: Shadow-of-Xizor;
+    src: url('Shadow-of-Xizor.ttf') format("truetype");
 }
 
 body {
@@ -54,8 +62,8 @@ body {
 	background:url(space.png) repeat scroll 0 0;
 	border:1px solid #999;
 	color:#00E8E8;
-	font-family:"Starjedi";
-	font-size:26px;
+	font-family:Starjedi, Shadow-of-Xizor, TIE-Wing, Orena;
+	font-size:32px;
 	height:600px;
 	margin:0 auto;
 	text-align:center;	
@@ -84,11 +92,11 @@ body {
 }
 
 #menu h2 {
-    font-size:42px;
-	margin:25px 15px 10px 0;
+    font-size:150%;
+	margin:0 15px 0 0;
 }
 #menu div {
-	margin:15px 0 0 0;
+	margin:12px 0 0 0;
 	padding-bottom:10px;
 	border-bottom:#CCC 2px solid;
 }
