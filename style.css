@@ -11,7 +11,7 @@
 
 body {
     margin: 0px;
-	padding: 0px;
+    padding: 0px;
     cursor:default;
 }
 #myCanvas {
@@ -92,7 +92,6 @@ body {
 	border-bottom:#CCC 2px solid;
 }
 #menu div p {
-	margin:0;
 	padding:0;
 	margin: 0 15px;
 }
@@ -110,7 +109,10 @@ body {
 #help img {
 	border:solid 2px cyan;
 }
-
+#credit {
+    /*position:relative;
+    top:600px;*/
+}
 .exit {
     float:right;
 	border:0!important;

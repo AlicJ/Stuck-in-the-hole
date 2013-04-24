@@ -5,7 +5,7 @@
 <script src="jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="Kinetic.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
-<title>Cyber blaster</title>
+<title>Cyber Blaster - JTR Jeux</title>
 </head>
 
 <body>
@@ -41,6 +41,16 @@
             <img src="base.jpg" height="100px"/>
             <p>This is the base you are suppose to defend</p>
             <!--<div class="back">Back</div>-->
+        </div>
+        
+        <div id="credit">
+            <h2>Cyber Blaster</h2>
+            <h3>Art/Music/Design</h3>
+            <p>JTR Jeux</p>
+            <h3>Coding/Developer</h3>
+            <p style="font-size:16px">Listed Alphabetically by Last Name</p>
+            <p>Alic Jiang</p>
+            <p>Peter Kim</p>
         </div>
 
     </div>
@@ -87,12 +97,15 @@
 		$('#menu').css('display','none');
 		$('#setting').css('display','none');
 		$('#help').css('display','none');
+        $('#credit').css('display','none');
 		//$('body').css('width',window.innerWidth);
 		//$('body').css('height',window.innerHeight);
 			
 		var gamestart = false;
 		var mainInterval = null;
 		var mainPosition = 0;
+        var creditInterval = null;
+        var creditPosition;
 		var count = 0;
 		var mainInterval = window.setInterval(mainAnimation, 1000/60);
 		var splashscreen;
@@ -137,11 +150,8 @@
 			});
             $('.setting').click(function(){
                 $('#help').css('display','none');
+                $('#credit').css('display','none');
 				$('#setting').fadeIn();
-			});
-			$('.help').click(function(){
-                $('#setting').css('display','none');
-                $('#help').fadeIn();
 			});
             $('.bg').click(function(){
                 if(bgscrolling){
@@ -152,6 +162,30 @@
                     $('.bg').text("Background Scrolling ON");
                 }
             });
+			$('.help').click(function(){
+                $('#setting').css('display','none');
+                $('#credit').css('display','none');
+                $('#help').fadeIn();
+			});
+            $('.credit').click(function(){
+                $('#setting').css('display','none');
+                $('#help').css('display','none');
+                $('#menu').css('display','none');
+                $('#credit').fadeIn();
+                //creditInterval = window.setInterval(creditAnimation, 1000/60);
+                //function creditAnimation(){
+                //    creditPosition--;
+                //    $("#credit").css({top: (creditPosition * 3) + "px"});
+                    //if(Math.abs(creditPosition)>=bgImg.width){
+                    //creditPosition = 0;
+                    //}
+                //}
+            });
+            $('#credit').click(function(){
+                $('#credit').css('display','none');
+                $('#menu').fadeIn();
+            });
+            
         });
     </script>
     

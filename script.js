@@ -66,7 +66,7 @@
 	}
 	
 	// function submit(){
-	// 	if(input == answer){
+    //  if(input == answer){
 	// 	    $("#result").text("You are correct.");// + score);	
 	// 		clearInterval(gameLoop);
 	// 		context.clearRect(enemy1.x-5, enemy1.y-20, enemy1.width, enemy1.height);
@@ -140,7 +140,7 @@
                     y= canvas.height+50;
                 }
                 else{
-                	y=-50;
+                    y=-50;
                 }
             }
             enemies[enemyNum]= new enemy(x, y);
@@ -220,10 +220,10 @@
               enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
               
             if(enemies[i].image.attrs.x < rectX+30&&enemies[i].image.attrs.x>rectX-30&&enemies[i].image.attrs.y-30 < rectY&&enemies[i].image.attrs.y>rectY+40)
- 		    {
-			    clearInterval(gameLoop);
-			    $("#result").text("You Lose.");
-			    lives-=1;
+            {
+                clearInterval(gameLoop);
+                $("#result").text("You Lose.")
+                lives-=1;
 			}
             
          
@@ -231,5 +231,4 @@
         }, layer);
           
         anim.start();
-	    
       }
