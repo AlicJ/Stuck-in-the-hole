@@ -154,7 +154,7 @@
             
              enemyNum++;
             }
-        }, 3000);
+        }, 5000);
     function enemy (x_bron, y_bron)
     {
         this.answer= problem.answer;
@@ -167,8 +167,8 @@
         this.image = new Kinetic.Image({
                 x: x_bron,
                 y: y_bron,
-                width: 100,
-                height:120,
+                width: 50,
+                height:60,
                 image:imageObj,    
             });
         this.text = new Kinetic.Text({
