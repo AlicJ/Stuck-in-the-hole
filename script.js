@@ -1,14 +1,10 @@
-//Question Maker
-    var problem = new Object();
+//questionmaker
+var switcher=0;
+    function QuestionMaker(num1, num2, operation){
 
-    function QuestionMaker(){
-	var range = 20;
-    var num1 = Math.floor(Math.random()*range)+1;
-    var num2 = Math.floor(Math.random()*range)+1;
-	var operation = Math.floor(Math.random()*4)+1;
-
+    
         if (Math.max(num1, num2)== num2){
-			var switcher = num2;
+			switcher = num2;
 			num2=num1;
 			num1=switcher;
 		}
@@ -20,27 +16,27 @@
 		
 		switch(operation){
 			case 1: //addition
-				problem.answer = num1 + num2;
+                this.answer = num1 + num2;
 				$("#question").text("What is " + num1 + " plus " + num2+ "? ");
-				problem.question = num1 + " + " + num2+ " = ? ";
-				return problem;
+				this.question = num1 + " + " + num2+ " = ? ";
+                break;
 			case 2: //subtraction
-				problem.answer = num1 - num2;
+				this.answer = num1 - num2;
 				$("#question").text("What is " + num1 + " minus " + num2+ "? ");
-				problem.question = num1 + " - " + num2+ " = ? ";
-				return problem;
+				this.question = num1 + " - " + num2+ " = ? ";
+                break;
 			case 3: //multiplication
-				problem.answer = num1 * num2;
+				this.answer = num1 * num2;
 				$("#question").text("What is " + num1 + " multiplied by " + num2+ "? ");
-				problem.question = num1 + " x " + num2+ " = ? ";
-				return problem;
+				this.question = num1 + " x " + num2+ " = ? ";
+				break;
 			case 4: //division
 				var answer = num1;
 				num1 *= num2;
-				problem.answer = num1 / num2;
+				this.answer = num1 / num2;
 				$("#question").text("What is " + num1 + " divided by " + num2+ "? ");
-				problem.question = num1 + " / " + num2+ " = ? ";
-				return problem;
+				this.question = num1 + " / " + num2+ " = ? ";
+				break;
 		}
     }
 		
@@ -56,31 +52,30 @@
 //Keypad
 	var input = "";
 	function addNum (num){
-	//	$("#input").append(num);
-		input += num;
-		$("#input").text(input);
+        if(input.length<=3){
+            input += num;
+            $("#input").text(input);
+        }
 	}
 	function clean(){
 		input = "";
 		$("#input").text(input);
 	}
 	
-	// function submit(){
-    //  if(input == answer){
-	// 	    $("#result").text("You are correct.");// + score);	
-	// 		clearInterval(gameLoop);
-	// 		context.clearRect(enemy1.x-5, enemy1.y-20, enemy1.width, enemy1.height);
-	// 		enemy1 = new enemy (Math.floor(Math.random()*4)+1);
-	// 		drawEnemy(enemy1, context);
-	// 		QuestionMaker();
-	// 	}else{
-	// 		$("#result").text("You are wrong.");
-	// 		}
-	// }
-
+    function submit(){
+         for(var i = 0; i <= enemyNum; i++ ){
+             if(input == enemies[i].answer&&enemies[i].alive){
+                 enemies[i].alive = false;
+                 enemies[i].image.hide();
+                 enemies[i].text.hide();
+                 input = "";
+                 $("#input").text(input);
+             }
+         }
+	}
 
 //Motion
-	  //Animation
+    //Animation
       
   
     var canvas = document.getElementById('myCanvas');
@@ -120,7 +115,8 @@
         if(gamestart&&enemyNum<8)
         {
             var side= Math.floor((Math.random())*4+1);
-            QuestionMaker();
+            var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
+
             var x=0;
             var y=0;
             if(side==2||side==4)
@@ -143,7 +139,7 @@
                     y=-50;
                 }
             }
-            enemies[enemyNum]= new enemy(x, y);
+            enemies[enemyNum]= new enemy(x, y, question.question, question.answer);
                
             layer.add(enemies[enemyNum].image);
             layer.add(enemies[enemyNum].text);
@@ -155,9 +151,9 @@
              enemyNum++;
             }
         }, 5000);
-    function enemy (x_bron, y_bron)
+    function enemy (x_bron, y_bron, question, answer)
     {
-        this.answer= problem.answer;
+        this.answer= answer;
         this.alive= true;
        	this.fixedX= x_bron;
 		this.fixedY= y_bron;
@@ -174,7 +170,7 @@
         this.text = new Kinetic.Text({
             x: x_bron,
             y: y_bron,
-            text: problem.question,
+            text: question,
             fontSize: 20,
             fontFamily: 'Calibri',
             fill: 'white'
@@ -214,17 +210,20 @@
             
             for(var i = 0;i<enemies.length;i++)
             {
-              enemies[i].image.setX(enemies[i].fixedX + frame.time*enemies[i].xGap);
-              enemies[i].image.setY(enemies[i].fixedY + frame.time*enemies[i].yGap);
-              enemies[i].text.setX(enemies[i].fixedX + frame.time*enemies[i].xGap+10);
-              enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
-              
-            if(enemies[i].image.attrs.x < rectX+30&&enemies[i].image.attrs.x>rectX-30&&enemies[i].image.attrs.y-30 < rectY&&enemies[i].image.attrs.y>rectY+40)
-            {
-                clearInterval(gameLoop);
-                $("#result").text("You Lose.")
-                lives-=1;
-			}
+                if(enemies[i].alive){
+                    enemies[i].image.setX(enemies[i].fixedX + frame.time*enemies[i].xGap);
+                    enemies[i].image.setY(enemies[i].fixedY + frame.time*enemies[i].yGap);
+                    enemies[i].text.setX(enemies[i].fixedX + frame.time*enemies[i].xGap+10);
+                    enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
+                }
+                
+                if(enemies[i].image.attrs.x < rectX+30&&enemies[i].image.attrs.x>rectX-30&&enemies[i].image.attrs.y-30 < rectY&&enemies[i].image.attrs.y>rectY+40)
+                {
+                    //clearInterval(gameLoop);
+                    layer.remove(enemies[i]);
+                    $("#result").text("You Lose.");
+                    lives-=1;
+			    }
             
          
            }
