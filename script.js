@@ -79,7 +79,7 @@ var switcher=0;
       
   
     var canvas = document.getElementById('myCanvas');
-	canvas.width = 1024*0.8;
+	canvas.width = 1024*0.75;
 	canvas.height = 600;
     var gamestart = false;
     var enemies = new Array();
@@ -110,9 +110,11 @@ var switcher=0;
 	var bgImg = new Image();
 	bgImg.src = "space.png";
     imageObj.src = 'obj.png';
+    var anim;
+    var pause = false;
     
         var gameLoop = setInterval(function(){
-        if(gamestart&&enemyNum<8)
+        if(gamestart&&enemyNum<8&&!pause)
         {
             var side= Math.floor((Math.random())*4+1);
             var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
@@ -144,11 +146,11 @@ var switcher=0;
             layer.add(enemies[enemyNum].image);
             layer.add(enemies[enemyNum].text);
            
-           stage.add(layer);
+            stage.add(layer);
            
             animate();
             
-             enemyNum++;
+            enemyNum++;
             }
         }, 5000);
     function enemy (x_bron, y_bron, question, answer)
@@ -199,6 +201,45 @@ var switcher=0;
         //context.strokeStyle = 'black';
         //context.stroke();
       //}
+      function snow ()
+      {
+          anim.stop();
+          pause = true;
+          var count = 0;
+            var timer = setInterval(function(){
+                count++;
+                if(count=3)
+                    {
+                        pause=false;
+                        anim.start();
+                        clearInterval(timer);
+                    }
+            }, 1000);   
+      }
+      function bomb ()
+      {
+          for(var i =0;i<enemies.length;i++)
+          {
+              if(enemies[i].alive)
+              {
+                 enemies[i].alive = false;
+                 enemies[i].image.hide();
+                 enemies[i].text.hide();
+              }
+          }
+      }
+      function shield() 
+      {
+          var counter = 0;
+          var timer = setInterval(function(){
+              counter ++;
+              if(counter = 5)
+              {
+                  clearInterval(timer);
+                  
+              }
+          });    
+      }
       function animate() 
       {
         for(var i=0;i<enemies.length;i++)
@@ -206,7 +247,7 @@ var switcher=0;
             enemies[i].fixedX = enemies[i].image.attrs.x;
             enemies[i].fixedY = enemies[i].image.attrs.y;
         }
-        var anim = new Kinetic.Animation(function(frame) {  
+        anim = new Kinetic.Animation(function(frame) {  
             
             for(var i = 0;i<enemies.length;i++)
             {
@@ -228,6 +269,8 @@ var switcher=0;
          
            }
         }, layer);
-          
-        anim.start();
+        
+        if(!pause){
+            anim.start();
+        }
       }
