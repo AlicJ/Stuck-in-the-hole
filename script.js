@@ -17,24 +17,24 @@ var switcher=0;
 		switch(operation){
 			case 1: //addition
                 this.answer = num1 + num2;
-				$("#question").text("What is " + num1 + " plus " + num2+ "? ");
+				//$("#question").text("What is " + num1 + " plus " + num2+ "? ");
 				this.question = num1 + " + " + num2+ " = ? ";
                 break;
 			case 2: //subtraction
 				this.answer = num1 - num2;
-				$("#question").text("What is " + num1 + " minus " + num2+ "? ");
+				//$("#question").text("What is " + num1 + " minus " + num2+ "? ");
 				this.question = num1 + " - " + num2+ " = ? ";
                 break;
 			case 3: //multiplication
 				this.answer = num1 * num2;
-				$("#question").text("What is " + num1 + " multiplied by " + num2+ "? ");
+				//$("#question").text("What is " + num1 + " multiplied by " + num2+ "? ");
 				this.question = num1 + " x " + num2+ " = ? ";
 				break;
 			case 4: //division
 				var answer = num1;
 				num1 *= num2;
 				this.answer = num1 / num2;
-				$("#question").text("What is " + num1 + " divided by " + num2+ "? ");
+				//$("#question").text("What is " + num1 + " divided by " + num2+ "? ");
 				this.question = num1 + " / " + num2+ " = ? ";
 				break;
 		}

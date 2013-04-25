@@ -21,33 +21,10 @@ body {
     margin: 0px;
     padding: 0px;
     cursor:default;
+    font-family: TIE-Wing;
+    color:#00E8E8;
 }
-#myCanvas {
-    width:80%;
-    height:100%;
-	background:url(space.png) repeat scroll 0 0;
-    float:left;
-}
-#gamefield {
-    background:#ccc;
-    border:1px solid #999;
-    width:1024px;
-    height:600px;
-    margin:0 auto;
-}
-#ui {
-    float:right;
-    margin-right:5px;
-    text-align:center;
-}
-.keypad {
-	width:60px;
-	height:50px;
-	text-align:center;
-}
-#input, #question, #result {
-	height:30px;
-}
+/* Main menu styles*/
 .bigger {
 	font-size:125%;
 }
@@ -55,17 +32,14 @@ body {
 	margin-top:2%;
 	width:95%;
 	height:90%;
-	border:cyan 10px solid;
+	border:#00E8E8 10px solid;
     opacity:0.95;
 }
 #main {
 	background:url(space.png) repeat scroll 0 0;
 	border:1px solid #999;
-	color:#00E8E8;
-	font-family:Starjedi, Shadow-of-Xizor, TIE-Wing, Orena;
 	font-size:32px;
 	height:600px;
-	margin:0 auto;
 	text-align:center;	
 	width:1024px;
 }
@@ -131,3 +105,104 @@ body {
     margin:0;
     margin-right:15px;
 }
+
+/* In game layout */
+#myCanvas {
+    width:80%;
+    height:100%;
+    background:url(space.png) repeat scroll 0 0;
+    float:left;
+}
+#gamefield {
+    background:#999;
+    border:1px solid #999;
+    width:1024px;
+    height:600px;
+}
+#ui {
+    float:right;
+    margin-right:5px;
+    text-align:center;
+}
+.keypad {
+    border-radius:4px;
+	width:60px;
+	height:50px;
+    line-height:50px;
+	text-align:center;
+    font-size:18px;
+
+    background-image: linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
+    
+    background-image: -webkit-gradient(
+        linear,
+    	left bottom,
+    	left top,
+    	color-stop(0.02, rgb(130,130,130)),
+    	color-stop(0.53, rgb(161,161,161)),
+    	color-stop(1, rgb(130,130,130))
+    );
+}
+/* gradient button from http://gradients.glrzad.com/ */
+.keypad:active {
+    color:red;
+    
+    background-image: linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
+    
+    background-image: -webkit-gradient(
+        linear,
+    	left bottom,
+    	left top,
+    	color-stop(0.02, rgb(161,161,161)),
+    	color-stop(0.53, rgb(130,130,130)),
+    	color-stop(1, rgb(161,161,161))
+    );
+}
+#input {
+    background:black;
+    border-radius:12px;
+    width:150px;
+    height:25px;
+    line-height:25px;
+    margin: 10px auto;
+}
+#result {
+	height:30px;
+}
+#buttons div {
+    font-size:36px;
+    margin:8px auto;
+}
+#buttons div:active {
+    color:red;
+}
+#pauseScreen {
+}
+#optical {
+    background:gray;
+    height: 600px;
+    opacity: 0.65;
+    position: fixed;
+    top: 0;
+    width: 1024px;
+
+}
+#content {
+    height: 600px;
+    position: fixed;
+    top: 0;
+    width: 1024px;
+
+}
+.pause {
+    
+}
+
