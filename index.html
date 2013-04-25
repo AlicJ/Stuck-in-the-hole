@@ -24,6 +24,7 @@
             <div class="exit"><p><span class="bigger">S</span>ortie</p></div>
         </div>
         
+        
         <div id="setting">
             <h2>Setting</h2>
             <ul>
@@ -95,10 +96,10 @@
                 </div>
             </div>
             <div id="pauseScreen">
-                Resume
-                Shop
-                Setting
-                Main Menu
+                <div class="resume">Resume</div>
+                <div class="shop">Shop</div>
+                <div class="setting">Setting</div>
+                <div class="mainmenu">Main Menu</div>
             </div>
         </div>
         
@@ -152,11 +153,8 @@
 				}
 			},500);
 		}
-		//window.clearInterval(main)
-		//window.clearInterval(splash)
-		
-		
-		
+
+
 		$('#main').ready(function() {
 			$('.newgame').click(function(){
 				$('#main').css('display','none');
@@ -196,12 +194,14 @@
         $('#gamefield').ready(function(){
             $('.pause').click(function(){
                 $('#nonPause').css('display','none');
+                $('#myCanvas').fadeTo(400, 0.5)
                 $('#pauseScreen').fadeIn();
                 anim.stop();
                 pause = true;
             });
-            $('#pauseScreen').click(function(){
+            $('.resume').click(function(){
                 $('#pauseScreen').css('display','none');
+                $('#myCanvas').fadeTo(400, 1.0)
                 $('#nonPause').fadeIn();
                 anim.start();
                 pause =false;

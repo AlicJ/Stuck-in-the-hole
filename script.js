@@ -93,12 +93,6 @@ var switcher=0;
         });
     var layer = new Kinetic.Layer();
     
-    bgInterval = window.setInterval(function(){
-        if(gamestart&&bgscrolling){
-            bgAnimation();
-                  
-             }
-        }, 1000/15);
 	var lives = 3;
 
 	var rectX = canvas.width/2-50;
@@ -185,8 +179,13 @@ var switcher=0;
         $("#myCanvas").css({backgroundPosition: (bgPosition * 5) + "px 0px"});
 		if(Math.abs(bgPosition)>=bgImg.width){
 			bgPosition = 0;
-			}
 		}
+	}
+    bgInterval = window.setInterval(function(){
+        if(gamestart&&bgscrolling&&!pause){
+            bgAnimation();
+        }
+    }, 1000/15);
       //function drawEnemy(target, context) {
 		//context.drawImage(imageObj, target.x, target.y);
         
