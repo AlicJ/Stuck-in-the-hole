@@ -22,7 +22,6 @@ body {
     padding: 0px;
     cursor:default;
     font-family: TIE-Wing;
-    color:#00E8E8;
 }
 /* Main menu styles*/
 .bigger {
@@ -38,7 +37,8 @@ body {
 #main {
 	background:url(space.png) repeat scroll 0 0;
 	border:1px solid #999;
-	font-size:32px;
+    color:#00E8E8;
+	font-size:30px;
 	height:600px;
 	text-align:center;	
 	width:1024px;
@@ -54,7 +54,8 @@ body {
 	margin:45px 0;
 }
 #main p:active, .exit:active, li:active {
-	color:#F00;
+	background:#00E8E8;
+    color:#090708;
 }
 #menu {
 	opacity:0.9;
@@ -70,13 +71,13 @@ body {
 	margin:0 15px 0 0;
 }
 #menu div {
-	margin:12px 0 0 0;
-	padding-bottom:10px;
-	border-bottom:#CCC 2px solid;
+    border-radius:5px;
+	border:#00E8E8 2px solid;
+    margin:10px;
 }
 #menu div p {
-	padding:0;
-	margin: 0 15px;
+    padding: 10px 15px 8px 0;
+    margin: 0;
 }
 .newgame {
 	color:#FF2B2B;
@@ -96,10 +97,7 @@ body {
     /*position:relative;
     top:600px;*/
 }
-.exit {
-    float:right;
-	border:0!important;
-}
+
 .exit p {
     padding:0;
     margin:0;
@@ -108,7 +106,7 @@ body {
 
 /* In game layout */
 #myCanvas {
-    width:80%;
+    width:75%;
     height:100%;
     background:url(space.png) repeat scroll 0 0;
     float:left;
@@ -116,62 +114,41 @@ body {
 #gamefield {
     background:#999;
     border:1px solid #999;
+    color:#67EFE9;
     width:1024px;
     height:600px;
 }
 #ui {
+    background:url('interface background.png');
     float:right;
-    margin-right:5px;
+    height:600px;
+    width:25%;
     text-align:center;
+    font-size:18px;
+}
+#ui table {
+    margin:0 auto;
 }
 .keypad {
+    border:#67EFE9 2px solid;
     border-radius:4px;
 	width:60px;
 	height:50px;
     line-height:50px;
 	text-align:center;
-    font-size:18px;
 
-    background-image: linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
-    background-image: -o-linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
-    background-image: -moz-linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
-    background-image: -webkit-linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
-    background-image: -ms-linear-gradient(bottom, rgb(130,130,130) 2%, rgb(163,161,161) 53%, rgb(130,130,130) 100%);
-    
-    background-image: -webkit-gradient(
-        linear,
-    	left bottom,
-    	left top,
-    	color-stop(0.02, rgb(130,130,130)),
-    	color-stop(0.53, rgb(161,161,161)),
-    	color-stop(1, rgb(130,130,130))
-    );
 }
 /* gradient button from http://gradients.glrzad.com/ */
 .keypad:active {
-    color:red;
-    
-    background-image: linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
-    background-image: -o-linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
-    background-image: -moz-linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
-    background-image: -webkit-linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
-    background-image: -ms-linear-gradient(bottom, rgb(161,161,161) 2%, rgb(130,130,130) 53%, rgb(161,161,161) 100%);
-    
-    background-image: -webkit-gradient(
-        linear,
-    	left bottom,
-    	left top,
-    	color-stop(0.02, rgb(161,161,161)),
-    	color-stop(0.53, rgb(130,130,130)),
-    	color-stop(1, rgb(161,161,161))
-    );
+    background:#67EFE9;
+    color:#090708;
 }
 #input {
     background:black;
-    border-radius:12px;
+    border-radius:16px;
     width:150px;
-    height:25px;
-    line-height:25px;
+    height:26px;
+    line-height:26px;
     margin: 10px auto;
 }
 #result {
@@ -182,9 +159,11 @@ body {
     margin:8px auto;
 }
 #buttons div:active {
-    color:red;
+    background:#67EFE9;
+    color:#090708;
 }
 #pauseScreen {
+    height:600px;
 }
 #optical {
     background:gray;
