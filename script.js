@@ -70,6 +70,7 @@ var switcher=0;
                  enemies[i].text.hide();
                  input = "";
                  $("#input").text(input);
+                 enemyNum --;
              }
          }
 	}
