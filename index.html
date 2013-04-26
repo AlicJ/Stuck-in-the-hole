@@ -18,21 +18,20 @@
             <span><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h2></span>
             <div class="newgame" ><p><span class="bigger">J</span>ouer</p></div>
             <div class="continue" ><p><span class="bigger">M</span>agasin</p></div>
-            <div class="setting" ><p><span class="bigger">R</span>églage</p></div>
+            <div class="setting1" ><p><span class="bigger">R</span>églage</p></div>
             <div class="help" ><p><span class="bigger">I</span>nstructions</p></div>
             <div class="credit"><p><span class="bigger">C</span>rédit</p></div>
             <div class="exit"><p><span class="bigger">S</span>ortie</p></div>
         </div>
         
         
-        <div id="setting">
+        <div id="setting1">
             <h2>Setting</h2>
             <ul>
-                <li>Volume</li>
-                <li>Sound FX</li>
+                <li class="music">Music ON</li>
+                <li class="sound">Sound FX ON</li>
                 <li class="bg">Background Scrolling ON</li>
             </ul>
-            <!--<div class="back">Back</div>-->
         </div>
         
         <div id="help">
@@ -41,7 +40,6 @@
             <p>This is the enemy you are suppose to destroy</p>
             <img src="base.jpg" height="100px"/>
             <p>This is the base you are suppose to defend</p>
-            <!--<div class="back">Back</div>-->
         </div>
         
         <div id="credit">
@@ -57,6 +55,29 @@
     
 	<div id="gamefield">
         <div id="myCanvas"></div>
+        
+        <div id="shop">
+            <div>Bomb</div>
+            <div>Shield</div>
+            <div>Life</div>
+            <div>Freeze</div>
+        </div>
+        
+        <div id="setting2">
+            <h2>Setting</h2>
+            <ul>
+                <li class="music">Music ON</li>
+                <li class="sound">Sound FX ON</li>
+                <li class="bg">Background Scrolling ON</li>
+            </ul>
+        </div>
+        
+        <div id="mainmenu">
+            <h3>Are you sure you want to go back to mainmenu?</h3>
+            <h3>All unsaved data will be lost.</h3>
+            <span class="yes">Yes</span>
+            <span class="no">No</span>
+        </div>
         
         <div id="ui">
             <div id="nonPause">
@@ -98,7 +119,7 @@
             <div id="pauseScreen">
                 <div class="resume">Resume</div>
                 <div class="shop">Shop</div>
-                <div class="setting">Setting</div>
+                <div class="setting2">Setting</div>
                 <div class="mainmenu">Main Menu</div>
             </div>
         </div>
@@ -111,10 +132,13 @@
 	<script>
 		$('#gamefield').css('display','none');
 		$('#menu').css('display','none');
-		$('#setting').css('display','none');
+		$('#setting1').css('display','none');
 		$('#help').css('display','none');
         $('#credit').css('display','none');
         $('#pauseScreen').css('display','none');
+        $('#shop').css('display','none');
+        $('#setting2').css('display','none');
+        $('#mainmenu').css('display','none');
 		//$('body').css('width',window.innerWidth);
 		//$('body').css('height',window.innerHeight);
 			
@@ -127,6 +151,8 @@
 		var main;
         var bgscrolling = true;
         var bgImg = new Image();
+        var music = true;
+        var sound = true;
         bgImg.src = "space.png";
         
         if(count === 0){
@@ -155,16 +181,17 @@
 		}
 
 
-		$('#main').ready(function() {
+		$(document).ready(function() {
+            //for main menu selections
 			$('.newgame').click(function(){
 				$('#main').css('display','none');
 				$('#gamefield').fadeIn();
 				gamestart = true;
 				window.clearInterval(mainInterval);
 			});
-            $('.setting').click(function(){
+            $('.setting1').click(function(){
                 $('#help').css('display','none');
-				$('#setting').fadeIn();
+				$('#setting1').fadeIn();
 			});
             $('.bg').click(function(){
                 if(bgscrolling){
@@ -175,12 +202,30 @@
                     $('.bg').text("Background Scrolling ON");
                 }
             });
+            $('.music').click(function(){
+                if(music){
+                    music = false;
+                    $('.music').text("Music OFF");
+                }else{
+                    music = true;
+                    $('.music').text("Music ON");
+                }
+            });
+            $('.sound').click(function(){
+                if(sound){
+                    sound = false;
+                    $('.sound').text("Sound OFF");
+                }else{
+                    sound = true;
+                    $('.sound').text("Sound ON");
+                }
+            });
 			$('.help').click(function(){
-                $('#setting').css('display','none');
+                $('#setting1').css('display','none');
                 $('#help').fadeIn();
 			});
             $('.credit').click(function(){
-                $('#setting').css('display','none');
+                $('#setting1').css('display','none');
                 $('#help').css('display','none');
                 $('#menu').css('display','none');
                 $('#credit').fadeIn();
@@ -189,22 +234,38 @@
                 $('#credit').css('display','none');
                 $('#menu').fadeIn();
             });
-        });
-        
-        $('#gamefield').ready(function(){
+            //for in-game selections
             $('.pause').click(function(){
                 $('#nonPause').css('display','none');
-                $('#myCanvas').fadeTo(400, 0.5)
+                $('#myCanvas').fadeTo(400, 0.5);
                 $('#pauseScreen').fadeIn();
                 anim.stop();
                 pause = true;
             });
             $('.resume').click(function(){
                 $('#pauseScreen').css('display','none');
-                $('#myCanvas').fadeTo(400, 1.0)
+                $('#setting2').css('display','none');
+                $('#shop').css('display','none');
                 $('#nonPause').fadeIn();
+                $('#myCanvas').fadeTo(400, 1.0);
                 anim.start();
                 pause =false;
+            });
+            $('.shop').click(function(){
+                $('#mainmenu').css('display','none');
+                $('#setting2').css('display','none');
+                $('#shop').fadeIn();
+            });
+            $('.setting2').click(function(){
+                $('#mainmenu').css('display','none');
+                $('#shop').css('display','none');
+                $('#setting2').fadeIn();
+            });
+            $('.mainmenu').click(function(){
+                $('#setting2').css('display','none');
+                $('#shop').css('display','none');
+                $('#mainmenu').fadeIn();
+                
             });
         });
         

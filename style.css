@@ -23,6 +23,10 @@ body {
     cursor:default;
     font-family: TIE-Wing;
 }
+ul {
+    list-style:none;
+	padding:0;
+}
 /* Main menu styles*/
 .bigger {
     font-size:125%;
@@ -31,7 +35,7 @@ body {
 	margin-top:2%;
 	width:95%;
 	height:90%;
-	border:#00E8E8 10px solid;
+	border:#1FFFFF 10px solid;
     opacity:0.95;
 }
 #main {
@@ -46,18 +50,16 @@ body {
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
 }
-#main ul {
-	list-style:none;
-	padding:0;
-}
-#main li {
+#main li, #setting2 li {
 	margin:45px 0;
 }
-#main p:active, .exit:active, li:active {
-	background:#00E8E8;
+#menu div:active {
+	background:#1FFFFF;
     color:#090708;
 }
+
 #menu {
+    color:#1FFFFF;
 	opacity:0.9;
 	background:#aaa;
 	float:right;
@@ -86,8 +88,10 @@ body {
     float:left;
     border:0!important;
 }*/
+#setting1 li:active, #setting2 li:active {
+    color:red;
+}
 #help, #setting {
-    opacity:0.9;
     width:704px;
 }
 #help img {
@@ -115,6 +119,7 @@ body {
     background:#999;
     border:1px solid #999;
     color:#67EFE9;
+    font-size:30px;
     width:1024px;
     height:600px;
 }
@@ -124,7 +129,6 @@ body {
     height:600px;
     width:25%;
     text-align:center;
-    font-size:18px;
 }
 #ui table {
     margin:0 auto;
@@ -132,6 +136,7 @@ body {
 .keypad {
     border:#67EFE9 2px solid;
     border-radius:4px;
+    font-size:18px;
 	width:60px;
 	height:50px;
     line-height:50px;
@@ -146,6 +151,7 @@ body {
 #input {
     background:black;
     border-radius:16px;
+    font-size:18px;
     width:150px;
     height:26px;
     line-height:26px;
@@ -153,24 +159,29 @@ body {
 }
 #result {
 	height:30px;
+    font-size:18px;
 }
-#buttons div, #pauseScreen div {
+#buttons div {
     border:#67EFE9 2px solid;
     border-radius:4px;
-    font-size:36px;
     margin:10px 15px;
+    padding:4px 0;
 }
 #buttons div:active, #pauseScreen div:active {
     background:#67EFE9;
     color:#090708;
 }
 #pauseScreen {
-    height:600px;
+    margin-top:100px;
 }
 #pauseScreen div {
-
+    border:#67EFE9 2px solid;
+    border-radius:4px;
+    margin:20px 15px;
+    padding:8px 0;
 }
-.pause {
-    
+#setting2, #shop, #mainmenu {
+    position:fixed;
+    text-align:center;
+    width:768px;
 }
-

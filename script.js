@@ -248,6 +248,8 @@ var switcher=0;
         }
         anim = new Kinetic.Animation(function(frame) {  
             
+            if(!pause){
+            
             for(var i = 0;i<enemies.length;i++)
             {
                 if(enemies[i].alive){
@@ -266,7 +268,8 @@ var switcher=0;
 			    }
             
          
-           }
+            }
+            }
         }, layer);
         
         if(!pause){
