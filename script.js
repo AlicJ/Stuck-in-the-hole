@@ -2,7 +2,6 @@
 var switcher=0;
     function QuestionMaker(num1, num2, operation){
 
-    
         if (Math.max(num1, num2)== num2){
 			switcher = num2;
 			num2=num1;
@@ -108,7 +107,7 @@ var switcher=0;
     var anim;
     var pause = false;
     
-        var gameLoop = setInterval(function(){
+        var gameLoop = window.setInterval(function(){
         if(gamestart&&enemyNum<8&&!pause)
         {
             var side= Math.floor((Math.random())*4+1);
