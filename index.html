@@ -19,14 +19,14 @@
             <div class="newgame" ><p><span class="bigger">J</span>ouer</p></div>
             <div class="continue" ><p><span class="bigger">M</span>agasin</p></div>
             <div class="setting1" ><p><span class="bigger">R</span>églage</p></div>
-            <div class="help" ><p><span class="bigger">I</span>nstructions</p></div>
+            <div class="help1" ><p><span class="bigger">I</span>nstructions</p></div>
             <div class="credit"><p><span class="bigger">C</span>rédit</p></div>
             <div class="exit"><p><span class="bigger">S</span>ortie</p></div>
         </div>
         
         
         <div id="setting1">
-            <h2>Setting</h2>
+            <h2>Réglage</h2>
             <ul>
                 <li class="music">Music ON</li>
                 <li class="sound">Sound FX ON</li>
@@ -34,8 +34,8 @@
             </ul>
         </div>
         
-        <div id="help">
-            <h2>Help</h2>
+        <div id="help1">
+            <h2>Instructions</h2>
 	        <img src="obj.png" height="100px"/>
             <p>This is the enemy you are suppose to destroy</p>
             <img src="base.jpg" height="100px"/>
@@ -44,7 +44,9 @@
         
         <div id="credit">
             <h2>Art/Music/Design</h2>
-            <p>JTR Jeux</p>
+            <p>JTR Jeux<br />
+                <img src="logo.JPG" width="300px"/>
+            </p>
             <h2>Code/Develop</h2>
             <p>Alic Jiang</p>
             <p>Peter Kim</p>
@@ -64,12 +66,20 @@
         </div>
         
         <div id="setting2">
-            <h2>Setting</h2>
+            <h2>Réglage</h2>
             <ul>
                 <li class="music">Music ON</li>
                 <li class="sound">Sound FX ON</li>
                 <li class="bg">Background Scrolling ON</li>
             </ul>
+        </div>
+        
+        <div id="help2">
+            <h2>nstructions</h2>
+            <img src="obj.png" height="100px"/>
+            <p>This is the enemy you are suppose to destroy</p>
+            <img src="base.jpg" height="100px"/>
+            <p>This is the base you are suppose to defend</p>
         </div>
         
         <div id="mainmenu">
@@ -120,6 +130,7 @@
                 <div class="resume">Resume</div>
                 <div class="shop">Shop</div>
                 <div class="setting2">Setting</div>
+                <div class="help2">Help</div>
                 <div class="mainmenu">Main Menu</div>
             </div>
         </div>
@@ -133,11 +144,12 @@
 		$('#gamefield').css('display','none');
 		$('#menu').css('display','none');
 		$('#setting1').css('display','none');
-		$('#help').css('display','none');
+		$('#help1').css('display','none');
         $('#credit').css('display','none');
         $('#pauseScreen').css('display','none');
         $('#shop').css('display','none');
         $('#setting2').css('display','none');
+        $('#help2').css('display','none');
         $('#mainmenu').css('display','none');
 		//$('body').css('width',window.innerWidth);
 		//$('body').css('height',window.innerHeight);
@@ -190,7 +202,7 @@
 				window.clearInterval(mainInterval);
 			});
             $('.setting1').click(function(){
-                $('#help').css('display','none');
+                $('#help1').css('display','none');
 				$('#setting1').fadeIn();
 			});
             $('.bg').click(function(){
@@ -220,13 +232,13 @@
                     $('.sound').text("Sound ON");
                 }
             });
-			$('.help').click(function(){
+			$('.help1').click(function(){
                 $('#setting1').css('display','none');
-                $('#help').fadeIn();
+                $('#help1').fadeIn();
 			});
             $('.credit').click(function(){
                 $('#setting1').css('display','none');
-                $('#help').css('display','none');
+                $('#help1').css('display','none');
                 $('#menu').css('display','none');
                 $('#credit').fadeIn();
             });
@@ -239,13 +251,14 @@
                 $('#nonPause').css('display','none');
                 $('#myCanvas').fadeTo(400, 0.5);
                 $('#pauseScreen').fadeIn();
-                anim.stop();
                 pause = true;
             });
             $('.resume').click(function(){
                 $('#pauseScreen').css('display','none');
                 $('#setting2').css('display','none');
                 $('#shop').css('display','none');
+                $('#help2').css('display','none');
+                $('#mainmenu').css('display','none');
                 $('#nonPause').fadeIn();
                 $('#myCanvas').fadeTo(400, 1.0);
                 anim.start();
@@ -254,18 +267,37 @@
             $('.shop').click(function(){
                 $('#mainmenu').css('display','none');
                 $('#setting2').css('display','none');
+                $('#help2').css('display','none');
                 $('#shop').fadeIn();
             });
             $('.setting2').click(function(){
                 $('#mainmenu').css('display','none');
                 $('#shop').css('display','none');
+                $('#help2').css('display','none');
                 $('#setting2').fadeIn();
+            });
+            $('.help2').click(function(){
+                $('#mainmenu').css('display','none');
+                $('#shop').css('display','none');
+                $('#setting2').css('display','none');
+                $('#help2').fadeIn();
             });
             $('.mainmenu').click(function(){
                 $('#setting2').css('display','none');
                 $('#shop').css('display','none');
+                $('#help2').css('display','none');
                 $('#mainmenu').fadeIn();
-                
+            });
+            $('.yes').click(function(){
+                gamestart = false;
+                bgscrolling = true;
+                window.clearInterval(gameLoop);
+                $('#gamefield').css('display','none');
+                $('#main').fadeIn();
+                $('#menu').fadeIn();
+            });
+            $('.no').click(function(){
+                $('#mainmenu').fadeOut();
             });
         });
         

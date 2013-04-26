@@ -81,7 +81,7 @@ ul {
     float:left;
     border:0!important;
 }*/
-#setting1 li:active, #setting2 li:active {
+#setting1 li:active, #setting2 li:active, .yes:active, .no:active {
     color:red;
 }
 #help, #setting {
@@ -148,7 +148,7 @@ ul {
     width:150px;
     height:26px;
     line-height:26px;
-    margin: 10px auto;
+    margin: 24px auto 10px;
 }
 #result {
 	height:30px;
@@ -157,7 +157,7 @@ ul {
 #buttons div {
     border:#67EFE9 2px solid;
     border-radius:4px;
-    margin:10px 15px;
+    margin:10px 28px;
     padding:4px 0;
 }
 #buttons div:active, #pauseScreen div:active {
@@ -170,11 +170,14 @@ ul {
 #pauseScreen div {
     border:#67EFE9 2px solid;
     border-radius:4px;
-    margin:20px 15px;
+    margin:20px 28px;
     padding:8px 0;
 }
-#setting2, #shop, #mainmenu {
+#setting2, #shop, #mainmenu, #help2 {
     position:fixed;
     text-align:center;
     width:768px;
+}
+.yes, .no {
+    margin:0 15px;
 }
