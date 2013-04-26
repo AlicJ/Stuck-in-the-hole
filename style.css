@@ -5,23 +5,16 @@
     src: url('Orena.ttf') format("truetype");
 }
 @font-face {
-    font-family: Starjedi;
-    src: url('Starjedi.ttf') format("truetype");
+    font-family: TIEWing;
+    src: url('TIEWing.ttf') format("truetype");
 }
-@font-face {
-    font-family: TIE-Wing;
-    src: url('TIE-Wing.ttf') format("truetype");
-}
-@font-face {
-    font-family: Shadow-of-Xizor;
-    src: url('Shadow-of-Xizor.ttf') format("truetype");
-}
+
 
 body {
     margin: 0px;
     padding: 0px;
     cursor:default;
-    font-family: TIE-Wing;
+    font-family: TIEWing;
 }
 ul {
     list-style:none;
@@ -74,7 +67,7 @@ ul {
 }
 #menu div {
     border-radius:4px;
-	border:#00E8E8 2px solid;
+	border:#1FFFFF 2px solid;
     margin:10px;
 }
 #menu div p {
