@@ -30,7 +30,6 @@ var switcher=0;
 				this.question = num1 + " x " + num2+ " = ? ";
 				break;
 			case 4: //division
-				var answer = num1;
 				num1 *= num2;
 				this.answer = num1 / num2;
 				//$("#question").text("What is " + num1 + " divided by " + num2+ "? ");
@@ -64,9 +63,7 @@ var switcher=0;
     function submit(){
          for(var i = 0; i <= enemyNum; i++ ){
              if(input == enemies[i].answer&&enemies[i].alive){
-                 enemies[i].alive = false;
-                 enemies[i].image.hide();
-                 enemies[i].text.hide();
+                 cleanEnemy (i);
                  input = "";
                  $("#input").text(input);
                  enemyNum --;
@@ -93,7 +90,16 @@ var switcher=0;
         });
     var layer = new Kinetic.Layer();
     
-	var lives = 3;
+	var lives = 300;
+    var numShield = 0;
+    var numBomb = 0;
+    var numFreeze = 0;
+    var priceBomb = 1000;
+    var priceShield = 2000;
+    var priceLife = 3000;
+    var priceFreeze = 4000;
+    var score = 500000;
+    
 
 	var rectX = canvas.width/2-50;
 	var rectY = canvas.height/2-50;
@@ -186,61 +192,66 @@ var switcher=0;
             bgAnimation();
         }
     }, 1000/15);
-      //function drawEnemy(target, context) {
-		//context.drawImage(imageObj, target.x, target.y);
-        
-        //context.beginPath();
-        //context.rect(rectX,rectY,50,50);
-        //context.fillStyle = '#8ED6FF';
-        //context.fill();
-        //context.lineWidth = target.borderWidth;
-		//context.fillStyle = '#FFF';
-		//context.font = 'bold 15px Calibri';
-        //context.fillText(target.question, target.x, target.y - 5);
-        //context.strokeStyle = 'black';
-        //context.stroke();
-      //}
-      function snow ()
-      {
-          anim.stop();
-          pause = true;
-          var count = 0;
+    
+    function cleanEnemy (num)
+    {
+        enemies[num].alive = false;
+        enemies[num].image.hide();
+        enemies[num].text.hide();
+    }
+      
+      
+    function freeze ()
+    {
+        if(numFreeze>0){
+            anim.stop();
+            pause = true;
+            var count = 0;
             var timer = setInterval(function(){
                 count++;
-                if(count=3)
-                    {
-                        pause=false;
-                        anim.start();
-                        clearInterval(timer);
-                    }
-            }, 1000);   
-      }
-      function bomb ()
-      {
-          for(var i =0;i<enemies.length;i++)
-          {
-              if(enemies[i].alive)
-              {
-                 enemies[i].alive = false;
-                 enemies[i].image.hide();
-                 enemies[i].text.hide();
-              }
-          }
-      }
-      function shield() 
-      {
-          var counter = 0;
-          var timer = setInterval(function(){
-              counter ++;
-              if(counter = 5)
-              {
-                  clearInterval(timer);
-                  
-              }
-          });    
-      }
-      function animate() 
-      {
+                if(count==3)
+                {
+                    pause = false;
+                    anim.start();
+                    clearInterval(timer);
+                }
+            }, 1000);  
+            numFreeze--;
+            $('.numFreeze').text('Freeze: ' + numFreeze);
+        }
+    }
+    function bomb ()
+    {
+        if(numBomb>0){
+            for(var i =0;i<enemies.length;i++)
+            {
+                if(enemies[i].alive)
+                {
+                    cleanEnemy (i);
+                }
+            }
+            numBomb--;
+            $('.numBomb').text('Bomb: ' + numBomb);
+        }
+    }
+    function shield() 
+    {
+        if(numShield>0){
+            var counter = 0;
+            var timer = setInterval(function(){
+                counter ++;
+                if(counter == 5)
+                {
+                    clearInterval(timer);  
+                }
+            });
+            numShield--;
+            $('.numShield').text('Shield: ' + numShield);
+        }
+    }
+    
+    function animate() 
+    {
         for(var i=0;i<enemies.length;i++)
         {
             enemies[i].fixedX = enemies[i].image.attrs.x;
@@ -259,15 +270,17 @@ var switcher=0;
                     enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
                 }
                 
-                if(enemies[i].image.attrs.x < canvas.width/2+100&&enemies[i].image.attrs.x>canvas.width/2&&enemies[i].image.attrs.y < canvas.height/2&&enemies[i].image.attrs.y>canvas.height/2-100)
+                if(enemies[i].alive && enemies[i].image.attrs.x < canvas.width/2+100 && enemies[i].image.attrs.x > canvas.width/2 && enemies[i].image.attrs.y < canvas.height/2 && enemies[i].image.attrs.y > canvas.height/2-100)
                 {
-                    clearInterval(gameLoop);
-
-                    $("#result").text("You Lose.");
+                    cleanEnemy (i);
                     lives-=1;
-			    }
-            
-         
+                    $("#result").text("You are hit!");
+                    $('.lives').text('Lives: ' + lives);
+                }
+                
+                if(lives <= 0){
+                    clearInterval(gameLoop);
+                }
             }
             }
         }, layer);

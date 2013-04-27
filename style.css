@@ -29,6 +29,7 @@ ul {
 	width:95%;
 	height:90%;
 	border:#1FFFFF 10px solid;
+    border-radius:4px;
     opacity:0.95;
 }
 #main {
@@ -77,10 +78,17 @@ ul {
 .newgame {
 	color:#FF2B2B;
 }
-/*.credit {
-    float:left;
-    border:0!important;
-}*/
+#credit h2 {
+    margin:30px 0;
+}
+#credit p {
+    margin:15px 0;
+}
+#credit img {
+    border-radius:4px;
+    border:#1FFFFF 2px solid;
+    margin-bottom:10px;
+}
 #setting1 li:active, #setting2 li:active, .yes:active, .no:active {
     color:red;
 }
@@ -177,6 +185,29 @@ ul {
     position:fixed;
     text-align:center;
     width:768px;
+}
+
+#shop div{
+    float:left;
+    margin:0 20px;
+    width:150px;
+    height:150px;
+}
+#shop img {
+    border:#67EFE9 2px solid;
+    border-radius:4px;
+}
+#shop div p {
+    margin:15px 0;
+}
+#shop div span {
+    border:#67EFE9 2px solid;
+    border-radius:4px;
+    padding:4px 25px;
+}
+#shop div span:active {
+    background:#67EFE9;
+    color:#090708;
 }
 .yes, .no {
     margin:0 15px;
