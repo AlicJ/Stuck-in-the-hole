@@ -10,7 +10,7 @@
 
 <body>
     <div id="main">
-    	<!--<div id="splash">-->
+        <!--<div id="splash">-->
         	<img id="splash" src="logo.JPG" />
         <!--</div>-->
         
@@ -44,9 +44,7 @@
         
         <div id="credit">
             <h2>Art/Music/Design</h2>
-            <p>JTR Jeux<br />
-                <img src="logo.JPG" width="300px"/>
-            </p>
+            <p><img src="logo.JPG" width="300px"/><br /><span>JTR Jeux</span></p>
             <h2>Code/Develop</h2>
             <p>Alic Jiang</p>
             <p>Peter Kim</p>
@@ -59,10 +57,31 @@
         <div id="myCanvas"></div>
         
         <div id="shop">
-            <div>Bomb</div>
-            <div>Shield</div>
-            <div>Life</div>
-            <div>Freeze</div>
+            <h2>Shop</h2>
+            <div>
+                <p>Bomb</p>
+                <img src="bomb.jpg" width="100" height="100"/>
+                <p class="priceBomb">Price: </p>
+                <span class="bomb">Buy</span>
+            </div>
+            <div>
+                <p>Shield</p>
+                <img src="shield.jpg" width="100" height="100"/>
+                <p class="priceShield">Price: </p>
+                <span class="shield">Buy</span>
+            </div>
+            <div>
+                <p>Life</p>
+                <img src="life.jpg" width="100" height="100"/>
+                <p class="priceLife">Price: </p>
+                <span class="life">Buy</span>
+            </div>
+            <div>
+                <p>Freeze</p>
+                <img src="freeze.jpg" width="100" height="100"/>
+                <p class="priceFreeze">Price: </p>
+                <span class="freeze">Buy</span>
+            </div>
         </div>
         
         <div id="setting2">
@@ -120,10 +139,10 @@
                 
                 <div id="buttons">
                     <div class="pause">Pause</div>
-                    <div>Lives</div>
-                    <div>Bomb</div>
-                    <div>Shield</div>
-                    <div>Freeze</div>
+                    <div class="lives">Lives: 3</div>
+                    <div class="numBomb" onclick="bomb()">Bomb: 0</div>
+                    <div class="numShield" onclick="shield()">Shield: 0</div>
+                    <div class="numFreeze" onclick="freeze()">Freeze: 0</div>
                 </div>
             </div>
             <div id="pauseScreen">
@@ -191,7 +210,12 @@
 				}
 			},500);
 		}
-
+        
+        $('.priceBomb').append(priceBomb);
+        $('.priceShield').append(priceShield);
+        $('.priceLife').append(priceLife);
+        $('.priceFreeze').append(priceFreeze);
+        
 
 		$(document).ready(function() {
             //for main menu selections
@@ -261,7 +285,6 @@
                 $('#mainmenu').css('display','none');
                 $('#nonPause').fadeIn();
                 $('#myCanvas').fadeTo(400, 1.0);
-                anim.start();
                 pause =false;
             });
             $('.shop').click(function(){
@@ -269,6 +292,34 @@
                 $('#setting2').css('display','none');
                 $('#help2').css('display','none');
                 $('#shop').fadeIn();
+            });
+            $('.bomb').click(function(){
+                if(score>=priceBomb){
+                    score -= priceBomb;
+                    numBomb +=1;
+                    $('.numBomb').text('Bomb: ' + numBomb);
+                }
+            });
+            $('.shield').click(function(){
+                if(score>=priceShield){
+                    score -= priceShield;
+                    numShield +=1;
+                    $('.numShield').text('Shield: ' + numShield);
+                }
+            });
+            $('.life').click(function(){
+                if(score>=priceLife){
+                    score -= priceLife;
+                    lives +=1;
+                    $('.lives').text('Lives: ' + lives);
+                }
+            });
+            $('.freeze').click(function(){
+                if(score>=priceFreeze){
+                    score -= priceFreeze;
+                    numFreeze +=1;
+                    $('.numFreeze').text('Freeze: ' + numFreeze);
+                }
             });
             $('.setting2').click(function(){
                 $('#mainmenu').css('display','none');
