@@ -3,7 +3,7 @@ var switcher=0;
     function QuestionMaker(num1, num2, operation){
 
         if (Math.max(num1, num2)== num2){
-			switcher = num2;
+    		switcher = num2;
 			num2=num1;
 			num1=switcher;
 		}
@@ -153,6 +153,18 @@ var switcher=0;
             enemyNum++;
             }
         }, 5000);
+    var base = new Object();
+    base.rect = new Kinetic.Rect({
+        x: canvas.width/2 ,
+        y: canvas.height/2,
+        width: 100,
+        height: 100,
+        fill: 'green',
+        stroke: 'black',
+        strokeWidth: 4
+    });
+      layer.add(base.rect);
+      
     function enemy (x_bron, y_bron, question, answer)
     {
         this.answer= answer;
@@ -178,7 +190,7 @@ var switcher=0;
             fill: 'white'
         });
     }
-    
+   
 	//Background Animation
 	function bgAnimation() {
         bgPosition--;
@@ -188,7 +200,7 @@ var switcher=0;
 		}
 	}
     bgInterval = window.setInterval(function(){
-        if(gamestart&&bgscrolling&&!pause){
+        if(gamestart&&bgscrolling){
             bgAnimation();
         }
     }, 1000/15);
@@ -249,7 +261,17 @@ var switcher=0;
             $('.numShield').text('Shield: ' + numShield);
         }
     }
-    
+    function animStop (isPaused)
+    {
+        if(isPaused)
+        {
+            anim.stop();
+        }
+        else
+        {
+            anim.start();    
+        }
+    }
     function animate() 
     {
         for(var i=0;i<enemies.length;i++)
@@ -270,7 +292,8 @@ var switcher=0;
                     enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
                 }
                 
-                if(enemies[i].alive && enemies[i].image.attrs.x < canvas.width/2+100 && enemies[i].image.attrs.x > canvas.width/2 && enemies[i].image.attrs.y < canvas.height/2 && enemies[i].image.attrs.y > canvas.height/2-100)
+                if(enemies[i].alive && enemies[i].image.attrs.x < base.rect.attrs.x+base.rect.attrs.width && enemies[i].image.attrs.x > base.rect.attrs.x
+                && enemies[i].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[i].image.attrs.y > base.rect.attrs.y)
                 {
                     cleanEnemy (i);
                     lives-=1;
