@@ -11,7 +11,7 @@
 <body>
     <div id="main">
         <!--<div id="splash">-->
-        	<img id="splash" src="logo.JPG" />
+            <img id="splash" src="logo.JPG" />
         <!--</div>-->
         
     	<div id="menu">
@@ -275,6 +275,7 @@
                 $('#nonPause').css('display','none');
                 $('#myCanvas').fadeTo(400, 0.5);
                 $('#pauseScreen').fadeIn();
+                animStop(true);
                 pause = true;
             });
             $('.resume').click(function(){
@@ -285,6 +286,7 @@
                 $('#mainmenu').css('display','none');
                 $('#nonPause').fadeIn();
                 $('#myCanvas').fadeTo(400, 1.0);
+                animStop(false);
                 pause =false;
             });
             $('.shop').click(function(){
