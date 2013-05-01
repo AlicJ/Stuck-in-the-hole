@@ -66,7 +66,6 @@ var switcher=0;
                  cleanEnemy (i);
                  input = "";
                  $("#input").text(input);
-                 enemyNum --;
              }
          }
 	}
@@ -110,11 +109,11 @@ var switcher=0;
 	var bgImg = new Image();
 	bgImg.src = "space.png";
     imageObj.src = 'obj.png';
-    var anim;
+    var anim = new Array();
     var pause = false;
     
         var gameLoop = window.setInterval(function(){
-        if(gamestart&&enemyNum<8&&!pause)
+        if(gamestart&&enemyNum<12&&!pause)
         {
             var side= Math.floor((Math.random())*4+1);
             var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
@@ -148,7 +147,8 @@ var switcher=0;
            
             stage.add(layer);
            
-            animate();
+            
+            animate(enemyNum);
             
             enemyNum++;
             }
@@ -210,6 +210,7 @@ var switcher=0;
         enemies[num].alive = false;
         enemies[num].image.hide();
         enemies[num].text.hide();
+        anim[num].stop();
     }
       
       
@@ -265,37 +266,31 @@ var switcher=0;
     {
         if(isPaused)
         {
-            anim.stop();
+            for(var i=0;i<anim.length;i++){
+                anim[i].stop();
+            }
         }
         else
         {
-            anim.start();    
+            for(var i=0;i<anim.length;i++){
+             anim[i].start();    
+        }
         }
     }
-    function animate() 
+    function animate(num) 
     {
-        for(var i=0;i<enemies.length;i++)
-        {
-            enemies[i].fixedX = enemies[i].image.attrs.x;
-            enemies[i].fixedY = enemies[i].image.attrs.y;
-        }
-        anim = new Kinetic.Animation(function(frame) {  
+        
+        anim[num] = new Kinetic.Animation(function(frame) {  
             
-            if(!pause){
-            
-            for(var i = 0;i<enemies.length;i++)
-            {
-                if(enemies[i].alive){
-                    enemies[i].image.setX(enemies[i].fixedX + frame.time*enemies[i].xGap);
-                    enemies[i].image.setY(enemies[i].fixedY + frame.time*enemies[i].yGap);
-                    enemies[i].text.setX(enemies[i].fixedX + frame.time*enemies[i].xGap+10);
-                    enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
-                }
+            enemies[num].image.setX(enemies[num].fixedX + frame.time*enemies[num].xGap);
+            enemies[num].image.setY(enemies[num].fixedY + frame.time*enemies[num].yGap);
+            enemies[num].text.setX(enemies[num].fixedX + frame.time*enemies[num].xGap+10);
+            enemies[num].text.setY(enemies[num].fixedY + frame.time*enemies[num].yGap-20);
                 
-                if(enemies[i].alive && enemies[i].image.attrs.x < base.rect.attrs.x+base.rect.attrs.width && enemies[i].image.attrs.x > base.rect.attrs.x
-                && enemies[i].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[i].image.attrs.y > base.rect.attrs.y)
+                if(enemies[num].alive && enemies[num].image.attrs.x < base.rect.attrs.x+base.rect.attrs.width && enemies[num].image.attrs.x > base.rect.attrs.x-enemies[num].image.attrs.width
+                && enemies[num].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[num].image.attrs.y > base.rect.attrs.y-enemies[num].image.attrs.height)
                 {
-                    cleanEnemy (i);
+                    cleanEnemy (num);
                     lives-=1;
                     $("#result").text("You are hit!");
                     $('.lives').text('Lives: ' + lives);
@@ -304,11 +299,9 @@ var switcher=0;
                 if(lives <= 0){
                     clearInterval(gameLoop);
                 }
-            }
-            }
         }, layer);
         
         if(!pause){
-            anim.start();
+            anim[num].start();
         }
       }
