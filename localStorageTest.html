@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hello World</title>
+<script src="http://localhost/jquery191min.js"></script>
+</head>
+
+<body>
+    <p class="alert"></p>
+	<p class="content"></p>
+    
+    <script>
+		if(window.localStorage){
+			$('.alert').append('This browser supports localStorage.');
+		}else{
+			$('.alert').append('This browser doest NOT support localStorage.');
+		}
+		
+		if (!localStorage.save){
+			var testSave = {
+				name : "Jason",
+				level : 5,
+				score : 15000,
+				numLive : 159,
+				version : 1,
+			}
+			localStorage.setItem('save', JSON.stringify(testSave));
+		}
+		
+		//retrive the object
+		var retriveSave = JSON.parse(localStorage.getItem('save'));
+		//add 1 to the version
+		retriveSave.version ++;
+		//update the version
+		localStorage.setItem('save',JSON.stringify(retriveSave));
+		//print out the object
+    	$('body').append("<p>" + localStorage.save + "</p>");
+		$('.content').append('This is the ' + retriveSave.version + "th time this object is been retrived from the localStorage.");
+		
+	</script>
+</body>
+</html>

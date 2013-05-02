@@ -80,7 +80,8 @@ var switcher=0;
 	canvas.height = 600;
     var gamestart = false;
     var enemies = new Array();
-    var enemyNum=0;
+    var enemyNum = 0;
+    var enemyMax = 18;
     var imageObj = new Image();
     
     var stage = new Kinetic.Stage({
@@ -113,12 +114,11 @@ var switcher=0;
     var anim;
     var pause = false;
     
-        var gameLoop = window.setInterval(function(){
-        if(gamestart&&enemyNum<8&&!pause)
+    var gameLoop = window.setInterval(function(){
+        if(gamestart&&enemyNum<enemyMax&&!pause)
         {
             var side= Math.floor((Math.random())*4+1);
             var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
-
             var x=0;
             var y=0;
             if(side==2||side==4)
@@ -152,16 +152,15 @@ var switcher=0;
             
             enemyNum++;
             }
-        }, 5000);
+    }, 5000);
+    
     var base = new Object();
     base.rect = new Kinetic.Rect({
-        x: canvas.width/2 ,
-        y: canvas.height/2,
+        x: stage.getWidth() / 2 -50,
+        y: stage.getHeight() / 2 -50,
         width: 100,
         height: 100,
-        fill: 'green',
-        stroke: 'black',
-        strokeWidth: 4
+        fill: 'white',
     });
       layer.add(base.rect);
       
@@ -292,8 +291,11 @@ var switcher=0;
                     enemies[i].text.setY(enemies[i].fixedY + frame.time*enemies[i].yGap-20);
                 }
                 
-                if(enemies[i].alive && enemies[i].image.attrs.x < base.rect.attrs.x+base.rect.attrs.width && enemies[i].image.attrs.x > base.rect.attrs.x
-                && enemies[i].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[i].image.attrs.y > base.rect.attrs.y)
+                if( enemies[i].image.attrs.x < base.rect.attrs.x + base.rect.attrs.width && 
+                    enemies[i].image.attrs.x > base.rect.attrs.x && 
+                    enemies[i].image.attrs.y < base.rect.attrs.y + base.rect.attrs.height && 
+                    enemies[i].image.attrs.y > base.rect.attrs.y &&
+                    enemies[i].alive)
                 {
                     cleanEnemy (i);
                     lives-=1;
