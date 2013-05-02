@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, 
 initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Hello World</title>
-<script src="http://localhost/jquery191min.js"></script>
+<script src="jquery191min.js"></script>
+<style>
+    .red {
+        color:red;
+    }
+</style>
 </head>
 
 <body>
@@ -15,8 +20,10 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script>
 		if(window.localStorage){
 			$('.alert').append('This browser supports localStorage.');
+            //alert('This browser supports localStorage.');            
 		}else{
 			$('.alert').append('This browser doest NOT support localStorage.');
+            //alert('This browser does NOT supports localStorage.'); 
 		}
 		
 		if (!localStorage.save){
@@ -26,7 +33,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 				score : 15000,
 				numLive : 159,
 				version : 1,
-			}
+			};
 			localStorage.setItem('save', JSON.stringify(testSave));
 		}
 		
@@ -38,7 +45,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		localStorage.setItem('save',JSON.stringify(retriveSave));
 		//print out the object
     	$('body').append("<p>" + localStorage.save + "</p>");
-		$('.content').append('This is the ' + retriveSave.version + "th time this object is been retrived from the localStorage.");
+		$('.content').append('This is the <span class="red">' + retriveSave.version + "th</span> time this object is been retrived from the localStorage.");
 		
 	</script>
 </body>

@@ -60,15 +60,7 @@ var switcher=0;
 		$("#input").text(input);
 	}
 	
-    function submit(){
-         for(var i = 0; i <= enemyNum; i++ ){
-             if(input == enemies[i].answer&&enemies[i].alive){
-                 cleanEnemy (i);
-                 input = "";
-                 $("#input").text(input);
-             }
-         }
-	}
+    
 
 //Motion
     //Animation
@@ -99,7 +91,7 @@ var switcher=0;
     var priceLife = 3000;
     var priceFreeze = 4000;
     var score = 500000;
-    
+    var shieldOn = false;
 
 	var rectX = canvas.width/2-50;
 	var rectY = canvas.height/2-50;
@@ -153,6 +145,15 @@ var switcher=0;
             enemyNum++;
             }
     }, 5000);
+    function submit(){
+         for(var i = 0; i <enemies.length; i++ ){
+             if(input == enemies[i].answer&&enemies[i].alive){
+                 cleanEnemy (i);
+                 input = "";
+                 $("#input").text(input);
+             }
+         }
+    }
     
     var base = new Object();
     base.rect = new Kinetic.Rect({
@@ -216,20 +217,28 @@ var switcher=0;
     function freeze ()
     {
         if(numFreeze>0){
-            anim.stop();
+            for(var i =0;i<anim.length;i++)
+            {
+                anim[i].stop();
+            }
             pause = true;
             var count = 0;
+             $('.numFreeze').text(3-count);
             var timer = setInterval(function(){
                 count++;
+                $('.numFreeze').text(3-count);
                 if(count==3)
                 {
                     pause = false;
-                    anim.start();
+                    for(var i =0;i<anim.length;i++)
+                     {
+                        anim[i].start();
+                     }
                     clearInterval(timer);
+                    numFreeze--;
+                    $('.numFreeze').text('Freeze: ' + numFreeze);
                 }
             }, 1000);  
-            numFreeze--;
-            $('.numFreeze').text('Freeze: ' + numFreeze);
         }
     }
     function bomb ()
@@ -250,15 +259,18 @@ var switcher=0;
     {
         if(numShield>0){
             var counter = 0;
+             numShield--;
+            $('.numShield').text('Shield: ' + numShield);
+            shieldOn = true;
             var timer = setInterval(function(){
                 counter ++;
                 if(counter == 5)
                 {
                     clearInterval(timer);  
+                    shieldOn=false;
                 }
-            });
-            numShield--;
-            $('.numShield').text('Shield: ' + numShield);
+            }, 1000);
+           
         }
     }
     function animStop (isPaused)
@@ -290,9 +302,10 @@ var switcher=0;
                 && enemies[num].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[num].image.attrs.y > base.rect.attrs.y-enemies[num].image.attrs.height)
                 {
                     cleanEnemy (num);
-                    lives-=1;
-                    $("#result").text("You are hit!");
-                    $('.lives').text('Lives: ' + lives);
+                    if(!shieldOn){
+                        lives-=1;
+                        $('.lives').text('Lives: ' + lives);
+                    }
                 }
                 
                 if(lives <= 0){
