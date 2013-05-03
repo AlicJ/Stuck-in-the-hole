@@ -104,6 +104,25 @@ var switcher=0;
     imageObj.src = 'obj.png';
     var anim = new Array();
     var pause = false;
+     var base = new Object();
+    base.rect = new Kinetic.Rect({
+        x: stage.getWidth() / 2 -50,
+        y: stage.getHeight() / 2 -50,
+        width: 100,
+        height: 100,
+        fill: 'white',
+    });
+      layer.add(base.rect);
+      stage.add(layer);
+    function submit(){
+         for(var i = 0; i <enemies.length; i++ ){
+             if(input == enemies[i].answer&&enemies[i].alive){
+                 cleanEnemy (i);
+                 input = "";
+                 $("#input").text(input);
+             }
+         }
+    }
     
     var gameLoop = window.setInterval(function(){
         if(gamestart&&enemyNum<enemyMax&&!pause)
@@ -145,25 +164,9 @@ var switcher=0;
             enemyNum++;
             }
     }, 5000);
-    function submit(){
-         for(var i = 0; i <enemies.length; i++ ){
-             if(input == enemies[i].answer&&enemies[i].alive){
-                 cleanEnemy (i);
-                 input = "";
-                 $("#input").text(input);
-             }
-         }
-    }
     
-    var base = new Object();
-    base.rect = new Kinetic.Rect({
-        x: stage.getWidth() / 2 -50,
-        y: stage.getHeight() / 2 -50,
-        width: 100,
-        height: 100,
-        fill: 'white',
-    });
-      layer.add(base.rect);
+    
+   
       
     function enemy (x_bron, y_bron, question, answer)
     {
@@ -207,10 +210,11 @@ var switcher=0;
     
     function cleanEnemy (num)
     {
+         anim[num].stop();
         enemies[num].alive = false;
         enemies[num].image.hide();
-        enemies[num].text.hide();
-        anim[num].stop();
+        enemies[num].text.hide(); 
+        stage.add(layer);
     }
       
       
