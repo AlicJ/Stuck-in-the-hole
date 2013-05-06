@@ -3,7 +3,7 @@ var switcher=0;
     function QuestionMaker(num1, num2, operation){
 
         if (Math.max(num1, num2)== num2){
-    		switcher = num2;
+            switcher = num2;
 			num2=num1;
 			num1=switcher;
 		}
@@ -38,13 +38,12 @@ var switcher=0;
 		}
     }
 		
-		
-		function halver (number){
+	function halver (number){
 		if(number>10){
 			number /=2;
 		}
             return Math.floor(number);
-		}
+	}
 
 
 //Keypad
@@ -72,7 +71,6 @@ var switcher=0;
     var gamestart = false;
     var enemies = new Array();
     var enemyNum = 0;
-    var enemyMax = 18;
     var imageObj = new Image();
     
     var stage = new Kinetic.Stage({
@@ -86,16 +84,14 @@ var switcher=0;
     var numShield = 0;
     var numBomb = 0;
     var numFreeze = 0;
-    var priceBomb = 1000;
-    var priceShield = 2000;
-    var priceLife = 3000;
-    var priceFreeze = 4000;
     var score = 500000;
     var shieldOn = false;
 
 	var rectX = canvas.width/2-50;
 	var rectY = canvas.height/2-50;
-   
+    var totalEnemies=1;
+    var enemyDelay=5000;
+    var enemySpeed=20000;
     var enemies = new Array();
     var bgInterval = null;
     var bgPosition = 0;
@@ -104,7 +100,7 @@ var switcher=0;
     imageObj.src = 'obj.png';
     var anim = new Array();
     var pause = false;
-     var base = new Object();
+    var base = new Object();
     base.rect = new Kinetic.Rect({
         x: stage.getWidth() / 2 -50,
         y: stage.getHeight() / 2 -50,
@@ -114,7 +110,9 @@ var switcher=0;
     });
       layer.add(base.rect);
       stage.add(layer);
+    
     function submit(){
+        
          for(var i = 0; i <enemies.length; i++ ){
              if(input == enemies[i].answer&&enemies[i].alive){
                  cleanEnemy (i);
@@ -125,7 +123,7 @@ var switcher=0;
     }
     
     var gameLoop = window.setInterval(function(){
-        if(gamestart&&enemyNum<enemyMax&&!pause)
+        if(gamestart&&enemyNum<totalEnemies&&!pause)
         {
             var side= Math.floor((Math.random())*4+1);
             var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
@@ -163,11 +161,16 @@ var switcher=0;
             
             enemyNum++;
             }
-    }, 5000);
+    }, enemyDelay);
     
     
    
-      
+    function levelSelect (level)
+    {
+        totalEnemies = 1 +3*level;
+        enemySpeed = 100000/(5+level);
+        enemyDelay = 30000/(5+level);
+    }
     function enemy (x_bron, y_bron, question, answer)
     {
         this.answer= answer;
@@ -175,8 +178,8 @@ var switcher=0;
        	this.fixedX= x_bron;
 		this.fixedY= y_bron;
         //this.borderWidth= 2;   
-        this.xGap = ((canvas.width/2)-x_bron)/10000;
-        this.yGap = ((canvas.height/2)-y_bron)/10000;
+        this.xGap = ((canvas.width/2)-x_bron)/enemySpeed;
+        this.yGap = ((canvas.height/2)-y_bron)/enemySpeed;
         this.image = new Kinetic.Image({
                 x: x_bron,
                 y: y_bron,
@@ -210,11 +213,24 @@ var switcher=0;
     
     function cleanEnemy (num)
     {
-         anim[num].stop();
+        anim[num].stop();
         enemies[num].alive = false;
         enemies[num].image.hide();
         enemies[num].text.hide(); 
         stage.add(layer);
+         var counter=0;
+         for(var i=0;i<enemies.length;i++)
+         {
+          if(!enemies[i].alive)
+             {
+                 counter++;
+             }
+         }
+         // Level is Cleared
+         if(counter==totalEnemies)
+         {
+             
+         }
     }
       
       
