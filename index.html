@@ -165,7 +165,12 @@
     
     <script src="script.js" type="text/javascript"></script>
 	<script>
-        
+        var hideDiv = function(div){
+            $(div).css('display','none');
+		};
+        var fadeInDiv = function(div){
+            $(div).fadeIn();
+        };
 		$('#gamefield').css('display','none');
 		$('#menu').css('display','none');
 		$('#setting1').css('display','none');
@@ -176,7 +181,7 @@
         $('#setting2').css('display','none');
         $('#help2').css('display','none');
         $('#mainmenu').css('display','none');
-        $('#levelComplete').css('display','none')
+        $('#levelComplete').css('display','none');
 		//$('body').css('width',window.innerWidth);
 		//$('body').css('height',window.innerHeight);
 			
