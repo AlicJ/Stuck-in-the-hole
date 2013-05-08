@@ -58,8 +58,21 @@
         
         <div id="levelComplete">
             <h3>Congradulations, level complete!</h3>
-            <div class="continue">Continue</div>
-            <div class="backMain">Back to Main menu</div>
+            <div class="nextLevel">Continue</div>
+            <div class="backMain">Main menu</div>
+        </div>
+        
+        <div id="leftPanel">
+            <div id="lives">
+                Lives: <img src="life.jpg" height="30" />x<span class="lives"></span>
+            </div>
+            <div id="score">
+                Score: <span class="score"></span>
+            </div>
+        </div>
+        
+        <div id="rightPanel">
+            Level: <span class="level"></span>
         </div>
         
         <div id="shop">
@@ -144,7 +157,7 @@
                 
                 <div id="buttons">
                     <div class="pause">Pause</div>
-                    <div class="lives">Lives: 3</div>
+                    <!--<div class="lives">Lives: 3</div>-->
                     <div class="numBomb" onclick="bomb()">Bomb: 0</div>
                     <div class="numShield" onclick="shield()">Shield: 0</div>
                     <div class="numFreeze" onclick="freeze()">Freeze: 0</div>
@@ -165,23 +178,23 @@
     
     <script src="script.js" type="text/javascript"></script>
 	<script>
-        var hideDiv = function(div){
+        function hideDiv (div){
             $(div).css('display','none');
-		};
-        var fadeInDiv = function(div){
+		}
+        function fadeInDiv (div){
             $(div).fadeIn();
-        };
-		$('#gamefield').css('display','none');
-		$('#menu').css('display','none');
-		$('#setting1').css('display','none');
-		$('#help1').css('display','none');
-        $('#credit').css('display','none');
-        $('#pauseScreen').css('display','none');
-        $('#shop').css('display','none');
-        $('#setting2').css('display','none');
-        $('#help2').css('display','none');
-        $('#mainmenu').css('display','none');
-        $('#levelComplete').css('display','none');
+        }
+		hideDiv('#gamefield');
+		hideDiv('#menu');
+		hideDiv('#setting1');
+		hideDiv('#help1');
+        hideDiv('#credit');
+        hideDiv('#pauseScreen');
+        hideDiv('#shop');
+        hideDiv('#setting2');
+        hideDiv('#help2');
+        hideDiv('#mainmenu');
+        hideDiv('#levelComplete');
 		//$('body').css('width',window.innerWidth);
 		//$('body').css('height',window.innerHeight);
 			
@@ -200,6 +213,7 @@
         var priceShield = 2000;
         var priceLife = 3000;
         var priceFreeze = 4000;
+        var level =0;
 
         bgImg.src = "space.png";
         
@@ -232,6 +246,9 @@
         $('.priceShield').append(priceShield);
         $('.priceLife').append(priceLife);
         $('.priceFreeze').append(priceFreeze);
+        $('.lives').text(lives);
+        $('.level').text(level+1);
+        $('.score').text(score);
 
 		$(document).ready(function() {
             //for main menu selections
@@ -329,7 +346,7 @@
                 if(score>=priceLife){
                     score -= priceLife;
                     lives +=1;
-                    $('.lives').text('Lives: ' + lives);
+                    $('.lives').text(lives);
                 }
             });
             $('.freeze').click(function(){
@@ -367,6 +384,13 @@
             });
             $('.no').click(function(){
                 $('#mainmenu').fadeOut();
+            });
+            $('.nextLevel').click(function(){
+                level++;
+                levelSelect(level);
+                enemyNum=0;
+                hideDiv("#levelComplete");
+                $('.level').text(level+1);
             });
         });
         

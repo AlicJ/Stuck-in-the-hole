@@ -155,7 +155,7 @@ var switcher=0;
             layer.add(enemies[enemyNum].text);
            
             stage.add(layer);
-           
+            
             
             animate(enemyNum);
             
@@ -180,6 +180,7 @@ var switcher=0;
         //this.borderWidth= 2;   
         this.xGap = ((canvas.width/2)-x_bron)/enemySpeed;
         this.yGap = ((canvas.height/2)-y_bron)/enemySpeed;
+        this.score=1000;
         this.image = new Kinetic.Image({
                 x: x_bron,
                 y: y_bron,
@@ -229,7 +230,7 @@ var switcher=0;
          // Level is Cleared
          if(counter==totalEnemies)
          {
-             
+            fadeInDiv("#levelComplete");
          }
     }
       
@@ -317,14 +318,14 @@ var switcher=0;
             enemies[num].image.setY(enemies[num].fixedY + frame.time*enemies[num].yGap);
             enemies[num].text.setX(enemies[num].fixedX + frame.time*enemies[num].xGap+10);
             enemies[num].text.setY(enemies[num].fixedY + frame.time*enemies[num].yGap-20);
-                
+            enemies[num].scoreKeep -= (enemies*1000)    
                 if(enemies[num].alive && enemies[num].image.attrs.x < base.rect.attrs.x+base.rect.attrs.width && enemies[num].image.attrs.x > base.rect.attrs.x-enemies[num].image.attrs.width
                 && enemies[num].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[num].image.attrs.y > base.rect.attrs.y-enemies[num].image.attrs.height)
                 {
                     cleanEnemy (num);
                     if(!shieldOn){
                         lives-=1;
-                        $('.lives').text('Lives: ' + lives);
+                        $('.lives').text(lives);
                     }
                 }
                 
