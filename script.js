@@ -82,11 +82,11 @@ var switcher=0;
 		currentTrack = 0,
 		autoplay = true;
 	
-	function play(){
+	function musicPlay(){
 		audio.play();
 		isPlaying = true;
 	};
-	function pause(){
+	function musicPause(){
 		audio.pause();
 		isPlaying = false;
 	};
@@ -102,19 +102,23 @@ var switcher=0;
 		$('audio').remove();
 		loadTrack(track);
 		if(isPlaying === true){
-			play();
+			musicPlay();
 		}
-	};
+	}
 	//Fire when track ended
 	function ended(){
-		pause();
-		playCounts++;
-		switchTrack(++currentTrack);
-	};
+		musicPause();
+        if(gamestart){
+            switchTrack(++currentTrack);
+        }else{
+            switchTrack(currentTrack);
+        }
+		
+	}
 	//
 	function afterLoad(){
 		if(autoplay == true){
-			play();
+			musicPlay();
 		}
 	}
 	//Load track
@@ -124,14 +128,15 @@ var switcher=0;
 		audio = newaudio[0];
 		audio.addEventListener('canplay',afterLoad, false);
 		audio.addEventListener('ended',ended, false);
-	};
+	}
 	
 	loadTrack(currentTrack);
     
+//Sound Effects
+    var expolsion = new Audio("music/expolsion.mp3");
 
 //Motion
     //Animation
-      
   
     var canvas = document.getElementById('myCanvas');
 	canvas.width = 1024*0.75;
@@ -282,6 +287,7 @@ var switcher=0;
     
     function cleanEnemy (num)
     {
+        expolsion.play();
         anim[num].stop();
         enemies[num].alive = false;
         enemies[num].image.hide();

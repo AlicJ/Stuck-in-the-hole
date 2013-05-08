@@ -44,11 +44,13 @@
         </div>
         
         <div id="credit">
-            <h2>Art/Music/Design</h2>
-            <p><img src="images/logo.JPG" width="300px"/><br /><span>JTR Jeux</span></p>
+            <h2>Art/Design</h2>
+            <p><span>JTR Jeux</span><br /><img src="images/logo.JPG" width="300px"/></p>
             <h2>Code/Develop</h2>
             <p>Alic Jiang</p>
             <p>Peter Kim</p>
+            <h2>Music</h2>
+            <p><span>Ben Prunty - Chromatic T-Rex</span><br /><img src="music/logo.png" width="300px"/></p>
             </h2>
         </div>
 
@@ -257,6 +259,7 @@
 				$('#main').css('display','none');
 				$('#gamefield').fadeIn();
 				gamestart = true;
+                ended();
 				window.clearInterval(mainInterval);
 			});
             $('.setting1').click(function(){
@@ -275,11 +278,11 @@
             $('.music').click(function(){
                 if(music){
                     music = false;
-                    pause();
+                    musicPause();
                     $('.music').text("Music OFF");
                 }else{
                     music = true;
-                    play();
+                    musicPlay();
                     $('.music').text("Music ON");
                 }
             });
@@ -380,10 +383,15 @@
             $('.backMain').click(function(){
                 gamestart = false;
                 bgscrolling = true;
-                window.clearInterval(gameLoop);
+                clearInterval(gameLoop);
+                clearInterval(bgInterval);
                 $('#gamefield').css('display','none');
                 $('#main').fadeIn();
                 $('#menu').fadeIn();
+                ended();
+                switchTrack(1);
+                mainInterval = window.setInterval(mainAnimation, 1000/60);
+                 $('#mainmenu').css('display','none');
             });
             $('.no').click(function(){
                 $('#mainmenu').fadeOut();
