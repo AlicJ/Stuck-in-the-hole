@@ -37,15 +37,12 @@ var switcher=0;
 				break;
 		}
     }
-		
 	function halver (number){
 		if(number>10){
 			number /=2;
 		}
             return Math.floor(number);
 	}
-
-
 //Keypad
 	var input = "";
 	function addNum (num){
@@ -58,7 +55,78 @@ var switcher=0;
 		input = "";
 		$("#input").text(input);
 	}
+//Music Player
+    var playlist = [
+        {mp3: 'music/01.mp3'},
+	    {mp3: 'music/02.mp3'},
+	    {mp3: 'music/03.mp3'},
+        {mp3: 'music/04.mp3'},
+        {mp3: 'music/05.mp3'},
+        {mp3: 'music/06.mp3'},
+        {mp3: 'music/07.mp3'},
+        {mp3: 'music/08.mp3'},
+        {mp3: 'music/09.mp3'},
+        {mp3: 'music/10.mp3'},
+        {mp3: 'music/11.mp3'},
+        {mp3: 'music/12.mp3'},
+        {mp3: 'music/13.mp3'},
+        {mp3: 'music/14.mp3'},
+        {mp3: 'music/15.mp3'},
+        {mp3: 'music/16.mp3'},
+        {mp3: 'music/17.mp3'},
+        {mp3: 'music/18.mp3'},
+        {mp3: 'music/19.mp3'},
+	];
 	
+	var isPlaying, playCounts, currentTrack,
+		currentTrack = 0,
+		autoplay = true;
+	
+	function play(){
+		audio.play();
+		isPlaying = true;
+	};
+	function pause(){
+		audio.pause();
+		isPlaying = false;
+	};
+	function switchTrack(i){
+		var track;
+		if(i<0){
+			track = currentTrack = playlist.length-1;
+		}else if(i>=playlist.length){
+			track = currentTrack = 0;
+		}else{
+			track = i;
+		}
+		$('audio').remove();
+		loadTrack(track);
+		if(isPlaying === true){
+			play();
+		}
+	};
+	//Fire when track ended
+	function ended(){
+		pause();
+		playCounts++;
+		switchTrack(++currentTrack);
+	};
+	//
+	function afterLoad(){
+		if(autoplay == true){
+			play();
+		}
+	}
+	//Load track
+	function loadTrack(i){
+		var item = playlist[i],
+			newaudio = $('<audio>').html('<source src="' + item.mp3 + '">').appendTo('.music');
+		audio = newaudio[0];
+		audio.addEventListener('canplay',afterLoad, false);
+		audio.addEventListener('ended',ended, false);
+	};
+	
+	loadTrack(currentTrack);
     
 
 //Motion
@@ -96,8 +164,8 @@ var switcher=0;
     var bgInterval = null;
     var bgPosition = 0;
 	var bgImg = new Image();
-	bgImg.src = "space.png";
-    imageObj.src = 'obj.png';
+	bgImg.src = "images/space.png";
+    imageObj.src = 'images/obj.png';
     var anim = new Array();
     var pause = false;
     var base = new Object();
