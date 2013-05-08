@@ -275,9 +275,11 @@
             $('.music').click(function(){
                 if(music){
                     music = false;
+                    pause();
                     $('.music').text("Music OFF");
                 }else{
                     music = true;
+                    play();
                     $('.music').text("Music ON");
                 }
             });
