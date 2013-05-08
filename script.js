@@ -120,7 +120,7 @@ var switcher=0;
 	//Load track
 	function loadTrack(i){
 		var item = playlist[i],
-			newaudio = $('<audio>').html('<source src="' + item.mp3 + '">').appendTo('.music');
+			newaudio = $('<audio>').html('<source src="' + item.mp3 + '">').appendTo('.bgMusic');
 		audio = newaudio[0];
 		audio.addEventListener('canplay',afterLoad, false);
 		audio.addEventListener('ended',ended, false);

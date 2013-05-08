@@ -220,7 +220,7 @@ ul {
     left: 140px;
     opacity: 0.90;
     border-radius:4px;
-    background:url("level background.png") #333;
+    background:url("images/levelbackground.png") #333;
 }
 #levelComplete div{
     float: left;
