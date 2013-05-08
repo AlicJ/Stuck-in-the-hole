@@ -168,7 +168,7 @@ ul {
     margin:10px 28px;
     padding:4px 0;
 }
-#buttons div:active, #pauseScreen div:active {
+#buttons div:active, #pauseScreen div:active, #levelComplete div:active {
     background:#67EFE9;
     color:#090708;
 }
@@ -211,4 +211,31 @@ ul {
 }
 .yes, .no {
     margin:0 15px;
+}
+#levelComplete {
+    width: 500px;
+    position: absolute;
+    top: 120px;
+    text-align: center;
+    left: 140px;
+    opacity: 0.90;
+    border-radius:4px;
+    background:url("level background.png") #333;
+}
+#levelComplete div{
+    float: left;
+    border: #67EFE9 2px solid;
+    border-radius: 4px;
+    margin: 0 25px 20px 35px;
+    padding: 8px 0;
+    width: 180px;
+}
+#leftPanel {
+    position: absolute;
+    margin: 5px;
+}
+#rightPanel {
+    position: absolute;
+    left: 640px;
+    margin: 5px;
 }
