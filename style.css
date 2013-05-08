@@ -33,7 +33,7 @@ ul {
     opacity:0.95;
 }
 #main {
-	background:url(space.png) repeat scroll 0 0;
+	background:url(images/space.png) repeat scroll 0 0;
 	border:1px solid #999;
     color:#00E8E8;
 	font-size:30px;
@@ -113,7 +113,7 @@ ul {
 #myCanvas {
     width:75%;
     height:598px;
-    background:url(space.png) repeat scroll 0 0;
+    background:url(images/space.png) repeat scroll 0 0;
     float:left;
 }
 #gamefield {
@@ -125,7 +125,7 @@ ul {
     height:598px;
 }
 #ui {
-    background:url('InterfaceBackground.png');
+    background:url('images/InterfaceBackground.png');
     float:right;
     height:598px;
     width:25%;
