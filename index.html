@@ -217,6 +217,7 @@
         var priceLife = 3000;
         var priceFreeze = 4000;
         var level =0;
+        var gameLoop;
 
         bgImg.src = "images/space.png";
         
@@ -259,8 +260,15 @@
 				$('#main').css('display','none');
 				$('#gamefield').fadeIn();
 				gamestart = true;
+                enemies = new Array();
+                enemyNum=0;
+                level=0;
+                levelSelect(level);
+                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+                bgInterval = window.setInterval(bgAnimation, 1000/30);
                 ended();
 				window.clearInterval(mainInterval);
+                $('.level').text(level+1);
 			});
             $('.setting1').click(function(){
                 $('#help1').css('display','none');
@@ -387,11 +395,19 @@
                 clearInterval(bgInterval);
                 $('#gamefield').css('display','none');
                 $('#main').fadeIn();
-                $('#menu').fadeIn();
                 ended();
                 switchTrack(1);
                 mainInterval = window.setInterval(mainAnimation, 1000/60);
-                 $('#mainmenu').css('display','none');
+                $('#mainmenu').css('display','none');
+                $('#pauseScreen').css('display','none');
+                $('#nonPause').fadeIn();
+                $('#myCanvas').fadeTo(400, 1.0);
+                pause=false;
+                for(var i=0;i<enemies.length;i++)
+                {
+                    enemies[i].image.hide();
+                    enemies[i].text.hide(); 
+                }
             });
             $('.no').click(function(){
                 $('#mainmenu').fadeOut();
@@ -402,6 +418,7 @@
                 enemyNum=0;
                 hideDiv("#levelComplete");
                 $('.level').text(level+1);
+                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
             });
         });
         

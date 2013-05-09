@@ -142,7 +142,7 @@ var switcher=0;
 	canvas.width = 1024*0.75;
 	canvas.height = 600;
     var gamestart = false;
-    var enemies = new Array();
+    var enemies;
     var enemyNum = 0;
     var imageObj = new Image();
     
@@ -195,8 +195,12 @@ var switcher=0;
          }
     }
     
-    var gameLoop = window.setInterval(function(){
-        if(gamestart&&enemyNum<totalEnemies&&!pause)
+    
+    
+    
+   function enemyMaker ()
+   {
+       if(gamestart&&enemyNum<totalEnemies&&!pause)
         {
             var side= Math.floor((Math.random())*4+1);
             var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
@@ -234,10 +238,7 @@ var switcher=0;
             
             enemyNum++;
             }
-    }, enemyDelay);
-    
-    
-   
+   }
     function levelSelect (level)
     {
         totalEnemies = 1 +3*level;
@@ -279,11 +280,6 @@ var switcher=0;
 			bgPosition = 0;
 		}
 	}
-    bgInterval = window.setInterval(function(){
-        if(gamestart&&bgscrolling){
-            bgAnimation();
-        }
-    }, 1000/15);
     
     function cleanEnemy (num)
     {
@@ -392,7 +388,8 @@ var switcher=0;
             enemies[num].image.setY(enemies[num].fixedY + frame.time*enemies[num].yGap);
             enemies[num].text.setX(enemies[num].fixedX + frame.time*enemies[num].xGap+10);
             enemies[num].text.setY(enemies[num].fixedY + frame.time*enemies[num].yGap-20);
-            enemies[num].scoreKeep -= (enemies*1000)    
+            enemies[num].scoreKeep -= 1000*enemies[num].xGap/
+            Math.abs((enemies[num].fixedX-canvas.width/2))
                 if(enemies[num].alive && enemies[num].image.attrs.x < base.rect.attrs.x+base.rect.attrs.width && enemies[num].image.attrs.x > base.rect.attrs.x-enemies[num].image.attrs.width
                 && enemies[num].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[num].image.attrs.y > base.rect.attrs.y-enemies[num].image.attrs.height)
                 {
