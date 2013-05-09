@@ -415,9 +415,9 @@
                 ended();
                 switchTrack(1);
                 mainInterval = window.setInterval(mainAnimation, 1000/60);
-                $('#mainmenu').css('display','none');
-                $('#pauseScreen').css('display','none');
-                $('#nonPause').fadeIn();
+                hideDiv('#mainmenu');
+                hideDiv('#pauseScreen');
+                fadeInDiv('#nonPause');
                 $('#myCanvas').fadeTo(400, 1.0);
                 pause=false;
                 for(var i=0;i<enemies.length;i++)
