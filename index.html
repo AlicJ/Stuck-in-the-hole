@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" id="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no" />
 <script src="libs/jquery191min.js" type="text/javascript"></script>
 <script src="libs/Kinetic.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -225,6 +226,7 @@
         var priceLife = 3000;
         var priceFreeze = 4000;
         var level =0;
+        var gameLoop;
 
         bgImg.src = "images/space.png";
         
@@ -268,11 +270,18 @@
                 hideDiv('#setting1');
                 fadeInDiv('#save');
                 /***
-				hideDiv('#main');
-				fadeInDiv('#gamefield');
+    			$('#main').css('display','none');
+				$('#gamefield').fadeIn();
 				gamestart = true;
+                enemies = new Array();
+                enemyNum=0;
+                level=0;
+                levelSelect(level);
+                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+                bgInterval = window.setInterval(bgAnimation, 1000/30);
                 ended();
 				window.clearInterval(mainInterval);
+                $('.level').text(level+1);
                 ***/
 			});
             $('.setting1').click(function(){
@@ -401,13 +410,21 @@
                 bgscrolling = true;
                 clearInterval(gameLoop);
                 clearInterval(bgInterval);
-                hideDiv('#gamefield');
-                fadeInDiv('#main');
-                fadeInDiv('#menu');
+                $('#gamefield').css('display','none');
+                $('#main').fadeIn();
                 ended();
                 switchTrack(1);
                 mainInterval = window.setInterval(mainAnimation, 1000/60);
-                hideDiv('#mainmenu').css('display','none');
+                $('#mainmenu').css('display','none');
+                $('#pauseScreen').css('display','none');
+                $('#nonPause').fadeIn();
+                $('#myCanvas').fadeTo(400, 1.0);
+                pause=false;
+                for(var i=0;i<enemies.length;i++)
+                {
+                    enemies[i].image.hide();
+                    enemies[i].text.hide(); 
+                }
             });
             $('.no').click(function(){
                 $('#mainmenu').fadeOut();
@@ -418,6 +435,7 @@
                 enemyNum=0;
                 hideDiv("#levelComplete");
                 $('.level').text(level+1);
+                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
             });
         });
         
