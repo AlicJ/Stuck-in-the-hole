@@ -41,10 +41,6 @@ ul {
 	text-align:center;	
 	width:1022px;
 }
-#main div {
-    opacity:0.9;
-}
-}
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
 }
@@ -53,7 +49,7 @@ ul {
     height: 80px;
     line-height: 70px;
 }
-#menu div:active, #save div:active {
+#menu div:active {
 	background:#1FFFFF;
     color:#090708;
 }
@@ -65,6 +61,7 @@ ul {
 	height:100%;
 	width:320px;
 	text-align:right;
+    opacity:0.9;
 }
 
 #menu h2 {
@@ -85,10 +82,14 @@ ul {
 }
 #save div {
     border-radius: 4px;
-    border: #1FFFFF 2px solid;
+    border: #00E8E8 2px solid;
     width: 500px;
     padding: 12px 8px;
     margin: 50px 85px;
+}
+#save div:active {
+    background:#00E8E8;
+    color:#090708;
 }
 #credit h2 {
     margin:40px 0 0;
