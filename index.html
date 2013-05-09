@@ -266,10 +266,10 @@
 		$(document).ready(function() {
             //for main menu selections
 			$('.newgame').click(function(){
-                hideDiv('#help1');
+                /***hideDiv('#help1');
                 hideDiv('#setting1');
                 fadeInDiv('#save');
-                /***
+                ***/
     			$('#main').css('display','none');
 				$('#gamefield').fadeIn();
 				gamestart = true;
@@ -282,7 +282,7 @@
                 ended();
 				window.clearInterval(mainInterval);
                 $('.level').text(level+1);
-                ***/
+                
 			});
             $('.setting1').click(function(){
                 hideDiv('#help1');

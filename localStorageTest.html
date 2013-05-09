@@ -20,44 +20,55 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <script>
 		if(window.localStorage){
-			$('.alert').append('This browser supports localStorage.');
+			$('.alert').append('This browser <span class="red">supports</span> localStorage.');
             //alert('This browser supports localStorage.');            
 		}else{
-			$('.alert').append('This browser doest NOT support localStorage.');
+			$('.alert').append('This browser <span class="red">doest NOT support</span> localStorage.');
             //alert('This browser does NOT supports localStorage.'); 
 		}
+        
+        var creat = new Date();
+        var now = new Date();
+        
+        var newSave = new Array();
+        var retriveSave = new Array();
 		
-		if (!localStorage.save1){
-			var testSave = {
-				name : "Jason",
-				level : 5,
-				score : 15000,
-				numLive : 159,
-                numShield : 0,
-                numBomb : 0,
-                numFreeze : 0,
-                numEnemyKilled : 0,
-                lastSave : 0,
-                createTime : 0,
-                version : 1
-
-			};
-			localStorage.setItem('save', JSON.stringify(testSave));
+		if (!localStorage.save){
+            for (var i=0;i<3;i++){
+                newSave[i] = {
+                    name : "Jason",
+                    saveSlot: i,
+                    level : i*2,
+                    score : i*500,
+                    numLive : 10,
+                    numShield : 5,
+                    numBomb : 6,
+                    numFreeze : 4,
+                    numEnemyKilled : 15,
+                    lastSave : 0,
+                    createTime: creat.customFormat("#MMM# #D##th# #hh#:#mm#"),
+                    version : 0
+                };
+            }
+            localStorage.setItem('save', JSON.stringify(newSave));
 		}
         
-        var now = new Date();
-        var newtime = now.customFormat("#MMM# #D##th# #hh#:#mm#");
-        console.log(newtime);
+        //retrive the object
+        retriveSave = JSON.parse(localStorage.getItem('save'));
+
         
-		//retrive the object
-		var retriveSave = JSON.parse(localStorage.getItem('save'));
-		//add 1 to the version
-		retriveSave.version ++;
-		//update the version
-		localStorage.setItem('save',JSON.stringify(retriveSave));
-		//print out the object
-    	$('body').append("<p>" + localStorage.save + "</p>");
-		$('.content').append('This is the <span class="red">' + retriveSave.version + "th</span> time this object is been retrived from the localStorage.");
+        for (var i=0;i<3;i++){
+            //add 1 to the version
+            retriveSave[i].version ++;
+            //update last save date
+            retriveSave[i].lastSave = now.customFormat("#MMM# #D##th# #hh#:#mm#");
+            //update the version
+            localStorage.setItem('save',JSON.stringify(retriveSave));
+            //print out the object
+            $('.content').append('<p>This is the <span class="red">' + retriveSave[0].version + "th</span> time that the object, localStorage.save, has been retrived from the localStorage.</p>");
+            $('.content').append("<p>" + JSON.stringify(retriveSave[i]) + "</p>");
+        }
+		
 		
 	</script>
 </body>
