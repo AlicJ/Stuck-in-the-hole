@@ -41,6 +41,10 @@ ul {
 	text-align:center;	
 	width:1022px;
 }
+#main div {
+    opacity:0.9;
+}
+}
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
 }
@@ -49,14 +53,13 @@ ul {
     height: 80px;
     line-height: 70px;
 }
-#menu div:active {
+#menu div:active, #save div:active {
 	background:#1FFFFF;
     color:#090708;
 }
 
 #menu {
     color:#1FFFFF;
-	opacity:0.9;
 	background:#aaa;
 	float:right;
 	height:100%;
@@ -79,6 +82,13 @@ ul {
 }
 .newgame {
 	color:#FF2B2B;
+}
+#save div {
+    border-radius: 4px;
+    border: #1FFFFF 2px solid;
+    width: 500px;
+    padding: 12px 8px;
+    margin: 50px 85px;
 }
 #credit h2 {
     margin:40px 0 0;

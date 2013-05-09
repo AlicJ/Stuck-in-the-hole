@@ -18,7 +18,7 @@
     	<div id="menu">
             <span><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h2></span>
             <div class="newgame" ><p><span class="bigger">J</span>ouer</p></div>
-            <div class="continue" ><p><span class="bigger">M</span>agasin</p></div>
+            <div class="highscore" ><p><span class="bigger">H</span>igh Score</p></div>
             <div class="setting1" ><p><span class="bigger">R</span>églage</p></div>
             <div class="help1" ><p><span class="bigger">I</span>nstructions</p></div>
             <div class="credit"><p><span class="bigger">C</span>rédit</p></div>
@@ -53,7 +53,14 @@
             <p><span>Ben Prunty - Chromatic T-Rex</span><br /><img src="music/logo.png" width="300px"/></p>
             </h2>
         </div>
-
+        
+        <div id="save">
+            <div class="save1">Alic level 5 - May 9th 09:19</div>
+            <div class="save2">Slot 2</div>
+            <div class="save3">Slot 3</div>
+            <div class="save4">Slot 4</div>
+            <div class="save5">Slot 5</div>
+        </div>
     </div>
     
 	<div id="gamefield">
@@ -192,6 +199,7 @@
 		hideDiv('#setting1');
 		hideDiv('#help1');
         hideDiv('#credit');
+        hideDiv('#save');
         hideDiv('#pauseScreen');
         hideDiv('#shop');
         hideDiv('#setting2');
@@ -256,15 +264,21 @@
 		$(document).ready(function() {
             //for main menu selections
 			$('.newgame').click(function(){
-				$('#main').css('display','none');
-				$('#gamefield').fadeIn();
+                hideDiv('#help1');
+                hideDiv('#setting1');
+                fadeInDiv('#save');
+                /***
+				hideDiv('#main');
+				fadeInDiv('#gamefield');
 				gamestart = true;
                 ended();
 				window.clearInterval(mainInterval);
+                ***/
 			});
             $('.setting1').click(function(){
-                $('#help1').css('display','none');
-				$('#setting1').fadeIn();
+                hideDiv('#help1');
+                hideDiv('#save');
+				fadeInDiv('#setting1');
 			});
             $('.bg').click(function(){
                 if(bgscrolling){
@@ -296,43 +310,45 @@
                 }
             });
 			$('.help1').click(function(){
-                $('#setting1').css('display','none');
-                $('#help1').fadeIn();
+                hideDiv('#setting1');
+                hideDiv('#save');
+                fadeInDiv('#help1');
 			});
             $('.credit').click(function(){
-                $('#setting1').css('display','none');
-                $('#help1').css('display','none');
-                $('#menu').css('display','none');
-                $('#credit').fadeIn();
+                hideDiv('#setting1');
+                hideDiv('#help1');
+                hideDiv('#menu');
+                hideDiv('#save');
+                fadeInDiv('#credit');
             });
             $('#credit').click(function(){
-                $('#credit').css('display','none');
-                $('#menu').fadeIn();
+                hideDiv('#credit');
+                fadeInDiv('#menu');
             });
             //for in-game selections
             $('.pause').click(function(){
-                $('#nonPause').css('display','none');
+                hideDiv('#nonPause');
                 $('#myCanvas').fadeTo(400, 0.5);
-                $('#pauseScreen').fadeIn();
+                fadeInDiv('#pauseScreen');
                 animStop(true);
                 pause = true;
             });
             $('.resume').click(function(){
-                $('#pauseScreen').css('display','none');
-                $('#setting2').css('display','none');
-                $('#shop').css('display','none');
-                $('#help2').css('display','none');
-                $('#mainmenu').css('display','none');
-                $('#nonPause').fadeIn();
+                hideDiv('#pauseScreen');
+                hideDiv('#setting2');
+                hideDiv('#shop');
+                hideDiv('#help2');
+                hideDiv('#mainmenu');
+                fadeInDiv('#nonPause').fadeIn();
                 $('#myCanvas').fadeTo(400, 1.0);
                 animStop(false);
                 pause =false;
             });
             $('.shop').click(function(){
-                $('#mainmenu').css('display','none');
-                $('#setting2').css('display','none');
-                $('#help2').css('display','none');
-                $('#shop').fadeIn();
+                hideDiv('#mainmenu');
+                hideDiv('#setting2');
+                hideDiv('#help2');
+                fadeInDiv('#shop');
             });
             $('.bomb').click(function(){
                 if(score>=priceBomb){
@@ -363,35 +379,35 @@
                 }
             });
             $('.setting2').click(function(){
-                $('#mainmenu').css('display','none');
-                $('#shop').css('display','none');
-                $('#help2').css('display','none');
-                $('#setting2').fadeIn();
+                hideDiv('#mainmenu');
+                hideDiv('#shop');
+                hideDiv('#help2');
+                fadeInDiv('#setting2');
             });
             $('.help2').click(function(){
-                $('#mainmenu').css('display','none');
-                $('#shop').css('display','none');
-                $('#setting2').css('display','none');
-                $('#help2').fadeIn();
+                hideDiv('#mainmenu');
+                hideDiv('#shop');
+                hideDiv('#setting2');
+                fadeInDiv('#help2');
             });
             $('.mainmenu').click(function(){
-                $('#setting2').css('display','none');
-                $('#shop').css('display','none');
-                $('#help2').css('display','none');
-                $('#mainmenu').fadeIn();
+                hideDiv('#setting2');
+                hideDiv('#shop');
+                hideDiv('#help2');
+                fadeInDiv('#mainmenu');
             });
             $('.backMain').click(function(){
                 gamestart = false;
                 bgscrolling = true;
                 clearInterval(gameLoop);
                 clearInterval(bgInterval);
-                $('#gamefield').css('display','none');
-                $('#main').fadeIn();
-                $('#menu').fadeIn();
+                hideDiv('#gamefield');
+                fadeInDiv('#main');
+                fadeInDiv('#menu');
                 ended();
                 switchTrack(1);
                 mainInterval = window.setInterval(mainAnimation, 1000/60);
-                 $('#mainmenu').css('display','none');
+                hideDiv('#mainmenu').css('display','none');
             });
             $('.no').click(function(){
                 $('#mainmenu').fadeOut();

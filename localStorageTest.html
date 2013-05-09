@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, 
 initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Hello World</title>
-<script src="jquery191min.js"></script>
+<script src="libs/jquery191min.js"></script>
+<script src="libs/FormatDate.js"></script>
 <style>
     .red {
         color:red;
@@ -26,17 +27,28 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
             //alert('This browser does NOT supports localStorage.'); 
 		}
 		
-		if (!localStorage.save){
+		if (!localStorage.save1){
 			var testSave = {
 				name : "Jason",
 				level : 5,
 				score : 15000,
 				numLive : 159,
-				version : 1,
+                numShield : 0,
+                numBomb : 0,
+                numFreeze : 0,
+                numEnemyKilled : 0,
+                lastSave : 0,
+                createTime : 0,
+                version : 1
+
 			};
 			localStorage.setItem('save', JSON.stringify(testSave));
 		}
-		
+        
+        var now = new Date();
+        var newtime = now.customFormat("#MMM# #D##th# #hh#:#mm#");
+        console.log(newtime);
+        
 		//retrive the object
 		var retriveSave = JSON.parse(localStorage.getItem('save'));
 		//add 1 to the version
