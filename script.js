@@ -157,41 +157,87 @@ var switcher=0;
 		//get data from localStorage
 		pending = JSON.parse(localStorage.getItem(getData));
 	}
+    
 	function saveData(i){
         if(!getSave[i]){
-			getSave[i] = {
-				name : prompt("What yousa name?"),
-                slot: i+1,
-				level : 0,
-				score : 0,
-				numLive : 3,
-				numShield : 0,
-				numBomb : 0,
-				numFreeze : 0,
-				numEnemyKilled : 0,
-				lastSave : 0,
-				createTime: creat.customFormat("#MMM# #D##th# #hh#:#mm#"),
-				version : 0
-			};
-            if(getSave[i].name){
-                if(getSave[i].name.length>0) {
-                    LSupdate(getSave[i],'save'+i)
+            hideDiv('#save');
+            fadeInDiv('#namefield');
+            $(".launch").click(function(){
+                selectSlot = i+1;
+                getSave[i] = {
+                    name : $(".name").val(),
+                    slot: i+1,
+                    level : 0,
+                    score : 0,
+                    numLive : 3,
+                    numShield : 0,
+                    numBomb : 0,
+                    numFreeze : 0,
+                    numEnemyKilled : 0,
+                    lastSave : 0,
+                    createTime: creat.customFormat("#MMM# #D##th# #hh#:#mm#"),
+                    version : 0
+                };
+                if(getSave[i].name){
+                    if(getSave[i].name.length>0) {
+                        LSupdate(getSave[i],'save'+i);
+                    }
+                }else{
+                    getSave[i] = "";
                 }
-            }else{
-                getSave[i] = "";
-            }
+                $('#main').css('display','none');
+				$('#gamefield').fadeIn();
+				gamestart = true;
+                enemies = new Array();
+                enemyNum=0;
+                level=0;
+                levelSelect(level);
+                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+                bgInterval = window.setInterval(bgAnimation, 1000/30);
+                ended();
+				window.clearInterval(mainInterval);
+                $('.level').text(level+1);
+
+            });
         }else{
             selectSlot = i+1;
-            alert("Yousa select slot " + selectSlot + "!");
+            //alert("Yousa select slot " + selectSlot + "!");
+            $('#main').css('display','none');
+			$('#gamefield').fadeIn();
+			gamestart = true;
+            enemies = new Array();
+            enemyNum=0;
+            level=0;
+            levelSelect(level);
+            gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+            bgInterval = window.setInterval(bgAnimation, 1000/30);
+            ended();
+			window.clearInterval(mainInterval);
+            $('.level').text(level+1);
+
         }
+	}
+    
+    for (var i=0;i<saveLength;i++){
+        if (localStorage['save'+i]){
+			//get data from localStorage
+            getSave[i] = new Object();
+			getSave[i] = JSON.parse(localStorage.getItem('save'+i));
+			//update
+			//LSupdate(getSave[i],'save'+i);
+			//print out the object
+			//$('.content').append('<p>This is the <span class="red">' + getSave[i].version + "th</span> time that the object, localStorage.save, has been getd from the localStorage.</p>");
+			//$('.content').append("<p>" + JSON.stringify(getSave[i]) + "</p>");
+            $('.save'+(i+1)).text(getSave[i].name + " level " + getSave[i].level + " - " + getSave[i].lastSave);
+		}
 	}
 
 //Motion
     //Animation
   
     var canvas = document.getElementById('myCanvas');
-	canvas.width = 1024*0.75;
-	canvas.height = 600;
+	canvas.width = $('#myCanvas').width();
+	canvas.height = $('#myCanvas').height();
     var gamestart = false;
     var enemies;
     var enemyNum = 0;
@@ -199,8 +245,8 @@ var switcher=0;
     
     var stage = new Kinetic.Stage({
             container: 'myCanvas',
-            width:canvas.width,
-            height:canvas.height
+            width: canvas.width,
+            height: canvas.height
         });
     var layer = new Kinetic.Layer();
     

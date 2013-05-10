@@ -5,6 +5,7 @@
 <meta name="viewport" id="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no" />
 <script src="libs/jquery191min.js" type="text/javascript"></script>
 <script src="libs/Kinetic.js" type="text/javascript"></script>
+<script src="libs/FormatDate.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 <title>Cyber blaster</title>
 </head>
@@ -61,6 +62,15 @@
             <div class="save3" onclick="saveData(2)">Slot 3</div>
             <div class="save4" onclick="saveData(3)">Slot 4</div>
             <div class="save5" onclick="saveData(4)">Slot 5</div>
+        </div>
+        
+        <div id="namefield">
+            <div class="save"></div>
+            <h3>Please enter your name:</h3>
+            <div>
+                <input class="name" type="text" />
+                <span class="launch">Launch!</span>
+            </div>
         </div>
     </div>
     
@@ -201,6 +211,7 @@
 		hideDiv('#help1');
         hideDiv('#credit');
         hideDiv('#save');
+        hideDiv('#namefield');
         hideDiv('#pauseScreen');
         hideDiv('#shop');
         hideDiv('#setting2');
@@ -268,26 +279,16 @@
 			$('.newgame').click(function(){
                 hideDiv('#help1');
                 hideDiv('#setting1');
+                hideDiv('#namefield');
                 fadeInDiv('#save');
                 
                 /***
-    			$('#main').css('display','none');
-				$('#gamefield').fadeIn();
-				gamestart = true;
-                enemies = new Array();
-                enemyNum=0;
-                level=0;
-                levelSelect(level);
-                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
-                bgInterval = window.setInterval(bgAnimation, 1000/30);
-                ended();
-				window.clearInterval(mainInterval);
-                $('.level').text(level+1);
                 ***/
 			});
             $('.setting1').click(function(){
                 hideDiv('#help1');
                 hideDiv('#save');
+                hideDiv('#namefield');
 				fadeInDiv('#setting1');
 			});
             $('.bg').click(function(){
@@ -322,6 +323,7 @@
 			$('.help1').click(function(){
                 hideDiv('#setting1');
                 hideDiv('#save');
+                hideDiv('#namefield');
                 fadeInDiv('#help1');
 			});
             $('.credit').click(function(){
@@ -329,13 +331,14 @@
                 hideDiv('#help1');
                 hideDiv('#menu');
                 hideDiv('#save');
+                hideDiv('#namefield');
                 fadeInDiv('#credit');
             });
             $('#credit').click(function(){
                 hideDiv('#credit');
                 fadeInDiv('#menu');
             });
-            //for in-game selections
+            //for in-game buttons
             $('.pause').click(function(){
                 hideDiv('#nonPause');
                 $('#myCanvas').fadeTo(400, 0.5);
@@ -440,19 +443,6 @@
             });
         });
         
-        for (var i=0;i<saveLength;i++){
-    		if (localStorage['save'+i]){
-				//get data from localStorage
-                getSave[i] = new Object();
-				getSave[i] = JSON.parse(localStorage.getItem('save'+i));
-				//update
-				//LSupdate(getSave[i],'save'+i);
-				//print out the object
-				//$('.content').append('<p>This is the <span class="red">' + getSave[i].version + "th</span> time that the object, localStorage.save, has been getd from the localStorage.</p>");
-				//$('.content').append("<p>" + JSON.stringify(getSave[i]) + "</p>");
-                $('.save'+(i+1)).text(getSave[i].name + " level " + getSave[i].level + " - " + getSave[i].lastSave);
-			}
-		}
 		
 
             

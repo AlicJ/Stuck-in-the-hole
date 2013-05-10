@@ -38,8 +38,8 @@ ul {
     color:#00E8E8;
 	font-size:30px;
 	text-align:center;	
-    width: 1020px;
-    height: 596px;
+    width: 1022px;
+    height: 598px;
 }
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
@@ -91,6 +91,27 @@ ul {
     background:#00E8E8;
     color:#090708;
 }
+#namefield {
+    margin:150px 0 0 0; 
+}
+#namefield .name {
+    font-family: TIEWing;
+    font-size: 24px;
+    border-radius: 16px;
+    border: none;
+    margin: 0 25px;
+    padding: 1px 10px;
+    width: 160px;
+    position: relative;
+    top: -3px;
+    text-align: center;
+    background-color: #999;
+    color: #00E8E8;
+}
+#namefield span {
+    width:100px;
+    height:25px;
+}
 #credit h2 {
     margin:40px 0 0;
 }
@@ -102,7 +123,7 @@ ul {
     border:#1FFFFF 2px solid;
     margin-bottom:10px;
 }
-#setting1 li:active, #setting2 li:active, .yes:active, .no:active {
+#setting1 li:active, #setting2 li:active, .yes:active, .no:active, #namefield span:active {
     color:red;
 }
 #help, #setting {
@@ -134,8 +155,8 @@ ul {
     border:1px solid #999;
     color:#67EFE9;
     font-size:30px;
-    width: 1020px;
-    height: 596px;
+    width: 1022px;
+    height: 598px;
 }
 #ui {
     background:url('images/InterfaceBackground.png');
@@ -174,6 +195,9 @@ ul {
 #result {
 	height:30px;
     font-size:18px;
+}
+#buttons {
+    margin-top: 70px;
 }
 #buttons div {
     border:#67EFE9 2px solid;
