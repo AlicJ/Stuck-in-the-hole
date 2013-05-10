@@ -135,6 +135,57 @@ var switcher=0;
 //Sound Effects
     var expolsion = new Audio("music/expolsion.mp3");
 
+
+//Save files
+    var creat = new Date();
+    var now = new Date();
+    //var newSave = new Array();
+    var getSave = new Array();
+    var saveLength = 5;
+    var selectSlot;
+
+	function LSupdate(pending,update){
+		//add 1 to the version
+		pending.version ++;
+		//update last save date
+		pending.lastSave = now.customFormat("#MMM# #D##th# #hh#:#mm#");
+		//update the version
+		localStorage.setItem(update,JSON.stringify(pending));
+	}
+	
+	function LSget(pending,getData){
+		//get data from localStorage
+		pending = JSON.parse(localStorage.getItem(getData));
+	}
+	function saveData(i){
+        if(!getSave[i]){
+			getSave[i] = {
+				name : prompt("What yousa name?"),
+                slot: i+1,
+				level : 0,
+				score : 0,
+				numLive : 3,
+				numShield : 0,
+				numBomb : 0,
+				numFreeze : 0,
+				numEnemyKilled : 0,
+				lastSave : 0,
+				createTime: creat.customFormat("#MMM# #D##th# #hh#:#mm#"),
+				version : 0
+			};
+            if(getSave[i].name){
+                if(getSave[i].name.length>0) {
+                    LSupdate(getSave[i],'save'+i)
+                }
+            }else{
+                getSave[i] = "";
+            }
+        }else{
+            selectSlot = i+1;
+            alert("Yousa select slot " + selectSlot + "!");
+        }
+	}
+
 //Motion
     //Animation
   
