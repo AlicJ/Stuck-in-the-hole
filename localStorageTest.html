@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, 
 initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Hello World</title>
+<title>localStorage Test</title>
 <script src="libs/jquery191min.js"></script>
 <script src="libs/FormatDate.js"></script>
 <style>
@@ -17,11 +17,11 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <body>
     <p class="alert"></p>
 	<p class="content"></p>
-    <div class="save" onclick="save(0)">Alic level 5 - May 9th 09:19</div>
-    <div class="save" onclick="save(1)">Slot 2</div>
-    <div class="save" onclick="save(2)">Slot 3</div>
-    <div class="save" onclick="save(3)">Slot 4</div>
-    <div class="save" onclick="save(4)">Slot 5</div>
+    <div class="save0" onclick="save(0)">Alic level 5 - May 9th 09:19</div>
+    <div class="save1" onclick="save(1)">Slot 2</div>
+    <div class="save2" onclick="save(2)">Slot 3</div>
+    <div class="save3" onclick="save(3)">Slot 4</div>
+    <div class="save4" onclick="save(4)">Slot 5</div>
     
     
     <script>
@@ -36,7 +36,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         var creat = new Date();
         var now = new Date();
         var newSave = new Array();
-        var retriveSave = new Array();
+        var getSave = new Array();
         var saveLength = 5;
 		
         /*****
@@ -44,7 +44,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
             for (var i=0;i<saveLength;i++){
                 newSave[i] = {
                     name : "Jason",
-                    saveSlot: i,
+                    //saveSlot: i,
                     level : i*2,
                     score : i*500,
                     numLive : 10,
@@ -60,28 +60,51 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
             localStorage.setItem('save', JSON.stringify(newSave));
 		}
         *****/
-        
-        //retrive the object
-        retriveSave = JSON.parse(localStorage.getItem('save'));
-
-        
-        for (var i=0;i<saveLength;i++){
-            //add 1 to the version
-            retriveSave[i].version ++;
-            //update last save date
-            retriveSave[i].lastSave = now.customFormat("#MMM# #D##th# #hh#:#mm#");
-            //update the version
-            localStorage.setItem('save',JSON.stringify(retriveSave));
-            //print out the object
-            $('.content').append('<p>This is the <span class="red">' + retriveSave[0].version + "th</span> time that the object, localStorage.save, has been retrived from the localStorage.</p>");
-            $('.content').append("<p>" + JSON.stringify(retriveSave[i]) + "</p>");
-        }
 		
+        for (var i=0;i<saveLength;i++){
+			if (localStorage.save+i){
+				//get data from localStorage
+				LSget(getSave[i],'save'+i);
+				//update
+				LSupdate(getSave[i],'save'+i);
+				//print out the object
+				$('.content').append('<p>This is the <span class="red">' + getSave[0].version + "th</span> time that the object, localStorage.save, has been getd from the localStorage.</p>");
+				$('.content').append("<p>" + JSON.stringify(getSave[i]) + "</p>");
+			}
+		}
+		
+		function LSupdate(pending,update){
+			//add 1 to the version
+			pending.version ++;
+			//update last save date
+			pending.lastSave = now.customFormat("#MMM# #D##th# #hh#:#mm#");
+			//update the version
+			localStorage.setItem(update,JSON.stringify(pending));
+		}
+		
+		function LSget(pending,get){
+			//get data from localStorage
+			pending = JSON.parse(localStorage.getItem(get));
+		}
+
 		function save(i){
-              if(retriveSave[i]==null){
-                var name = prompt("Whatta yosa name?");
+        	if(!getSave[i]){
+				getSave[i] = {
+					name : prompt("What yousa name?"),
+					level : 0,
+					score : 0,
+					numLive : 3,
+					numShield : 0,
+					numBomb : 0,
+					numFreeze : 0,
+					numEnemyKilled : 0,
+					lastSave : 0,
+					createTime: creat.customFormat("#MMM# #D##th# #hh#:#mm#"),
+					version : 0
+				};
+				LSupdate(getSave[i],'save'+i);
             }else{
-                confirm("Yosa hasa save!");
+                confirm("Yousa hasa save!");
             }
 		}
 	</script>
