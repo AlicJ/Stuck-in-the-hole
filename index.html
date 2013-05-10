@@ -56,11 +56,11 @@
         </div>
         
         <div id="save">
-            <div class="save1">Alic level 5 - May 9th 09:19</div>
-            <div class="save2">Slot 2</div>
-            <div class="save3">Slot 3</div>
-            <div class="save4">Slot 4</div>
-            <div class="save5">Slot 5</div>
+            <div class="save 0">Alic level 5 - May 9th 09:19</div>
+            <div class="save 2">Slot 2</div>
+            <div class="save 3">Slot 3</div>
+            <div class="save 4">Slot 4</div>
+            <div class="save 5">Slot 5</div>
         </div>
     </div>
     
@@ -266,10 +266,11 @@
 		$(document).ready(function() {
             //for main menu selections
 			$('.newgame').click(function(){
-                /***hideDiv('#help1');
+                hideDiv('#help1');
                 hideDiv('#setting1');
                 fadeInDiv('#save');
-                ***/
+                
+                /***
     			$('#main').css('display','none');
 				$('#gamefield').fadeIn();
 				gamestart = true;
@@ -282,7 +283,7 @@
                 ended();
 				window.clearInterval(mainInterval);
                 $('.level').text(level+1);
-                
+                ***/
 			});
             $('.setting1').click(function(){
                 hideDiv('#help1');

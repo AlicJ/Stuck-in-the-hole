@@ -17,6 +17,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <body>
     <p class="alert"></p>
 	<p class="content"></p>
+    <div class="save" onclick="save(0)">Alic level 5 - May 9th 09:19</div>
+    <div class="save" onclick="save(1)">Slot 2</div>
+    <div class="save" onclick="save(2)">Slot 3</div>
+    <div class="save" onclick="save(3)">Slot 4</div>
+    <div class="save" onclick="save(4)">Slot 5</div>
+    
     
     <script>
 		if(window.localStorage){
@@ -29,12 +35,13 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         
         var creat = new Date();
         var now = new Date();
-        
         var newSave = new Array();
         var retriveSave = new Array();
+        var saveLength = 5;
 		
+        /*****
 		if (!localStorage.save){
-            for (var i=0;i<3;i++){
+            for (var i=0;i<saveLength;i++){
                 newSave[i] = {
                     name : "Jason",
                     saveSlot: i,
@@ -52,12 +59,13 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
             }
             localStorage.setItem('save', JSON.stringify(newSave));
 		}
+        *****/
         
         //retrive the object
         retriveSave = JSON.parse(localStorage.getItem('save'));
 
         
-        for (var i=0;i<3;i++){
+        for (var i=0;i<saveLength;i++){
             //add 1 to the version
             retriveSave[i].version ++;
             //update last save date
@@ -69,7 +77,13 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
             $('.content').append("<p>" + JSON.stringify(retriveSave[i]) + "</p>");
         }
 		
-		
+		function save(i){
+              if(retriveSave[i]==null){
+                var name = prompt("Whatta yosa name?");
+            }else{
+                confirm("Yosa hasa save!");
+            }
+		}
 	</script>
 </body>
 </html>
