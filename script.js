@@ -133,7 +133,7 @@ var switcher=0;
 	loadTrack(currentTrack);
     
 //Sound Effects
-    var expolsion = new Audio("music/expolsion.mp3");
+    var explosion = new Audio("music/explosion.mp3");
 
 
 //Save files
@@ -158,6 +158,19 @@ var switcher=0;
 		pending = JSON.parse(localStorage.getItem(getData));
 	}
     
+	function updateData(num){
+		getSave[num].level = level + 2;
+		getSave[num].score = score;
+		getSave[num].numLives = lives;
+		getSave[num].numShield = numShield;
+		getSave[num].numBomb = numBomb;
+		getSave[num].numFreeze = numFreeze;
+		getSave[num].numEnemyKilled = numEnemyKilled;
+		getSave[num].lastSave = now.customFormat("#MMM# #D##th# #hh#:#mm#");
+		getSave[num].version++;
+		LSupdate(getSave[num],'save'+num);
+	}
+	
 	function saveData(i){
         if(!getSave[i]){
             hideDiv('#save');
@@ -167,45 +180,49 @@ var switcher=0;
                 getSave[i] = {
                     name : $(".name").val(),
                     slot: i+1,
-                    level : 0,
+                    level : 1,
                     score : 0,
-                    numLive : 3,
+                    numLives : 3,
                     numShield : 0,
                     numBomb : 0,
                     numFreeze : 0,
                     numEnemyKilled : 0,
                     lastSave : 0,
                     createTime: creat.customFormat("#MMM# #D##th# #hh#:#mm#"),
-                    version : 0
+                    version : 1
                 };
+				//if the input name is valid, store it and start game
                 if(getSave[i].name){
                     if(getSave[i].name.length>0) {
                         LSupdate(getSave[i],'save'+i);
+						selectSlot = i;
+						$('#main').css('display','none');
+						$('#gamefield').fadeIn();
+						gamestart = true;
+						enemyNum = 0;
+						level = 0;
+						levelSelect(level);
+						gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+						bgInterval = window.setInterval(bgAnimation, 1000/30);
+						ended();
+						window.clearInterval(mainInterval);
+						$('.level').text(level+1);
                     }
+				//otherwise dont
                 }else{
                     getSave[i] = "";
                 }
-                $('#main').css('display','none');
-				$('#gamefield').fadeIn();
-				gamestart = true;
-                enemyNum=0;
-                level=0;
-                levelSelect(level);
-                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
-                bgInterval = window.setInterval(bgAnimation, 1000/30);
-                ended();
-				window.clearInterval(mainInterval);
-                $('.level').text(level+1);
 
             });
         }else{
+			//if the save file exit, use it
             selectSlot = i+1;
             //alert("Yousa select slot " + selectSlot + "!");
             $('#main').css('display','none');
 			$('#gamefield').fadeIn();
 			gamestart = true;
-            enemyNum=0;
-            level=0;
+            enemyNum = 0;
+            level = getSave[selectSlot].level - 1;
             levelSelect(level);
             gameLoop = window.setInterval(enemyMaker(), enemyDelay);
             bgInterval = window.setInterval(bgAnimation, 1000/30);
@@ -216,19 +233,6 @@ var switcher=0;
         }
 	}
     
-    for (var i=0;i<saveLength;i++){
-        if (localStorage['save'+i]){
-			//get data from localStorage
-            getSave[i] = new Object();
-			getSave[i] = JSON.parse(localStorage.getItem('save'+i));
-			//update
-			//LSupdate(getSave[i],'save'+i);
-			//print out the object
-			//$('.content').append('<p>This is the <span class="red">' + getSave[i].version + "th</span> time that the object, localStorage.save, has been getd from the localStorage.</p>");
-			//$('.content').append("<p>" + JSON.stringify(getSave[i]) + "</p>");
-            $('.save'+(i+1)).text(getSave[i].name + " level " + getSave[i].level + " - " + getSave[i].lastSave);
-		}
-	}
 
 //Motion
     //Animation
@@ -253,6 +257,7 @@ var switcher=0;
     var numBomb = 0;
     var numFreeze = 0;
     var score = 500000;
+	var numEnemyKilled = 0;
     var shieldOn = false;
 
 	var rectX = canvas.width/2-50;
@@ -284,6 +289,7 @@ var switcher=0;
          for(var i = 0; i <enemies.length; i++ ){
              if(input == enemies[i].answer&&enemies[i].alive){
                  cleanEnemy (i);
+				 numEnemyKilled ++;
                  input = "";
                  $("#input").text(input);
              }
@@ -380,7 +386,7 @@ var switcher=0;
     
     function cleanEnemy (num)
     {
-        expolsion.play();
+        explosion.play();
         anim[num].stop();
         enemies[num].alive = false;
         enemies[num].image.hide();
@@ -397,6 +403,7 @@ var switcher=0;
          // Level is Cleared
          if(counter==totalEnemies)
          {
+			updateData(selectSlot);
             pause = true;
             fadeInDiv("#levelComplete");
          }
@@ -413,7 +420,7 @@ var switcher=0;
             pause = true;
             var count = 0;
              $('.numFreeze').text(3-count);
-            var timer = setInterval(function(){
+            var timer = window.setInterval(function(){
                 count++;
                 $('.numFreeze').text(3-count);
                 if(count==3)
@@ -451,7 +458,7 @@ var switcher=0;
              numShield--;
             $('.numShield').text('Shield: ' + numShield);
             shieldOn = true;
-            var timer = setInterval(function(){
+            var timer = window.setInterval(function(){
                 counter ++;
                 if(counter == 5)
                 {
