@@ -277,19 +277,35 @@
 		$(document).ready(function() {
             //for main menu selections
 			$('.newgame').click(function(){
+                //below is the saving slot, refer line 139-234 for relevant funcitons
+                //comment out the next five line, and uncomment the blue lines,
+                //will start the game directly when "start" button is clicked 
                 hideDiv('#help1');
                 hideDiv('#setting1');
                 hideDiv('#namefield');
                 fadeInDiv('#save');
-                
-                /***
-                ***/
+                //below (the commented out, blue ones) is the start game lines
+                /****
+                $('#main').css('display','none');
+    			$('#gamefield').fadeIn();
+				gamestart = true;
+                enemies = new Array();
+                enemyNum=0;
+                level=0;
+                levelSelect(level);
+                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+                bgInterval = window.setInterval(bgAnimation, 1000/30);
+                ended();
+				window.clearInterval(mainInterval);
+                $('.level').text(level+1);
+                ****/
 			});
             $('.setting1').click(function(){
                 hideDiv('#help1');
                 hideDiv('#save');
                 hideDiv('#namefield');
 				fadeInDiv('#setting1');
+                
 			});
             $('.bg').click(function(){
                 if(bgscrolling){
