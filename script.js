@@ -181,7 +181,7 @@ var switcher=0;
 	//Load track
 	function loadTrack(i){
 		var item = playlist[i],
-			newaudio = $('<audio>').html('<source src="' + item.mp3 + '"><source src="' + item.ogg + '">').appendTo('.bgMusic');
+			newaudio = $('<audio>').html('<source src="' + item.ogg + '"><source src="' + item.mp3 + '">').appendTo('.bgMusic');
 		audio = newaudio[0];
 		audio.addEventListener('canplay',afterLoad, false);
 		audio.addEventListener('ended',ended, false);
@@ -281,7 +281,7 @@ var switcher=0;
             enemyNum = 0;
             level = getSave[selectSlot].level - 1;
             levelSelect(level);
-            gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+            gameLoop = window.setInterval(enemyMaker, enemyDelay);
             bgInterval = window.setInterval(bgAnimation, 1000/30);
             ended();
 			window.clearInterval(mainInterval);
