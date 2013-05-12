@@ -5,6 +5,7 @@
 <meta name="viewport" id="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no" />
 <script src="libs/jquery191min.js" type="text/javascript"></script>
 <script src="libs/Kinetic.js" type="text/javascript"></script>
+<script src="libs/FormatDate.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 <title>Cyber blaster</title>
 </head>
@@ -23,7 +24,7 @@
             <div class="setting1" ><p><span class="bigger">R</span>églage</p></div>
             <div class="help1" ><p><span class="bigger">I</span>nstructions</p></div>
             <div class="credit"><p><span class="bigger">C</span>rédit</p></div>
-            <div class="exit"><p><span class="bigger">S</span>ortie</p></div>
+            <div class="exit" onclick="blackberry.app.exit ()"><p><span class="bigger">S</span>ortie</p></div>
         </div>
         
         
@@ -56,11 +57,20 @@
         </div>
         
         <div id="save">
-            <div class="save 0">Alic level 5 - May 9th 09:19</div>
-            <div class="save 2">Slot 2</div>
-            <div class="save 3">Slot 3</div>
-            <div class="save 4">Slot 4</div>
-            <div class="save 5">Slot 5</div>
+            <div class="save1" onclick="saveData(0)">Slot 1</div>
+            <div class="save2" onclick="saveData(1)">Slot 2</div>
+            <div class="save3" onclick="saveData(2)">Slot 3</div>
+            <div class="save4" onclick="saveData(3)">Slot 4</div>
+            <div class="save5" onclick="saveData(4)">Slot 5</div>
+        </div>
+        
+        <div id="namefield">
+            <div class="save"></div>
+            <h3>Please enter your name:</h3>
+            <div>
+                <input class="name" type="text" />
+                <span class="launch">Launch!</span>
+            </div>
         </div>
     </div>
     
@@ -201,6 +211,7 @@
 		hideDiv('#help1');
         hideDiv('#credit');
         hideDiv('#save');
+        hideDiv('#namefield');
         hideDiv('#pauseScreen');
         hideDiv('#shop');
         hideDiv('#setting2');
@@ -227,7 +238,7 @@
         var priceFreeze = 4000;
         var level =0;
         var gameLoop;
-
+        
         bgImg.src = "images/space.png";
         
         if(count === 0){
@@ -266,13 +277,9 @@
 		$(document).ready(function() {
             //for main menu selections
 			$('.newgame').click(function(){
-                // hideDiv('#help1');
-                // hideDiv('#setting1');
-                // fadeInDiv('#save');
-                
-             
-    			$('#main').css('display','none');
-				$('#gamefield').fadeIn();
+                /***
+                $('#main').css('display','none');
+    			$('#gamefield').fadeIn();
 				gamestart = true;
                 enemies = new Array();
                 enemyNum=0;
@@ -283,11 +290,12 @@
                 ended();
 				window.clearInterval(mainInterval);
                 $('.level').text(level+1);
-          
+                ***/
 			});
             $('.setting1').click(function(){
                 hideDiv('#help1');
                 hideDiv('#save');
+                hideDiv('#namefield');
 				fadeInDiv('#setting1');
 			});
             $('.bg').click(function(){
@@ -322,6 +330,7 @@
 			$('.help1').click(function(){
                 hideDiv('#setting1');
                 hideDiv('#save');
+                hideDiv('#namefield');
                 fadeInDiv('#help1');
 			});
             $('.credit').click(function(){
@@ -329,13 +338,14 @@
                 hideDiv('#help1');
                 hideDiv('#menu');
                 hideDiv('#save');
+                hideDiv('#namefield');
                 fadeInDiv('#credit');
             });
             $('#credit').click(function(){
                 hideDiv('#credit');
                 fadeInDiv('#menu');
             });
-            //for in-game selections
+            //for in-game buttons
             $('.pause').click(function(){
                 hideDiv('#nonPause');
                 $('#myCanvas').fadeTo(400, 0.5);
@@ -349,7 +359,7 @@
                 hideDiv('#shop');
                 hideDiv('#help2');
                 hideDiv('#mainmenu');
-                fadeInDiv('#nonPause').fadeIn();
+                fadeInDiv('#nonPause');
                 $('#myCanvas').fadeTo(400, 1.0);
                 animStop(false);
                 pause =false;
@@ -439,9 +449,6 @@
                
             });
         });
-        
-            
-            
     </script>
     
     
