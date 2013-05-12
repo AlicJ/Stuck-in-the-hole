@@ -300,6 +300,7 @@ var switcher=0;
          // Level is Cleared
          if(counter==totalEnemies)
          {
+            clearInterval(gameLoop);
             fadeInDiv("#levelComplete");
          }
     }
