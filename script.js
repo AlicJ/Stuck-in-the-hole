@@ -57,25 +57,82 @@ var switcher=0;
 	}
 //Music Player
     var playlist = [
-        {mp3: 'music/01.mp3'},
-	    {mp3: 'music/02.mp3'},
-	    {mp3: 'music/03.mp3'},
-        {mp3: 'music/04.mp3'},
-        {mp3: 'music/05.mp3'},
-        {mp3: 'music/06.mp3'},
-        {mp3: 'music/07.mp3'},
-        {mp3: 'music/08.mp3'},
-        {mp3: 'music/09.mp3'},
-        {mp3: 'music/10.mp3'},
-        {mp3: 'music/11.mp3'},
-        {mp3: 'music/12.mp3'},
-        {mp3: 'music/13.mp3'},
-        {mp3: 'music/14.mp3'},
-        {mp3: 'music/15.mp3'},
-        {mp3: 'music/16.mp3'},
-        {mp3: 'music/17.mp3'},
-        {mp3: 'music/18.mp3'},
-        {mp3: 'music/19.mp3'},
+        {
+			mp3: 'music/01.mp3',
+			ogg: 'music/01.ogg'
+		},
+	    {
+			mp3: 'music/02.mp3',
+			ogg: 'music/02.ogg'
+		},
+	    {
+			mp3: 'music/03.mp3',
+			ogg: 'music/03.ogg'
+		},
+        {
+			mp3: 'music/04.mp3',
+			ogg: 'music/04.ogg'
+			},
+        {
+			mp3: 'music/05.mp3',
+			ogg: 'music/05.ogg'
+			},
+        {
+			mp3: 'music/06.mp3',
+			ogg: 'music/06.ogg'
+		},
+        {
+			mp3: 'music/07.mp3',
+			ogg: 'music/07.ogg'
+		},
+        {
+			mp3: 'music/08.mp3',
+			ogg: 'music/08.ogg'
+		},
+        {
+			mp3: 'music/09.mp3',
+			ogg: 'music/09.ogg'
+		},
+        {
+			mp3: 'music/10.mp3',
+			ogg: 'music/10.ogg'
+		},
+        {
+			mp3: 'music/11.mp3',
+			ogg: 'music/11.ogg'
+		},
+        {
+			mp3: 'music/12.mp3',
+			ogg: 'music/12.ogg'
+		},
+        {
+			mp3: 'music/13.mp3',
+			ogg: 'music/13.ogg'
+		},
+        {
+			mp3: 'music/14.mp3',
+			ogg: 'music/14.ogg'
+		},
+        {
+			mp3: 'music/15.mp3',
+			ogg: 'music/15.ogg'
+		},
+        {
+			mp3: 'music/16.mp3',
+			ogg: 'music/16.ogg'
+		},
+        {
+			mp3: 'music/17.mp3',
+			ogg: 'music/17.ogg'
+		},
+        {
+			mp3: 'music/18.mp3',
+			ogg: 'music/18.ogg'
+		},
+        {
+			mp3: 'music/19.mp3',
+			ogg: 'music/19.ogg'
+		},
 	];
 	
 	var isPlaying,  currentTrack,
@@ -124,7 +181,7 @@ var switcher=0;
 	//Load track
 	function loadTrack(i){
 		var item = playlist[i],
-			newaudio = $('<audio>').html('<source src="' + item.mp3 + '">').appendTo('.bgMusic');
+			newaudio = $('<audio>').html('<source src="' + item.mp3 + '"><source src="' + item.ogg + '">').appendTo('.bgMusic');
 		audio = newaudio[0];
 		audio.addEventListener('canplay',afterLoad, false);
 		audio.addEventListener('ended',ended, false);
@@ -133,7 +190,7 @@ var switcher=0;
 	loadTrack(currentTrack);
     
 //Sound Effects
-    var explosion = new Audio("music/explosion.mp3");
+    var explosion = new Audio();
 
 
 //Save files
@@ -202,7 +259,7 @@ var switcher=0;
 						enemyNum = 0;
 						level = 0;
 						levelSelect(level);
-						gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+						gameLoop = window.setInterval(enemyMaker, enemyDelay);
 						bgInterval = window.setInterval(bgAnimation, 1000/30);
 						ended();
 						window.clearInterval(mainInterval);
