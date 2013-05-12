@@ -78,18 +78,18 @@ var switcher=0;
         {mp3: 'music/19.mp3'},
 	];
 	
-	var isPlaying, playCounts, currentTrack,
+	var isPlaying,  currentTrack,
 		currentTrack = 0,
 		autoplay = true;
 	
 	function musicPlay(){
 		audio.play();
 		isPlaying = true;
-	};
+	}
 	function musicPause(){
 		audio.pause();
 		isPlaying = false;
-	};
+	}
 	function switchTrack(i){
 		var track;
 		if(i<0){
@@ -188,7 +188,6 @@ var switcher=0;
                 $('#main').css('display','none');
 				$('#gamefield').fadeIn();
 				gamestart = true;
-                enemies = new Array();
                 enemyNum=0;
                 level=0;
                 levelSelect(level);
@@ -205,7 +204,6 @@ var switcher=0;
             $('#main').css('display','none');
 			$('#gamefield').fadeIn();
 			gamestart = true;
-            enemies = new Array();
             enemyNum=0;
             level=0;
             levelSelect(level);
@@ -371,11 +369,13 @@ var switcher=0;
    
 	//Background Animation
 	function bgAnimation() {
-        bgPosition--;
-        $("#myCanvas").css({backgroundPosition: (bgPosition * 5) + "px 0px"});
-		if(Math.abs(bgPosition)>=bgImg.width){
-			bgPosition = 0;
-		}
+        if(bgscrolling){
+            bgPosition--;
+            $("#myCanvas").css({backgroundPosition: (bgPosition * 5) + "px 0px"});
+    	    if(Math.abs(bgPosition)>=bgImg.width){
+			    bgPosition = 0;
+		    }
+        }
 	}
     
     function cleanEnemy (num)
@@ -397,7 +397,7 @@ var switcher=0;
          // Level is Cleared
          if(counter==totalEnemies)
          {
-            clearInterval(gameLoop);
+            pause = true;
             fadeInDiv("#levelComplete");
          }
     }

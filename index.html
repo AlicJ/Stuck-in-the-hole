@@ -244,6 +244,8 @@
         if(count === 0){
 			splashscreen = window.setInterval(splash, 1000);
 			count+=1;
+		}else{
+            clearInterval(splashscreen); 
 		}
 		
 		function mainAnimation() {
@@ -280,16 +282,14 @@
                 //below is the saving slot, refer line 139-234 for relevant funcitons
                 //comment out the next five line, and uncomment the blue lines,
                 //will start the game directly when "start" button is clicked 
-                hideDiv('#help1');
-                hideDiv('#setting1');
-                hideDiv('#namefield');
-                fadeInDiv('#save');
+                //hideDiv('#help1');
+                //hideDiv('#setting1');
+                //hideDiv('#namefield');
+                //fadeInDiv('#save');
                 //below (the commented out, blue ones) is the start game lines
-                /****
                 $('#main').css('display','none');
     			$('#gamefield').fadeIn();
 				gamestart = true;
-                enemies = new Array();
                 enemyNum=0;
                 level=0;
                 levelSelect(level);
@@ -298,7 +298,6 @@
                 ended();
 				window.clearInterval(mainInterval);
                 $('.level').text(level+1);
-                ****/
 			});
             $('.setting1').click(function(){
                 hideDiv('#help1');
@@ -453,9 +452,9 @@
                 level++;
                 levelSelect(level);
                 enemyNum=0;
+                enemies = new Array ();
                 hideDiv("#levelComplete");
                 $('.level').text(level+1);
-               
             });
         });
     </script>
