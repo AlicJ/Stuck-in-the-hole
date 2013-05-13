@@ -293,7 +293,7 @@
                 enemyNum=0;
                 level=0;
                 levelSelect(level);
-                gameLoop = window.setInterval(enemyMaker(), enemyDelay);
+                gameLoop = window.setInterval(enemyMaker, enemyDelay);
                 bgInterval = window.setInterval(bgAnimation, 1000/30);
                 ended();
 				window.clearInterval(mainInterval);
@@ -455,6 +455,7 @@
                 enemies = new Array ();
                 hideDiv("#levelComplete");
                 $('.level').text(level+1);
+                pause=false;
             });
         });
     </script>
