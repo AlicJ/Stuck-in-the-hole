@@ -216,7 +216,7 @@ var switcher=0;
 	}
     
 	function updateData(num){
-		getSave[num].level = level + 2;
+		getSave[num].level = level;
 		getSave[num].score = score;
 		getSave[num].numLives = lives;
 		getSave[num].numShield = numShield;
@@ -228,15 +228,32 @@ var switcher=0;
 		LSupdate(getSave[num],'save'+num);
 	}
 	
+	function GameStart(){
+		hideDiv('#main');
+		fadeInDiv('#gamefield');
+		fadeInDiv('#nonPause');
+		gamestart = true;
+		enemyNum = 0;
+		levelSelect(level);
+		gameLoop = window.setInterval(enemyMaker, enemyDelay);
+		bgInterval = window.setInterval(bgAnimation, 1000/30);
+		ended();
+		window.clearInterval(mainInterval);
+		$('.level').text(level+1);
+	}
+	
 	function saveData(i){
+		//if save does not exist
         if(!getSave[i]){
             hideDiv('#save');
             fadeInDiv('#namefield');
             $(".launch").click(function(){
-                selectSlot = i+1;
+				hideDiv('#namefield');
+				hideDiv('#save');
+                selectSlot = i;
                 getSave[i] = {
                     name : $(".name").val(),
-                    slot: i+1,
+                    slot: selectSlot,
                     level : 1,
                     score : 0,
                     numLives : 3,
@@ -252,18 +269,9 @@ var switcher=0;
                 if(getSave[i].name){
                     if(getSave[i].name.length>0) {
                         LSupdate(getSave[i],'save'+i);
-						selectSlot = i;
-						$('#main').css('display','none');
-						$('#gamefield').fadeIn();
-						gamestart = true;
-						enemyNum = 0;
 						level = 0;
-						levelSelect(level);
-						gameLoop = window.setInterval(enemyMaker, enemyDelay);
-						bgInterval = window.setInterval(bgAnimation, 1000/30);
-						ended();
-						window.clearInterval(mainInterval);
-						$('.level').text(level+1);
+						selectSlot = i;
+						GameStart();
                     }
 				//otherwise dont
                 }else{
@@ -271,22 +279,12 @@ var switcher=0;
                 }
 
             });
+		//if the save exit, use it
         }else{
 			//if the save file exit, use it
-            selectSlot = i+1;
-            //alert("Yousa select slot " + selectSlot + "!");
-            $('#main').css('display','none');
-			$('#gamefield').fadeIn();
-			gamestart = true;
-            enemyNum = 0;
-            level = getSave[selectSlot].level - 1;
-            levelSelect(level);
-            gameLoop = window.setInterval(enemyMaker, enemyDelay);
-            bgInterval = window.setInterval(bgAnimation, 1000/30);
-            ended();
-			window.clearInterval(mainInterval);
-            $('.level').text(level+1);
-
+			selectSlot = i;
+			level = getSave[selectSlot].level;
+			GameStart();
         }
 	}
     
@@ -460,9 +458,10 @@ var switcher=0;
          // Level is Cleared
          if(counter==totalEnemies)
          {
-			updateData(selectSlot);
-            pause = true;
-            fadeInDiv("#levelComplete");
+			 level++;
+			 updateData(selectSlot);
+             pause = true;
+             fadeInDiv("#levelComplete");
          }
     }
       

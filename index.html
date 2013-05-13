@@ -14,7 +14,7 @@
     <div class="bgMusic"></div>
     <div id="main">
         <!--<div id="splash">-->
-            <img id="splash" src="images/logo.JPG" />
+            <img id="splash" src="images/logo.png" />
         <!--</div>-->
         
     	<div id="menu">
@@ -46,14 +46,22 @@
         </div>
         
         <div id="credit">
+        <!--
             <h2>Art/Design</h2>
-            <p><span>JTR Jeux</span><br /><img src="images/logo.JPG" width="300px"/></p>
+            <p><span>JTR Jeux</span><br /><img src="images/logo.png" width="300px"/></p>
             <h2>Code/Develop</h2>
             <p>Alic Jiang</p>
             <p>Peter Kim</p>
             <h2>Music</h2>
             <p><span>Ben Prunty - Chromatic T-Rex</span><br /><img src="music/logo.png" width="300px"/></p>
             </h2>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <h2>The people who are crazy enough to think they can change the world, are the ones who do.<br /> <h3>-- Think Different</h3></h2>
+            -->
         </div>
         
         <div id="save">
@@ -224,12 +232,14 @@
 		var gamestart = false;
 		var mainInterval = null;
 		var mainPosition = 0;
+		var creditPosition = 560;
 		var count = 0;
 		var mainInterval = window.setInterval(mainAnimation, 1000/60);
 		var splashscreen;
 		var main;
         var bgscrolling = true;
         var bgImg = new Image();
+		var creditImg = new Image();
         var music = true;
         var sound = true;
         var priceBomb = 1000;
@@ -240,6 +250,7 @@
         var gameLoop;
         
         bgImg.src = "images/space.png";
+		creditImg.src = "images/credit.png";
         
         if(count === 0){
 			splashscreen = window.setInterval(splash, 1000);
@@ -258,6 +269,12 @@
             }
 			
 		}
+		
+		function creditAnimation() {
+			creditPosition--;
+			$("#credit").css({backgroundPositionY: (creditPosition) + "px"});
+		}
+		
 		function splash() {
 			$('#splash').fadeOut("800");
 			main = window.setInterval(function () {
@@ -298,7 +315,7 @@
 						//print out the object
 						//$('.content').append('<p>This is the <span class="red">' + getSave[i].version + "th</span> time that the object, localStorage.save, has been getd from the localStorage.</p>");
 						//$('.content').append("<p>" + JSON.stringify(getSave[i]) + "</p>");
-						$('.save'+(i+1)).text(getSave[i].name + " level " + getSave[i].level + " - " + getSave[i].lastSave);
+						$('.save'+(i+1)).text(getSave[i].name + " level " + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
 					}
 				}
 
@@ -366,6 +383,7 @@
                 hideDiv('#save');
                 hideDiv('#namefield');
                 fadeInDiv('#credit');
+				var creditInterval = window.setInterval(creditAnimation, 1000 / 30);
             });
             $('#credit').click(function(){
                 hideDiv('#credit');
@@ -443,19 +461,19 @@
                 fadeInDiv('#mainmenu');
             });
             $('.backMain').click(function(){
+				updateData(selectSlot);
                 gamestart = false;
                 bgscrolling = true;
                 clearInterval(gameLoop);
                 clearInterval(bgInterval);
-                $('#gamefield').css('display','none');
-                $('#main').fadeIn();
                 ended();
                 switchTrack(1);
                 mainInterval = window.setInterval(mainAnimation, 1000/60);
+				hideDiv('#gamefield');
                 hideDiv('#mainmenu');
-				hideDiv('#namefield');
                 hideDiv('#pauseScreen');
-                fadeInDiv('#nonPause');
+				hideDiv('#save');
+				fadeInDiv('#main');
                 $('#myCanvas').fadeTo(400, 1.0);
                 pause=false;
                 for(var i=0;i<enemies.length;i++)
@@ -468,7 +486,6 @@
                 $('#mainmenu').fadeOut();
             });
             $('.nextLevel').click(function(){
-                level++;
                 levelSelect(level);
                 enemyNum=0;
                 hideDiv("#levelComplete");
