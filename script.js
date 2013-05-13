@@ -344,6 +344,8 @@ var switcher=0;
          for(var i = 0; i <enemies.length; i++ ){
              if(input == enemies[i].answer&&enemies[i].alive){
                  cleanEnemy (i);
+                 score+=enemies[i].scoreKeep;
+                 $(".score").text(score);
 				 numEnemyKilled ++;
                  input = "";
                  $("#input").text(input);
@@ -410,7 +412,7 @@ var switcher=0;
         //this.borderWidth= 2;   
         this.xGap = ((canvas.width/2)-x_bron)/enemySpeed;
         this.yGap = ((canvas.height/2)-y_bron)/enemySpeed;
-        this.score=1000;
+        this.scoreKeep=1000;
         this.image = new Kinetic.Image({
                 x: x_bron,
                 y: y_bron,
@@ -549,8 +551,8 @@ var switcher=0;
             enemies[num].image.setY(enemies[num].fixedY + frame.time*enemies[num].yGap);
             enemies[num].text.setX(enemies[num].fixedX + frame.time*enemies[num].xGap+10);
             enemies[num].text.setY(enemies[num].fixedY + frame.time*enemies[num].yGap-20);
-            enemies[num].scoreKeep -= 1000*enemies[num].xGap/
-            Math.abs((enemies[num].fixedX-canvas.width/2))
+            enemies[num].scoreKeep -= Math.abs(frame.timeDiff*1000*enemies[num].xGap/
+            (enemies[num].fixedX-canvas.width/2));
                 if(enemies[num].alive && enemies[num].image.attrs.x < base.rect.attrs.x+base.rect.attrs.width && enemies[num].image.attrs.x > base.rect.attrs.x-enemies[num].image.attrs.width
                 && enemies[num].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[num].image.attrs.y > base.rect.attrs.y-enemies[num].image.attrs.height)
                 {
