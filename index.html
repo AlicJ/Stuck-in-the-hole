@@ -20,7 +20,7 @@
     	<div id="menu">
             <span><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h2></span>
             <div class="newgame" ><p><span class="bigger">J</span>ouer</p></div>
-            <div class="highscore" ><p><span class="bigger">H</span>igh Score</p></div>
+            <!--<div class="highscore" ><p><span class="bigger">H</span>igh Score</p></div>-->
             <div class="setting1" ><p><span class="bigger">R</span>églage</p></div>
             <div class="help1" ><p><span class="bigger">I</span>nstructions</p></div>
             <div class="credit"><p><span class="bigger">C</span>rédit</p></div>
@@ -234,6 +234,7 @@
 		var mainPosition = 0;
 		var creditPosition = 560;
 		var count = 0;
+        var counter =0;
 		var mainInterval = window.setInterval(mainAnimation, 1000/60);
 		var splashscreen;
 		var main;
@@ -383,7 +384,20 @@
                 hideDiv('#save');
                 hideDiv('#namefield');
                 fadeInDiv('#credit');
-				var creditInterval = window.setInterval(creditAnimation, 1000 / 30);
+				var creditInterval = window.setInterval(creditAnimation, 0.1);
+                var pauseInterval = window.setInterval(function(){
+                    if(creditPosition <= -980){
+                        clearInterval(creditInterval);
+                        counter++;
+                    }
+                    if(counter==4)
+                    {
+                        hideDiv('#credit');
+                        fadeInDiv('#menu');
+                        counter = 0;
+                    }
+                },1000);
+                
             });
             $('#credit').click(function(){
                 hideDiv('#credit');
