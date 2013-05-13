@@ -14,7 +14,7 @@
     <div class="bgMusic"></div>
     <div id="main">
         <!--<div id="splash">-->
-            <img id="splash" src="images/logo.JPG" />
+            <img id="splash" src="images/logo.png" />
         <!--</div>-->
         
     	<div id="menu">
@@ -46,14 +46,22 @@
         </div>
         
         <div id="credit">
+        <!--
             <h2>Art/Design</h2>
-            <p><span>JTR Jeux</span><br /><img src="images/logo.JPG" width="300px"/></p>
+            <p><span>JTR Jeux</span><br /><img src="images/logo.png" width="300px"/></p>
             <h2>Code/Develop</h2>
             <p>Alic Jiang</p>
             <p>Peter Kim</p>
             <h2>Music</h2>
             <p><span>Ben Prunty - Chromatic T-Rex</span><br /><img src="music/logo.png" width="300px"/></p>
             </h2>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <h2>The people who are crazy enough to think they can change the world, are the ones who do.<br /> <h3>-- Think Different</h3></h2>
+            -->
         </div>
         
         <div id="save">
@@ -85,7 +93,7 @@
         
         <div id="leftPanel">
             <div id="lives">
-                Lives: <img src="images/life.jpg" height="30" />x<span class="lives"></span>
+                Lives: <img src="images/Life.png" height="30" />x<span class="lives"></span>
             </div>
             <div id="score">
                 Score: <span class="score"></span>
@@ -100,25 +108,25 @@
             <h2>Shop</h2>
             <div>
                 <p>Bomb</p>
-                <img src="images/bomb.jpg" width="100" height="100"/>
+                <img src="images/Bomb.png" width="100" height="100"/>
                 <p class="priceBomb">Price: </p>
                 <span class="bomb">Buy</span>
             </div>
             <div>
                 <p>Shield</p>
-                <img src="images/shield.jpg" width="100" height="100"/>
+                <img src="images/Shield.png" width="100" height="100"/>
                 <p class="priceShield">Price: </p>
                 <span class="shield">Buy</span>
             </div>
             <div>
                 <p>Life</p>
-                <img src="images/life.jpg" width="100" height="100"/>
+                <img src="images/Life.png" width="100" height="100"/>
                 <p class="priceLife">Price: </p>
                 <span class="life">Buy</span>
             </div>
             <div>
                 <p>Freeze</p>
-                <img src="images/freeze.jpg" width="100" height="100"/>
+                <img src="images/Freeze.png" width="100" height="100"/>
                 <p class="priceFreeze">Price: </p>
                 <span class="freeze">Buy</span>
             </div>
@@ -224,12 +232,14 @@
 		var gamestart = false;
 		var mainInterval = null;
 		var mainPosition = 0;
+		var creditPosition = 560;
 		var count = 0;
 		var mainInterval = window.setInterval(mainAnimation, 1000/60);
 		var splashscreen;
 		var main;
         var bgscrolling = true;
         var bgImg = new Image();
+		var creditImg = new Image();
         var music = true;
         var sound = true;
         var priceBomb = 1000;
@@ -240,6 +250,7 @@
         var gameLoop;
         
         bgImg.src = "images/space.png";
+		creditImg.src = "images/credit.png";
         
         if(count === 0){
 			splashscreen = window.setInterval(splash, 1000);
@@ -251,13 +262,19 @@
 		function mainAnimation() {
             if(bgscrolling){
                 mainPosition--;
-                $("#main").css({backgroundPosition: (mainPosition * 3) + "px 0px"});
+                $("#main").css({backgroundPosition: (mainPosition * 2) + "px 0px"});
                 if(Math.abs(mainPosition)>=bgImg.width){
 				mainPosition = 0;
 			}
             }
 			
 		}
+		
+		function creditAnimation() {
+			creditPosition--;
+			$("#credit").css({backgroundPositionY: (creditPosition) + "px"});
+		}
+		
 		function splash() {
 			$('#splash').fadeOut("800");
 			main = window.setInterval(function () {
@@ -282,12 +299,29 @@
                 //below is the saving slot, refer line 139-234 for relevant funcitons
                 //comment out the next five line, and uncomment the blue lines,
                 //will start the game directly when "start" button is clicked 
-                //hideDiv('#help1');
-                //hideDiv('#setting1');
-                //hideDiv('#namefield');
-                //fadeInDiv('#save');
+                hideDiv('#help1');
+                hideDiv('#setting1');
+                hideDiv('#namefield');
+                fadeInDiv('#save');
+				
+				//below is to load the save info
+				for (var i=0;i<saveLength;i++){
+					if (localStorage['save'+i]){
+						//get data from localStorage
+						getSave[i] = new Object();
+						getSave[i] = JSON.parse(localStorage.getItem('save'+i));
+						//update
+						//LSupdate(getSave[i],'save'+i);
+						//print out the object
+						//$('.content').append('<p>This is the <span class="red">' + getSave[i].version + "th</span> time that the object, localStorage.save, has been getd from the localStorage.</p>");
+						//$('.content').append("<p>" + JSON.stringify(getSave[i]) + "</p>");
+						$('.save'+(i+1)).text(getSave[i].name + " level " + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
+					}
+				}
+
                 //below (the commented out, blue ones) is the start game lines
-                $('#main').css('display','none');
+                /***
+				$('#main').css('display','none');
     			$('#gamefield').fadeIn();
 				gamestart = true;
                 enemyNum=0;
@@ -298,6 +332,7 @@
                 ended();
 				window.clearInterval(mainInterval);
                 $('.level').text(level+1);
+				***/
 			});
             $('.setting1').click(function(){
                 hideDiv('#help1');
@@ -348,6 +383,7 @@
                 hideDiv('#save');
                 hideDiv('#namefield');
                 fadeInDiv('#credit');
+				var creditInterval = window.setInterval(creditAnimation, 1000 / 30);
             });
             $('#credit').click(function(){
                 hideDiv('#credit');
@@ -425,18 +461,19 @@
                 fadeInDiv('#mainmenu');
             });
             $('.backMain').click(function(){
+				updateData(selectSlot);
                 gamestart = false;
                 bgscrolling = true;
                 clearInterval(gameLoop);
                 clearInterval(bgInterval);
-                $('#gamefield').css('display','none');
-                $('#main').fadeIn();
                 ended();
                 switchTrack(1);
                 mainInterval = window.setInterval(mainAnimation, 1000/60);
+				hideDiv('#gamefield');
                 hideDiv('#mainmenu');
                 hideDiv('#pauseScreen');
-                fadeInDiv('#nonPause');
+				hideDiv('#save');
+				fadeInDiv('#main');
                 $('#myCanvas').fadeTo(400, 1.0);
                 pause=false;
                 for(var i=0;i<enemies.length;i++)
@@ -449,13 +486,11 @@
                 $('#mainmenu').fadeOut();
             });
             $('.nextLevel').click(function(){
-                level++;
                 levelSelect(level);
                 enemyNum=0;
-                enemies = new Array ();
                 hideDiv("#levelComplete");
                 $('.level').text(level+1);
-                pause=false;
+				pause = false;
             });
         });
     </script>

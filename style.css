@@ -135,6 +135,9 @@ ul {
 #credit {
     /*position:relative;
     top:600px;*/
+	background:url(images/credit.png);
+	background-repeat: no-repeat;
+	height:598px;
 }
 
 .exit p {
