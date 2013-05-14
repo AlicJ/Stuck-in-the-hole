@@ -240,7 +240,13 @@ var switcher=0;
 		ended();
 		window.clearInterval(mainInterval);
 		$('.level').text(level+1);
+        layer.add(base);
+        stage.add(layer);
 	}
+    
+    function GameOver(){
+        fadeInDiv('')
+    }
 	
 	function saveData(i){
 		//if save does not exist
@@ -299,7 +305,7 @@ var switcher=0;
     var enemies;
     var enemyNum = 0;
     var imageObj = new Image();
-    
+    imageObj.src = 'images/obj.png';
     var stage = new Kinetic.Stage({
             container: 'myCanvas',
             width: canvas.width,
@@ -307,11 +313,11 @@ var switcher=0;
         });
     var layer = new Kinetic.Layer();
     
-	var lives = 300;
+	var lives = 3;
     var numShield = 0;
     var numBomb = 0;
     var numFreeze = 0;
-    var score = 500000;
+    var score = 0;
 	var numEnemyKilled = 0;
     var shieldOn = false;
 
@@ -325,26 +331,25 @@ var switcher=0;
     var bgPosition = 0;
 	var bgImg = new Image();
 	bgImg.src = "images/space.png";
-    imageObj.src = 'images/obj.png';
+    var baseImg = new Image();
+    baseImg.src = "images/base.jpg"
     var anim = new Array();
     var pause = false;
-    var base = new Object();
-    base.rect = new Kinetic.Rect({
+    var base;
+    base = new Kinetic.Image({
         x: stage.getWidth() / 2 -50,
         y: stage.getHeight() / 2 -50,
         width: 100,
         height: 100,
-        fill: 'white',
+        image:baseImg, 
     });
-      layer.add(base.rect);
-      stage.add(layer);
     
     function submit(){
         
          for(var i = 0; i <enemies.length; i++ ){
              if(input == enemies[i].answer&&enemies[i].alive){
                  cleanEnemy (i);
-                 score+=enemies[i].scoreKeep;
+                 score+=Math.abs(enemies[i].scoreKeep);
                  $(".score").text(score);
 				 numEnemyKilled ++;
                  input = "";
@@ -544,17 +549,17 @@ var switcher=0;
     }
     function animate(num) 
     {
-        
+        var scoreRate =  Math.abs(1000*enemies[num].xGap/(enemies[num].fixedX-canvas.width/2));
         anim[num] = new Kinetic.Animation(function(frame) {  
             
             enemies[num].image.setX(enemies[num].fixedX + frame.time*enemies[num].xGap);
             enemies[num].image.setY(enemies[num].fixedY + frame.time*enemies[num].yGap);
             enemies[num].text.setX(enemies[num].fixedX + frame.time*enemies[num].xGap+10);
             enemies[num].text.setY(enemies[num].fixedY + frame.time*enemies[num].yGap-20);
-            enemies[num].scoreKeep -= Math.abs(frame.timeDiff*1000*enemies[num].xGap/
-            (enemies[num].fixedX-canvas.width/2));
-                if(enemies[num].alive && enemies[num].image.attrs.x < base.rect.attrs.x+base.rect.attrs.width && enemies[num].image.attrs.x > base.rect.attrs.x-enemies[num].image.attrs.width
-                && enemies[num].image.attrs.y < base.rect.attrs.y+base.rect.attrs.height && enemies[num].image.attrs.y > base.rect.attrs.y-enemies[num].image.attrs.height)
+            enemies[num].scoreKeep -= 1000*enemies[num].xGap;
+            Math.abs((enemies[num].fixedX-canvas.width/2));
+                if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width
+                && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height)
                 {
                     cleanEnemy (num);
                     if(!shieldOn){
@@ -565,6 +570,7 @@ var switcher=0;
                 
                 if(lives <= 0){
                     clearInterval(gameLoop);
+                    GameOver();
                 }
         }, layer);
         
