@@ -349,7 +349,7 @@ var switcher=0;
          for(var i = 0; i <enemies.length; i++ ){
              if(input == enemies[i].answer&&enemies[i].alive){
                  cleanEnemy (i);
-                 score+=enemies[i].scoreKeep;
+                 score+=Math.abs(enemies[i].scoreKeep);
                  $(".score").text(score);
 				 numEnemyKilled ++;
                  input = "";
@@ -549,7 +549,7 @@ var switcher=0;
     }
     function animate(num) 
     {
-        
+        var scoreRate =  Math.abs(1000*enemies[num].xGap/(enemies[num].fixedX-canvas.width/2));
         anim[num] = new Kinetic.Animation(function(frame) {  
             
             enemies[num].image.setX(enemies[num].fixedX + frame.time*enemies[num].xGap);
