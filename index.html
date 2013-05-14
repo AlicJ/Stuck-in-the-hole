@@ -20,9 +20,9 @@
     	<div id="menu">
             <span><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h2></span>
             <div class="newgame" ><p><span class="bigger">P</span>lay</p></div>
-            <!--<div class="highscore" ><p><span class="bigger">H</span>igh Score</p></div>-->
             <div class="setting1" ><p><span class="bigger">S</span>etting</p></div>
             <div class="help1" ><p><span class="bigger">I</span>nstruction</p></div>
+            <div class="highscore" ><p><span class="bigger">H</span>igh Score</p></div>
             <div class="credit"><p><span class="bigger">C</span>redit</p></div>
             <div class="exit" onclick="window.close()"><p><span class="bigger">E</span>xit</p></div>
             <!--blackberry.app.exit ()-->
@@ -40,21 +40,32 @@
         
         <div id="help1">
             <h2>Instructions</h2>
-	        <img src="images/obj.png" height="100px"/>
-            <p>This is the enemy you are suppose to destroy</p>
-            <img src="images/base.jpg" height="100px"/>
-            <p>This is the base you are suppose to defend</p>
+            <p>You are a gallant space explorer who wishes to find and name a new planet.</p>
+            <p>One day, when you are woken up by siren, your AI tells you that the space ship encounters a meteoric stream.</p>
+            <p>You have to destory all the incoming asteroids to survive!</p>
+            <p>Use the number pad on the right hand side to solve questions brought by asteroid and destory them!</p>
+        </div>
+        
+        <div id="highscore">
+        	<h2>High Score</h2>
+            <ul>
+            </ul>
         </div>
         
         <div id="credit">
         <!--
             <h2>Art/Design</h2>
-            <p><span>JTR Jeux</span><br /><img src="images/logo.png" width="300px"/></p>
-            <h2>Code/Develop</h2>
+            <p>JTR Jeux</p>
+            <img src="images/logo.png" width="300px"/>
+            <h2>Music</h2>
+            <p>Ben Prunty - Chromatic T-Rex</p>
+            <img src="music/logo.png" width="200px"/></p>
+            <h2>Developer</h2>
             <p>Alic Jiang</p>
             <p>Peter Kim</p>
-            <h2>Music</h2>
-            <p><span>Ben Prunty - Chromatic T-Rex</span><br /><img src="music/logo.png" width="300px"/></p>
+            <h2>Libraries</h2>
+            <p>jQuery 1.9.1</p>
+            <p>Kinetic JS 4.5.1</p>
             </h2>
             <br />
             <br />
@@ -89,7 +100,12 @@
         <div id="levelComplete">
             <h3>Congradulations, level complete!</h3>
             <div class="nextLevel">Continue</div>
-            <div class="backMain">Main menu</div>
+            <div class="backMain">Have a rest</div>
+        </div>
+        
+        <div id="gameover">
+        	<h3></h3>
+            <div class="backMain"></div>
         </div>
         
         <div id="leftPanel">
@@ -144,10 +160,10 @@
         
         <div id="help2">
             <h2>Instructions</h2>
-            <img src="images/obj.png" height="100px"/>
-            <p>This is the enemy you are suppose to destroy</p>
-            <img src="images/base.jpg" height="100px"/>
-            <p>This is the base you are suppose to defend</p>
+            <p>You are a gallant space explorer who wishes to find and name a new planet.</p>
+            <p>One day, when you are woken up by siren, your AI tells you that the space ship encounters a meteoric stream.</p>
+            <p>You have to destory all the incoming asteroids to survive!</p>
+            <p>Use the number pad on the right hand side to solve questions brought by asteroid and destory them!</p>
         </div>
         
         <div id="mainmenu">
@@ -219,6 +235,7 @@
 		hideDiv('#setting1');
 		hideDiv('#help1');
         hideDiv('#credit');
+		hideDiv('#highscore');
         hideDiv('#save');
         hideDiv('#namefield');
         hideDiv('#pauseScreen');
@@ -227,6 +244,7 @@
         hideDiv('#help2');
         hideDiv('#mainmenu');
         hideDiv('#levelComplete');
+		hideDiv('#gameover');
 		//$('body').css('width',window.innerWidth);
 		//$('body').css('height',window.innerHeight);
 			
@@ -291,9 +309,6 @@
         $('.priceShield').append(priceShield);
         $('.priceLife').append(priceLife);
         $('.priceFreeze').append(priceFreeze);
-        $('.lives').text(lives);
-        $('.level').text(level+1);
-        $('.score').text(score);
 
 		$(document).ready(function() {
             //for main menu selections
@@ -302,6 +317,7 @@
                 //comment out the next five line, and uncomment the blue lines,
                 //will start the game directly when "start" button is clicked 
                 hideDiv('#help1');
+				hideDiv('#highscore');
                 hideDiv('#setting1');
                 hideDiv('#namefield');
                 fadeInDiv('#save');
@@ -339,6 +355,7 @@
             $('.setting1').click(function(){
                 hideDiv('#help1');
                 hideDiv('#save');
+				hideDiv('#highscore');
                 hideDiv('#namefield');
 				fadeInDiv('#setting1');
                 
@@ -375,19 +392,30 @@
 			$('.help1').click(function(){
                 hideDiv('#setting1');
                 hideDiv('#save');
+				hideDiv('#highscore');
                 hideDiv('#namefield');
                 fadeInDiv('#help1');
 			});
+			$('.highscore').click(function(){
+                hideDiv('#setting1');
+                hideDiv('#help1');
+                hideDiv('#save');
+                hideDiv('#namefield');
+                fadeInDiv('#highscore');
+				sortScore();
+				showScore();
+			});
             $('.credit').click(function(){
                 hideDiv('#setting1');
+				hideDiv('#highscore');
                 hideDiv('#help1');
                 hideDiv('#menu');
                 hideDiv('#save');
                 hideDiv('#namefield');
                 fadeInDiv('#credit');
-				var creditInterval = window.setInterval(creditAnimation, 1000/60);
+				var creditInterval = window.setInterval(creditAnimation, 1000/30);
                 var pauseInterval = window.setInterval(function(){
-                    if(creditPosition <= -980){
+                    if(creditPosition <= -1140){
                         clearInterval(creditInterval);
                         counter++;
                     }
@@ -494,6 +522,8 @@
 				hideDiv('#gamefield');
                 hideDiv('#mainmenu');
                 hideDiv('#pauseScreen');
+				hideDiv('#levelcomplete');
+				hideDiv('#gameover');
 				hideDiv('#save');
 				fadeInDiv('#main');
                 $('#myCanvas').fadeTo(400, 1.0);
