@@ -434,6 +434,7 @@
             $('.bomb').click(function(){
                 if(score>=priceBomb){
                     score -= priceBomb;
+                    $('.score').text(score);
                     numBomb +=1;
                     $('.numBomb').text('Bomb: ' + numBomb);
                 }
@@ -441,6 +442,7 @@
             $('.shield').click(function(){
                 if(score>=priceShield){
                     score -= priceShield;
+                    $('.score').text(score);
                     numShield +=1;
                     $('.numShield').text('Shield: ' + numShield);
                 }
@@ -448,6 +450,7 @@
             $('.life').click(function(){
                 if(score>=priceLife){
                     score -= priceLife;
+                    $('.score').text(score);
                     lives +=1;
                     $('.lives').text(lives);
                 }
@@ -455,6 +458,7 @@
             $('.freeze').click(function(){
                 if(score>=priceFreeze){
                     score -= priceFreeze;
+                    $('.score').text(score);
                     numFreeze +=1;
                     $('.numFreeze').text('Freeze: ' + numFreeze);
                 }

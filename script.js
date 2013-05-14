@@ -349,6 +349,8 @@ var switcher=0;
          for(var i = 0; i <enemies.length; i++ ){
              if(input == enemies[i].answer&&enemies[i].alive){
                  cleanEnemy (i);
+                 score+=enemies[i].scoreKeep;
+                 $(".score").text(score);
 				 numEnemyKilled ++;
                  input = "";
                  $("#input").text(input);
@@ -415,7 +417,7 @@ var switcher=0;
         //this.borderWidth= 2;   
         this.xGap = ((canvas.width/2)-x_bron)/enemySpeed;
         this.yGap = ((canvas.height/2)-y_bron)/enemySpeed;
-        this.score=1000;
+        this.scoreKeep=1000;
         this.image = new Kinetic.Image({
                 x: x_bron,
                 y: y_bron,
