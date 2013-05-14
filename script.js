@@ -349,7 +349,7 @@ var switcher=0;
          for(var i = 0; i <enemies.length; i++ ){
              if(input == enemies[i].answer&&enemies[i].alive){
                  cleanEnemy (i);
-                 score+=Math.abs(enemies[i].scoreKeep);
+                 score+=Math.round(enemies[i].scoreKeep);
                  $(".score").text(score);
 				 numEnemyKilled ++;
                  input = "";
