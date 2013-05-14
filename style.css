@@ -44,10 +44,22 @@ ul {
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
 }
-#main li, #setting2 li {
+#setting1 li, #setting2 li {
 	margin: 15px 0;
     height: 80px;
     line-height: 70px;
+}
+#highscore li {
+	height: 50px;
+	line-height: 50px;
+	width: 500px;
+	margin: 0 0 0 100px;
+}
+#highscore .score {
+	float:left;
+}
+#highscore .user {
+	float:right;
 }
 #menu div:active {
 	background:#1FFFFF;
@@ -71,7 +83,7 @@ ul {
 #menu div {
     border-radius:4px;
 	border:#1FFFFF 2px solid;
-    margin:22px 10px;
+    margin:10px 10px;
 }
 #menu div p {
     padding: 10px 15px 8px 0;
@@ -208,7 +220,7 @@ ul {
     margin:10px 28px;
     padding:4px 0;
 }
-#buttons div:active, #pauseScreen div:active, #levelComplete div:active {
+#buttons div:active, #pauseScreen div:active, #levelComplete div:active, #gameover div:active {
     background:#67EFE9;
     color:#090708;
 }
@@ -252,8 +264,9 @@ ul {
 .yes, .no {
     margin:0 15px;
 }
-#levelComplete {
+#levelComplete,#gameover {
     width: 500px;
+	height: 221px;
     position: absolute;
     top: 120px;
     text-align: center;
@@ -262,7 +275,7 @@ ul {
     border-radius:4px;
     background:url("images/levelbackground.png") #333;
 }
-#levelComplete div{
+#levelComplete div {
     float: left;
     border: #67EFE9 2px solid;
     border-radius: 4px;
@@ -278,6 +291,13 @@ ul {
     position: fixed;
     top:2px;
     left: 20px;
+}
+#gameover div {
+    border: #67EFE9 2px solid;
+    border-radius: 4px;
+    margin: 60px auto 0;
+    padding: 8px 0;
+    width: 180px;
 }
 #leftPanel {
     position: absolute;

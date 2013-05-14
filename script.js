@@ -43,6 +43,7 @@ var switcher=0;
 		}
             return Math.floor(number);
 	}
+	
 //Keypad
 	var input = "";
 	function addNum (num){
@@ -55,6 +56,44 @@ var switcher=0;
 		input = "";
 		$("#input").text(input);
 	}
+	
+//highscore
+var high = new Array();
+var temp;
+var high9 = new Object();
+
+high = JSON.parse(localStorage.highscore)
+
+function sortScore(){
+	for(var j=0; j<high.length-1; j++){
+		for (var i=0; i<high.length-1; i++){
+			if(high[i].score<high[i+1].score){
+				temp = high[i];
+				high[i] = high[i+1];
+				high[i+1] = temp;
+			}
+		}
+	}
+	high9 = high.slice(0,9);
+}
+
+function showScore(){
+	for(var h=0; h<high9.length; h++){
+		$('#highscore ul').append('<li><span class="score">' + high9[h].score + '</span><span class="user">' + high9[h].user + '</span></li>');
+	}
+}
+
+function pushScore(){
+	var currentScore = {
+		score : score,
+		user : getSave[selectSlot].name
+	}
+	high.push(currentScore)
+	sortScore();
+	localStorage.highscore = JSON.stringify(high9)
+}
+
+	
 //Music Player
     var playlist = [
         {
@@ -190,8 +229,21 @@ var switcher=0;
 	loadTrack(currentTrack);
     
 //Sound Effects
-    var explosion = new Audio();
-
+    var asteriod = new Audio('music/asteriod.ogg');		//destruction of an asteriod
+	var destoryed = new Audio('music/destoryed.ogg');	//destruction of the main ship
+	var beenhit = new Audio('music/beenhit.ogg');		//main ship been hit
+	
+/***
+var source= document.createElement('source');
+if (audio.canPlayType('audio/mpeg;')) {
+    source.type= 'audio/mpeg';
+    source.src= 'audio/song.mp3';
+} else {
+    source.type= 'audio/ogg';
+    source.src= 'audio/song.ogg';
+}
+audio.appendChild(source);
+***/
 
 //Save files
     var creat = new Date();
@@ -229,6 +281,9 @@ var switcher=0;
 	}
 	
 	function GameStart(){
+		$('.lives').text(lives);
+        $('.level').text(level+1);
+        $('.score').text(score);
 		hideDiv('#main');
 		fadeInDiv('#gamefield');
 		fadeInDiv('#nonPause');
@@ -245,7 +300,15 @@ var switcher=0;
 	}
     
     function GameOver(){
-        fadeInDiv('')
+		if(fail){
+			$('#gameover h3').text("Our ship is destroyed!");
+			$('#gameover div').text("Retreat");
+		}else{
+			$('#gameover h3').text("We survived from the meteoric stream!");
+			$('#gameover div').text("Celebrate!");
+		}
+        fadeInDiv('#gameover');
+		pushScore();
     }
 	
 	function saveData(i){
@@ -290,6 +353,7 @@ var switcher=0;
 			//if the save file exit, use it
 			selectSlot = i;
 			level = getSave[selectSlot].level;
+			lives = getSave[selectSlot].numLives;
 			GameStart();
         }
 	}
@@ -320,6 +384,7 @@ var switcher=0;
     var score = 0;
 	var numEnemyKilled = 0;
     var shieldOn = false;
+	var fail = false;
 
 	var rectX = canvas.width/2-50;
 	var rectY = canvas.height/2-50;
@@ -354,6 +419,7 @@ var switcher=0;
 				 numEnemyKilled ++;
                  input = "";
                  $("#input").text(input);
+				 asteriod.play();
              }
          }
     }
@@ -448,7 +514,6 @@ var switcher=0;
     
     function cleanEnemy (num)
     {
-        explosion.play();
         anim[num].stop();
         enemies[num].alive = false;
         enemies[num].image.hide();
@@ -556,19 +621,22 @@ var switcher=0;
             enemies[num].image.setY(enemies[num].fixedY + frame.time*enemies[num].yGap);
             enemies[num].text.setX(enemies[num].fixedX + frame.time*enemies[num].xGap+10);
             enemies[num].text.setY(enemies[num].fixedY + frame.time*enemies[num].yGap-20);
-            enemies[num].scoreKeep -= 1000*enemies[num].xGap;
+            enemies[num].scoreKeep -= 10*enemies[num].xGap;
             Math.abs((enemies[num].fixedX-canvas.width/2));
                 if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width
                 && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height)
                 {
                     cleanEnemy (num);
                     if(!shieldOn){
+						beenhit.play();
                         lives-=1;
                         $('.lives').text(lives);
                     }
                 }
                 
                 if(lives <= 0){
+					fail = true;
+					destoryed.play();
                     clearInterval(gameLoop);
                     GameOver();
                 }
