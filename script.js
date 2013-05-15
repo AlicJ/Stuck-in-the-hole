@@ -400,7 +400,7 @@ audio.appendChild(source);
     var enemies;
     var enemyNum = 0;
     var imageObj = new Image();
-    imageObj.src = 'images/obj.png';
+    imageObj.src = 'images/asteroid.png';
     var stage = new Kinetic.Stage({
             container: 'myCanvas',
             width: canvas.width,
@@ -437,10 +437,10 @@ audio.appendChild(source);
     base = new Kinetic.Image({
         x: stage.getWidth() / 2 -50,
         y: stage.getHeight() / 2 -50,
-        width: 120,
-        height: 120,
-        stroke:"Red",
-        strokeWidth:1,
+        width: 140,
+        height: 110,
+        //stroke:"Red",
+        //strokeWidth:1,
         image:baseImg,
     });
     var shieldPic =new Kinetic.Image({
@@ -546,8 +546,8 @@ audio.appendChild(source);
             y: y_bron,
             text: question,
             fontSize: 20,
-            fontFamily: 'Calibri',
-            fill: 'white'
+            fontFamily: 'TIEWing',
+            fill: '#67EFE9'
         });
     }
    
