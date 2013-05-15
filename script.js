@@ -252,6 +252,10 @@ audio.appendChild(source);
     var getSave = new Array();
     var saveLength = 5;
     var selectSlot;
+	var slot = new Array();
+	for(var i=0; i<5; i++){
+		slot[i] = true;
+	}
 
 	function LSupdate(pending,update){
 		//add 1 to the version
@@ -280,6 +284,15 @@ audio.appendChild(source);
 		LSupdate(getSave[num],'save'+num);
 	}
 	
+	function deleteData(num){
+		if(getSave[num]){
+			getSave[num] = new Object();
+			slot[num] = false;
+			$('.save'+(num+1)).text('Please restart to use this slot');
+			localStorage.removeItem('save'+num);
+		}
+	}
+	
 	function GameStart(){
 		$('.lives').text(lives);
         $('.level').text(level+1);
@@ -295,6 +308,8 @@ audio.appendChild(source);
 		ended();
 		window.clearInterval(mainInterval);
 		$('.level').text(level+1);
+		score = getSave[selectSlot].score;
+		$(".score").text(score);
         layer.add(base);
         stage.add(layer);
 	}
@@ -303,17 +318,29 @@ audio.appendChild(source);
 		if(fail){
 			$('#gameover h3').text("Our ship is destroyed!");
 			$('#gameover div').text("Retreat");
+			destoryed.play();
+			getSave[selectSlot].level = 0;
+			getSave[selectSlot].numBomb = 0;
+			getSave[selectSlot].numEnemyKilled = 0;
+			getSave[selectSlot].numFreeze = 0;
+			getSave[selectSlot].numLives = 3;
+			getSave[selectSlot].numShield = 0;
+			if(getSave[selectSlot].score<0) getSave[selectSlot].score = 0;
+		LSupdate(getSave[selectSlot],'save'+selectSlot);
 		}else{
 			$('#gameover h3').text("We survived from the meteoric stream!");
 			$('#gameover div').text("Celebrate!");
 		}
+		$('#ui').fadeOut();
+		$('#gamefield').css('background-image', 'url(images/space.png)');
+		clearInterval(gameLoop);
         fadeInDiv('#gameover');
 		pushScore();
     }
 	
 	function saveData(i){
 		//if save does not exist
-        if(!getSave[i]){
+        if(!getSave[i]&&slot[i]){
             hideDiv('#save');
             fadeInDiv('#namefield');
             $(".launch").click(function(){
@@ -349,7 +376,7 @@ audio.appendChild(source);
 
             });
 		//if the save exit, use it
-        }else{
+        }else if(slot[i]){
 			//if the save file exit, use it
 			selectSlot = i;
 			level = getSave[selectSlot].level;
@@ -415,13 +442,18 @@ audio.appendChild(source);
              if(input == enemies[i].answer&&enemies[i].alive){
                  cleanEnemy (i);
                  score+=Math.round(enemies[i].scoreKeep);
-                 $(".score").text(score);
 				 numEnemyKilled ++;
                  input = "";
                  $("#input").text(input);
 				 asteriod.play();
-             }
+             }else{
+				 //tried to decrease the score, yet not working
+				 //$("#input").text('Wrong answer!');
+				 //input = "";
+				 //score -=500;
+			 }
          }
+		 $(".score").text(score);
     }
     
     
@@ -627,6 +659,7 @@ audio.appendChild(source);
                 && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height)
                 {
                     cleanEnemy (num);
+					score -=1000;
                     if(!shieldOn){
 						beenhit.play();
                         lives-=1;
@@ -636,8 +669,6 @@ audio.appendChild(source);
                 
                 if(lives <= 0){
 					fail = true;
-					destoryed.play();
-                    clearInterval(gameLoop);
                     GameOver();
                 }
         }, layer);
