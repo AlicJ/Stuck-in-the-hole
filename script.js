@@ -62,7 +62,11 @@ var high = new Array();
 var temp;
 var high9 = new Object();
 
-high = JSON.parse(localStorage.highscore)
+if(!localStorage.highscore){
+    localStorage.highscore = high;
+}else{
+    high = JSON.parse(localStorage.highscore);
+}
 
 function sortScore(){
 	for(var j=0; j<high.length-1; j++){
@@ -87,10 +91,10 @@ function pushScore(){
 	var currentScore = {
 		score : score,
 		user : getSave[selectSlot].name
-	}
-	high.push(currentScore)
+	};
+	high.push(currentScore);
 	sortScore();
-	localStorage.highscore = JSON.stringify(high9)
+	localStorage.highscore = JSON.stringify(high9);
 }
 
 	
@@ -424,36 +428,48 @@ audio.appendChild(source);
 	var bgImg = new Image();
 	bgImg.src = "images/space.png";
     var baseImg = new Image();
-    baseImg.src = "images/base.jpg"
+    baseImg.src = "images/Spaceship.png";
+    var shieldImage = new Image();
+    shieldImage.src = "images/ShipShield.png";
     var anim = new Array();
     var pause = false;
     var base;
     base = new Kinetic.Image({
         x: stage.getWidth() / 2 -50,
         y: stage.getHeight() / 2 -50,
-        width: 100,
-        height: 100,
-        image:baseImg, 
+        width: 120,
+        height: 120,
+        stroke:"Red",
+        strokeWidth:1,
+        image:baseImg,
     });
-    
+    var shieldPic =new Kinetic.Image({
+        x: stage.getWidth() / 2 -80,
+        y: stage.getHeight() / 2 -80,
+        width: 200,
+        height: 200,
+        image:shieldImage,
+    });
+    shieldImage.hide();
+    layer.add(shieldPic);
     function submit(){
-        
-         for(var i = 0; i <enemies.length; i++ ){
-             if(input == enemies[i].answer&&enemies[i].alive){
-                 cleanEnemy (i);
-                 score+=Math.round(enemies[i].scoreKeep);
-				 numEnemyKilled ++;
-                 input = "";
-                 $("#input").text(input);
-				 asteriod.play();
-             }else{
-				 //tried to decrease the score, yet not working
-				 //$("#input").text('Wrong answer!');
-				 //input = "";
-				 //score -=500;
-			 }
-         }
-		 $(".score").text(score);
+        var correct =false
+        for(var i = 0; i <enemies.length; i++ ){
+            if(input == enemies[i].answer&&enemies[i].alive){
+                cleanEnemy (i);
+                score+=Math.round(enemies[i].scoreKeep);
+				numEnemyKilled ++;
+                input = "";
+                $("#input").text(input);
+				asteriod.play();
+                correct=true;
+            }
+        }
+        if(!correct)
+        {
+            score-=300;
+        }
+		$(".score").text(score);
     }
     
     
@@ -487,7 +503,7 @@ audio.appendChild(source);
                     y=-50;
                 }
             }
-            enemies[enemyNum]= new enemy(x, y, question.question, question.answer);
+            enemies[enemyNum]= new enemy(x, y, question.question, question.answer, side);
                
             layer.add(enemies[enemyNum].image);
             layer.add(enemies[enemyNum].text);
@@ -506,12 +522,13 @@ audio.appendChild(source);
         enemySpeed = 100000/(5+level);
         enemyDelay = 30000/(5+level);
     }
-    function enemy (x_bron, y_bron, question, answer)
+    function enemy (x_bron, y_bron, question, answer, side)
     {
-        this.answer= answer;
-        this.alive= true;
-       	this.fixedX= x_bron;
-		this.fixedY= y_bron;
+        this.answer = answer;
+        this.alive = true;
+        this.side = side
+       	this.fixedX = x_bron;
+		this.fixedY = y_bron;
         //this.borderWidth= 2;   
         this.xGap = ((canvas.width/2)-x_bron)/enemySpeed;
         this.yGap = ((canvas.height/2)-y_bron)/enemySpeed;
@@ -521,7 +538,8 @@ audio.appendChild(source);
                 y: y_bron,
                 width: 50,
                 height:60,
-                image:imageObj,    
+                image:imageObj, 
+                offset: [25, 30]
             });
         this.text = new Kinetic.Text({
             x: x_bron,
@@ -653,10 +671,11 @@ audio.appendChild(source);
             enemies[num].image.setY(enemies[num].fixedY + frame.time*enemies[num].yGap);
             enemies[num].text.setX(enemies[num].fixedX + frame.time*enemies[num].xGap+10);
             enemies[num].text.setY(enemies[num].fixedY + frame.time*enemies[num].yGap-20);
+            enemies[num].image.rotate(frame.timeDiff * (Math.PI / 4) / 1000);
             enemies[num].scoreKeep -= 10*enemies[num].xGap;
             Math.abs((enemies[num].fixedX-canvas.width/2));
-                if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width
-                && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height)
+                if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width+25 && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width+25
+                && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height +25 && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height+25)
                 {
                     cleanEnemy (num);
 					score -=1000;
