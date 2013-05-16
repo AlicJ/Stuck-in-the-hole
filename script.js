@@ -389,7 +389,6 @@ audio.appendChild(source);
             });
 		//if the save exit, use it
         }else if(slot[i]){
-			//if the save file exit, use it
 			selectSlot = i;
 			level = getSave[selectSlot].level;
 			lives = getSave[selectSlot].numLives;
