@@ -33,7 +33,7 @@ ul {
     opacity:0.95;
 }
 #main {
-	background:url(images/space.png) repeat scroll 0 0;
+	background:url(images/space.jpg) repeat scroll 0 0;
 	border:1px solid #999;
     color:#00E8E8;
 	font-size:30px;
@@ -170,7 +170,7 @@ ul {
 #myCanvas {
     width:75%;
     height:598px;
-    background:url(images/space.png) repeat scroll 0 0;
+    background:url(images/space.jpg) repeat scroll 0 0;
     float:left;
 }
 #gamefield {

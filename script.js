@@ -325,7 +325,7 @@ audio.appendChild(source);
 			if(fail){
 				$('#gameover h3').text("Our ship is destroyed!");
 				$('#gameover div').text("Retreat");
-				destoryed.play();
+				if(sound) destoryed.play();
 				getSave[selectSlot].level = 0;
 				getSave[selectSlot].numBomb = 0;
 				getSave[selectSlot].numEnemyKilled = 0;
@@ -333,13 +333,16 @@ audio.appendChild(source);
 				getSave[selectSlot].numLives = 3;
 				getSave[selectSlot].numShield = 0;
 				if(getSave[selectSlot].score<0) getSave[selectSlot].score = 0;
-			LSupdate(getSave[selectSlot],'save'+selectSlot);
+				LSupdate(getSave[selectSlot],'save'+selectSlot);
+				slot[selectSlot] = false;
+				$('.save'+(selectSlot+1)).text('Please restart to use this slot');
+
 			}else{
 				$('#gameover h3').text("We survived from the meteoric stream!");
 				$('#gameover div').text("Celebrate!");
 			}
 			$('#ui').fadeOut();
-			$('#gamefield').css('background-image', 'url(images/space.png)');
+			$('#gamefield').css('background-image', 'url(images/space.jpg)');
 			clearInterval(gameLoop);
 			fadeInDiv('#gameover');
 			pushScore();
@@ -404,8 +407,6 @@ audio.appendChild(source);
     var gamestart = false;
     var enemies;
     var enemyNum = 0;
-    var imageObj = new Image();
-    imageObj.src = 'images/asteroid.png';
     var stage = new Kinetic.Stage({
             container: 'myCanvas',
             width: canvas.width,
@@ -430,12 +431,16 @@ audio.appendChild(source);
     var enemies = new Array();
     var bgInterval = null;
     var bgPosition = 0;
+	var imageObj = new Image();
+    imageObj.src = 'images/asteroid.png';
 	var bgImg = new Image();
-	bgImg.src = "images/space.png";
+	bgImg.src = "images/space.jpg";
     var baseImg = new Image();
     baseImg.src = "images/Spaceship.png";
     var shieldImage = new Image();
     shieldImage.src = "images/ShipShield.png";
+	var expImg = new Image();
+	expImg.src = "images/explosion.png";
     var anim = new Array();
     var pause = false;
     var base;
@@ -466,7 +471,7 @@ audio.appendChild(source);
 				numEnemyKilled ++;
                 input = "";
                 $("#input").text(input);
-				asteriod.play();
+				if(sound) asteriod.play();
                 correct=true;
             }
         }
@@ -542,10 +547,10 @@ audio.appendChild(source);
                 x: x_bron,
                 y: y_bron,
                 width: 50,
-                height:60,
+                height:50,
                 image:imageObj, 
                 offset: [25, 30]
-            });
+        });
         this.text = new Kinetic.Text({
             x: x_bron,
             y: y_bron,
@@ -554,6 +559,14 @@ audio.appendChild(source);
             fontFamily: 'TIEWing',
             fill: '#67EFE9'
         });
+		this.explosion = new Kinetic.Image({
+			x: 0,
+			y: 0,
+			width: 75,
+			height: 75,
+			image: expImg,
+			offset: [37, 37]
+		});
     }
    
 	//Background Animation
@@ -570,7 +583,12 @@ audio.appendChild(source);
     function cleanEnemy (num)
     {
         anim[num].stop();
-        enemies[num].alive = false;
+		enemies[num].explosion.attrs.x = enemies[num].image.attrs.x;
+		enemies[num].explosion.attrs.y = enemies[num].image.attrs.y;
+		layer.add(enemies[num].explosion);
+		stage.add(layer);
+		var hideExp = window.setInterval(enemies[num].explosion.hide(),1000)
+		enemies[num].alive = false;
         enemies[num].image.hide();
         enemies[num].text.hide(); 
         stage.add(layer);
@@ -682,10 +700,11 @@ audio.appendChild(source);
                 if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width+25 && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width+25
                 && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height +25 && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height+25)
                 {
-                    cleanEnemy (num);
+					cleanEnemy (num);
+					//enemies[num].explosion.setScale(Math.sin(frame.time * 2 * Math.PI / 2000) + 0.001);
 					score -=1000;
                     if(!shieldOn){
-						beenhit.play();
+						if(sound) beenhit.play();
                         lives-=1;
                         $('.lives').text(lives);
                     }
