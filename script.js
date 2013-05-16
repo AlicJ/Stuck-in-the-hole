@@ -300,6 +300,7 @@ audio.appendChild(source);
 	
 	function GameStart(){
 		GG = 0;
+        lives=3;
 		$('.lives').text(lives);
         $('.level').text(level+1);
         $('.score').text(score);
