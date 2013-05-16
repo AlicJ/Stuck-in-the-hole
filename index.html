@@ -166,7 +166,7 @@
         <div id="help2">
             <h2>Instructions</h2>
             <p>You are a gallant space explorer who wishes to find and name a new planet.</p>
-            <p>One day, when you are woken up by siren, your AI tells you that the space ship encounters a meteoric stream.</p>
+            <p>One day, when you are woken up by siren, your AI tells you that the space ship encounters an asteroid field.</p>
             <p>You have to destory all the incoming asteroids to survive!</p>
             <p>Use the number pad on the right hand side to solve questions brought by asteroid and destory them!</p>
         </div>
@@ -326,7 +326,7 @@
                 hideDiv('#setting1');
                 hideDiv('#namefield');
                 fadeInDiv('#save');
-				
+				shipAnimate;
 				//below is to load the save info
 				for (var i=0;i<5;i++){
 					if (localStorage['save'+i]){

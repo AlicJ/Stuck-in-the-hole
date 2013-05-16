@@ -444,14 +444,16 @@ audio.appendChild(source);
         image:baseImg,
     });
     var shieldPic =new Kinetic.Image({
-        x: stage.getWidth() / 2 -80,
-        y: stage.getHeight() / 2 -80,
-        width: 200,
-        height: 200,
+        x: (stage.getWidth() / 2)-136,
+        y: (stage.getHeight() / 2)-155,
+        width: 320,
+        height: 320,
         image:shieldImage,
     });
-    shieldImage.hide();
+    shieldPic.hide();
     layer.add(shieldPic);
+    stage.add(layer);
+    
     function submit(){
         var correct =false
         for(var i = 0; i <enemies.length; i++ ){
@@ -636,12 +638,18 @@ audio.appendChild(source);
              numShield--;
             $('.numShield').text('Shield: ' + numShield);
             shieldOn = true;
+            shieldPic.show();
+            layer.draw();
             var timer = window.setInterval(function(){
                 counter ++;
+                $('.numShield').text(5-counter);
                 if(counter == 5)
                 {
                     clearInterval(timer);  
                     shieldOn=false;
+                     $('.numShield').text("Shield: " + numShield);
+                     shieldPic.hide();
+                     layer.draw();
                 }
             }, 1000);
            
@@ -661,6 +669,15 @@ audio.appendChild(source);
              anim[i].start();    
         }
         }
+    }
+    function shipAnimate()
+    {
+        var animate = new Kinetic.Animation(function(frame){
+            var yShift = 12*Math.sin(frame.time/1000);
+            base.setY(yShift+ stage.getHeight() / 2 -50);
+            shieldPic.setY(yShift + (stage.getHeight() / 2)-155);
+        }, layer);
+        animate.start();
     }
     function animate(num) 
     {
