@@ -388,6 +388,7 @@
                 hideDiv('#namefield');
                 fadeInDiv('#highscore');
 				sortScore();
+				$('#highscore ul').text('');
 				showScore();
 			});
             $('.credit').click(function(){
@@ -503,8 +504,8 @@
                 clearInterval(gameLoop);
                 clearInterval(bgInterval);
                 ended();
+                switchTrack(0);
 				destoryed.pause();
-                switchTrack(1);
                 mainInterval = window.setInterval(mainAnimation, 1000/60);
 				hideDiv('#gamefield');
                 hideDiv('#mainmenu');

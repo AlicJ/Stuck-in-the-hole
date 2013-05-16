@@ -257,6 +257,7 @@ audio.appendChild(source);
     var saveLength = 5;
     var selectSlot;
 	var slot = new Array();
+	var GG = 0;
 	for(var i=0; i<5; i++){
 		slot[i] = true;
 	}
@@ -298,6 +299,7 @@ audio.appendChild(source);
 	}
 	
 	function GameStart(){
+		GG = 0;
 		$('.lives').text(lives);
         $('.level').text(level+1);
         $('.score').text(score);
@@ -319,27 +321,30 @@ audio.appendChild(source);
 	}
     
     function GameOver(){
-		if(fail){
-			$('#gameover h3').text("Our ship is destroyed!");
-			$('#gameover div').text("Retreat");
-			destoryed.play();
-			getSave[selectSlot].level = 0;
-			getSave[selectSlot].numBomb = 0;
-			getSave[selectSlot].numEnemyKilled = 0;
-			getSave[selectSlot].numFreeze = 0;
-			getSave[selectSlot].numLives = 3;
-			getSave[selectSlot].numShield = 0;
-			if(getSave[selectSlot].score<0) getSave[selectSlot].score = 0;
-		LSupdate(getSave[selectSlot],'save'+selectSlot);
-		}else{
-			$('#gameover h3').text("We survived from the meteoric stream!");
-			$('#gameover div').text("Celebrate!");
+		if(GG == 0){
+			if(fail){
+				$('#gameover h3').text("Our ship is destroyed!");
+				$('#gameover div').text("Retreat");
+				destoryed.play();
+				getSave[selectSlot].level = 0;
+				getSave[selectSlot].numBomb = 0;
+				getSave[selectSlot].numEnemyKilled = 0;
+				getSave[selectSlot].numFreeze = 0;
+				getSave[selectSlot].numLives = 3;
+				getSave[selectSlot].numShield = 0;
+				if(getSave[selectSlot].score<0) getSave[selectSlot].score = 0;
+			LSupdate(getSave[selectSlot],'save'+selectSlot);
+			}else{
+				$('#gameover h3').text("We survived from the meteoric stream!");
+				$('#gameover div').text("Celebrate!");
+			}
+			$('#ui').fadeOut();
+			$('#gamefield').css('background-image', 'url(images/space.png)');
+			clearInterval(gameLoop);
+			fadeInDiv('#gameover');
+			pushScore();
 		}
-		$('#ui').fadeOut();
-		$('#gamefield').css('background-image', 'url(images/space.png)');
-		clearInterval(gameLoop);
-        fadeInDiv('#gameover');
-		pushScore();
+		GG ++;
     }
 	
 	function saveData(i){
