@@ -14,7 +14,7 @@
     <div class="bgMusic"></div>
     <div id="main">
         <!--<div id="splash">-->
-            <img id="splash" src="images/logo.png" />
+            <img id="splash" src="images/logo.jpg" />
         <!--</div>-->
         
     	<div id="menu">
@@ -130,25 +130,25 @@
             <h2>Shop</h2>
             <div>
                 <p>Bomb</p>
-                <img src="images/Bomb.png" width="100" height="100"/>
+                <img src="images/Bomb.jpg" width="100" height="100"/>
                 <p class="priceBomb">Price: </p>
                 <span class="bomb">Buy</span>
             </div>
             <div>
                 <p>Shield</p>
-                <img src="images/Shield.png" width="100" height="100"/>
+                <img src="images/Shield.jpg" width="100" height="100"/>
                 <p class="priceShield">Price: </p>
                 <span class="shield">Buy</span>
             </div>
             <div>
                 <p>Life</p>
-                <img src="images/Life.png" width="100" height="100"/>
+                <img src="images/Life.jpg" width="100" height="100"/>
                 <p class="priceLife">Price: </p>
                 <span class="life">Buy</span>
             </div>
             <div>
                 <p>Freeze</p>
-                <img src="images/Freeze.png" width="100" height="100"/>
+                <img src="images/Freeze.jpg" width="100" height="100"/>
                 <p class="priceFreeze">Price: </p>
                 <span class="freeze">Buy</span>
             </div>
@@ -274,7 +274,7 @@
         var level =0;
         var gameLoop;
         
-        bgImg.src = "images/space.png";
+        bgImg.src = "images/space.jpg";
 		creditImg.src = "images/credit.png";
         
         if(count === 0){
@@ -388,6 +388,7 @@
                 hideDiv('#namefield');
                 fadeInDiv('#highscore');
 				sortScore();
+				$('#highscore ul').text('');
 				showScore();
 			});
             $('.credit').click(function(){
@@ -503,8 +504,8 @@
                 clearInterval(gameLoop);
                 clearInterval(bgInterval);
                 ended();
+                switchTrack(0);
 				destoryed.pause();
-                switchTrack(1);
                 mainInterval = window.setInterval(mainAnimation, 1000/60);
 				hideDiv('#gamefield');
                 hideDiv('#mainmenu');
