@@ -329,7 +329,7 @@
 				shipAnimate;
 				//below is to load the save info
 				for (var i=0;i<5;i++){
-					if (localStorage['save'+i]){
+					if (localStorage['save'+i]&&slot[i]){
 						//get data from localStorage
 						getSave[i] = new Object();
 						getSave[i] = JSON.parse(localStorage.getItem('save'+i));
