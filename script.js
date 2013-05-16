@@ -300,12 +300,18 @@ audio.appendChild(source);
 	
 	function GameStart(){
 		GG = 0;
+<<<<<<< HEAD
         lives=3;
+=======
+		lives = 3;
+>>>>>>> bd23e05231f230eb5181ffb3b37425fbf169c4f1
 		$('.lives').text(lives);
         $('.level').text(level+1);
         $('.score').text(score);
 		hideDiv('#main');
 		fadeInDiv('#gamefield');
+		fadeInDiv('#ui');
+		$('#gamefield').css('background', '#999');
 		fadeInDiv('#nonPause');
 		gamestart = true;
 		enemyNum = 0;
