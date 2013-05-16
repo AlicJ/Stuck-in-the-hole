@@ -566,10 +566,10 @@ audio.appendChild(source);
 		this.explosion = new Kinetic.Image({
 			x: 0,
 			y: 0,
-			width: 75,
-			height: 75,
+			width: 30,
+			height: 30,
 			image: expImg,
-			offset: [37, 37]
+			offset: [15, 15]
 		});
     }
    
@@ -591,7 +591,15 @@ audio.appendChild(source);
 		enemies[num].explosion.attrs.y = enemies[num].image.attrs.y;
 		layer.add(enemies[num].explosion);
 		stage.add(layer);
-		var hideExp = window.setInterval(enemies[num].explosion.hide(),1000)
+	    anim[num] = new Kinetic.Animation(function (frame){
+         enemies[num].explosion.setScale(1+frame.time/1000);
+         if(frame.time>1000)
+         {
+             anim[num].stop();
+             enemies[num].explosion.hide();
+         }
+	    }, layer);
+        anim[num].start();
 		enemies[num].alive = false;
         enemies[num].image.hide();
         enemies[num].text.hide(); 
