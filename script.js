@@ -438,7 +438,7 @@ audio.appendChild(source);
 	var bgImg = new Image();
 	bgImg.src = "images/space.jpg";
     var baseImg = new Image();
-    baseImg.src = "images/Spaceship.png";
+    baseImg.src = "images/SpaceshipFlame.png";
     var shieldImage = new Image();
     shieldImage.src = "images/ShipShield.png";
 	var expImg = new Image();
@@ -592,8 +592,8 @@ audio.appendChild(source);
 		layer.add(enemies[num].explosion);
 		stage.add(layer);
 	    anim[num] = new Kinetic.Animation(function (frame){
-         enemies[num].explosion.setScale(1+frame.time/1000);
-         if(frame.time>1000)
+         enemies[num].explosion.setScale(1+frame.time/500);
+         if(frame.time>500)
          {
              anim[num].stop();
              enemies[num].explosion.hide();
