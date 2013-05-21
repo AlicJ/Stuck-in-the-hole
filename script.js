@@ -668,6 +668,7 @@ audio.appendChild(source);
     {
         if(numShield>0){
             var counter = 0;
+            var shieldShow = true;
              numShield--;
             $('.numShield').text('Shield: ' + numShield);
             shieldOn = true;
@@ -676,6 +677,25 @@ audio.appendChild(source);
             var timer = window.setInterval(function(){
                 counter ++;
                 $('.numShield').text(5-counter);
+                if(counter==4)
+                {
+                    var flashing = window.setInterval(function()
+                    {
+                        if(shieldShow)
+                        {
+                            shieldPic.hide();
+                            shieldShow = false;
+                        }
+                        else{
+                            shieldPic.show();
+                            shieldShow = true;
+                        }
+                        if(counter==5)
+                        {
+                            clearInterval(flashing);
+                        }
+                    },70);
+                }
                 if(counter == 5)
                 {
                     clearInterval(timer);  
