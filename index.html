@@ -128,29 +128,27 @@
         
         <div id="shop">
             <h2>Shop</h2>
-            <div>
-                <p>Bomb</p>
-                <img src="images/Bomb.jpg" width="100" height="100"/>
-                <p class="priceBomb">Price: </p>
-                <span class="bomb">Buy</span>
-            </div>
-            <div>
-                <p>Shield</p>
-                <img src="images/Shield.jpg" width="100" height="100"/>
-                <p class="priceShield">Price: </p>
-                <span class="shield">Buy</span>
-            </div>
-            <div>
-                <p>Life</p>
-                <img src="images/Life.jpg" width="100" height="100"/>
-                <p class="priceLife">Price: </p>
-                <span class="life">Buy</span>
-            </div>
-            <div>
-                <p>Freeze</p>
-                <img src="images/Freeze.jpg" width="100" height="100"/>
-                <p class="priceFreeze">Price: </p>
-                <span class="freeze">Buy</span>
+            <div class="items">
+                <div>
+                    <p>Bomb</p>
+                    <img class="bomb" src="images/Bomb.jpg" width="100" height="100"/>
+                    <p class="priceBomb"></p>
+                </div>
+                <div>
+                    <p>Shield</p>
+                    <img class="shield" src="images/Shield.jpg" width="100" height="100"/>
+                    <p class="priceShield"></p>
+                </div>
+                <div>
+                    <p>Life</p>
+                    <img class="life" src="images/Life.jpg" width="100" height="100"/>
+                    <p class="priceLife"></p>
+                </div>
+                <div>
+                    <p>Freeze</p>
+                    <img class="freeze" src="images/Freeze.jpg" width="100" height="100"/>
+                    <p class="priceFreeze"></p>
+                </div>
             </div>
         </div>
         
@@ -310,10 +308,10 @@
 			},500);
 		}
         
-        $('.priceBomb').append(priceBomb);
-        $('.priceShield').append(priceShield);
-        $('.priceLife').append(priceLife);
-        $('.priceFreeze').append(priceFreeze);
+        $('.priceBomb').text(priceBomb);
+        $('.priceShield').text(priceShield);
+        $('.priceLife').text(priceLife);
+        $('.priceFreeze').text(priceFreeze);
 
 		$(document).ready(function() {
             //for main menu selections

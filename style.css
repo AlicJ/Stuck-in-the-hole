@@ -246,8 +246,10 @@ ul {
     text-align:center;
     width:768px;
 }
-
-#shop div{
+#shop .items {
+    margin-top: 200px;
+}
+#shop .items div {
     float:left;
     margin:0 20px;
     width:150px;
@@ -256,6 +258,12 @@ ul {
 #shop img {
     border:#67EFE9 2px solid;
     border-radius:4px;
+}
+#shop .items div:active {
+    color:red;
+}
+#shop img:active {
+    border:red 2px solid;
 }
 #shop div p {
     margin:15px 0;
