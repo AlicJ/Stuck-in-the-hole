@@ -233,7 +233,7 @@ ul {
     color:#090708;
 }
 #pauseScreen {
-    margin-top:100px;
+    margin-top:50px;
 }
 #pauseScreen div {
     border:#67EFE9 2px solid;
@@ -242,9 +242,13 @@ ul {
     padding:8px 0;
 }
 #setting2, #shop, #mainmenu, #help2 {
-    position:fixed;
+    position:absolute;
     text-align:center;
     width:768px;
+}
+#shop {
+    height: 600px;
+    background: url(images/ShopTable.png) ;
 }
 #shop .items {
     margin-top: 200px;
@@ -304,7 +308,7 @@ ul {
     border-radius: 4px;
     height: 40;
     width: 80;
-    position: fixed;
+    position: absolute;
     top:2px;
     left: 20px;
 }
