@@ -14,8 +14,8 @@
 	
   <rim:orientation mode="auto"/>
  
-  <rim:loadingScreen backgroundImage="images/space.png"
-                     foregroundImage="images/obj.png"
+  <rim:loadingScreen backgroundImage="images/space.jpg"
+                     foregroundImage="images/logo.jpg"
                      onLocalPageLoad="true">
     <rim:transitionEffect type="fadeOut"/>
   </rim:loadingScreen>
