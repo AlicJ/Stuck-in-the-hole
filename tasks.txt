@@ -1,2 +1,0 @@
-Sound effects convert into ogg, and find more!!!
-Write plot, and hell mode if possible
