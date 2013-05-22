@@ -404,7 +404,7 @@ audio.appendChild(source);
     //Animation
   
     var canvas = document.getElementById('myCanvas');
-	canvas.width = $('#myCanvas').width();
+	canvas.width = 768;
 	canvas.height = $('#myCanvas').height();
     var gamestart = false;
     var enemies;
@@ -471,10 +471,27 @@ audio.appendChild(source);
         for(var i = 0; i <enemies.length; i++ ){
             if(input == enemies[i].answer&&enemies[i].alive){
                 cleanEnemy (i);
+                var redLine = new Kinetic.Line({
+                    points: [enemies[i].image.attrs.x, enemies[i].image.attrs.y, base.attrs.x+70, base.attrs.y+55],
+                    stroke: 'red',
+                    strokeWidth: 15,
+                    lineCap: 'round',
+                    lineJoin: 'round'
+                });
+                layer.add(redLine);
+                stage.add(layer);
+                var counter=true;
+                var lazerCount = window.setInterval(function()
+                {
+                    if(!counter)
+                    {
+                        clearInterval(lazerCount);
+                        redLine.hide();
+                    }
+                    counter=false;
+                },400);
                 score+=Math.round(enemies[i].scoreKeep);
 				numEnemyKilled ++;
-                input = "";
-                $("#input").text(input);
 				if(sound) asteriod.play();
                 correct=true;
             }
@@ -484,6 +501,8 @@ audio.appendChild(source);
             score-=300;
         }
 		$(".score").text(score);
+        input = "";
+        $("#input").text(input);
     }
     
     
@@ -693,6 +712,7 @@ audio.appendChild(source);
                         if(counter==5)
                         {
                             clearInterval(flashing);
+                            shieldPic.hide();
                         }
                     },70);
                 }
@@ -701,7 +721,6 @@ audio.appendChild(source);
                     clearInterval(timer);  
                     shieldOn=false;
                      $('.numShield').text("Shield: " + numShield);
-                     shieldPic.hide();
                      layer.draw();
                 }
             }, 1000);
