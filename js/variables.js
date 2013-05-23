@@ -14,10 +14,10 @@ var creditImg = new Image();
 creditImg.src = "images/credit.png";
 var music = true;
 var sound = true;
-var priceBomb = 1000;
-var priceShield = 2000;
-var priceLife = 3000;
-var priceFreeze = 4000;
+var priceBomb = 3000;
+var priceShield = 1000;
+var priceLife = 5000;
+var priceFreeze = 2000;
 var level =0;
 var gameLoop;
 
