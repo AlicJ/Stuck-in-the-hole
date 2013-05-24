@@ -361,8 +361,17 @@ function enemyMaker ()
             y=-50;
         }
     }
+  
     enemies[enemyNum]= new enemy(x, y, question.question, question.answer, side);
-       
+    if(enemies[enemyNum].image.attrs.x<base.attrs.x)
+    {
+        enemies[enemyNum].image.setScale(-1, 1);
+    }
+   
+    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x)));
+   
+   
+   
     layer.add(enemies[enemyNum].image);
     layer.add(enemies[enemyNum].text);
       
@@ -394,10 +403,10 @@ function enemy (x_bron, y_bron, question, answer, side)
     this.image = new Kinetic.Image({
             x: x_bron,
             y: y_bron,
-            width: 50,
-            height:50,
+            width: 100,
+            height:30,
             image:imageObj, 
-            offset: [25, 30]
+            offset: [25, 30],
     });
     this.text = new Kinetic.Text({
         x: x_bron,
@@ -585,7 +594,7 @@ function animate(num)
         enemies[num].image.setY(enemies[num].fixedY + frame.time*enemies[num].yGap);
         enemies[num].text.setX(enemies[num].fixedX + frame.time*enemies[num].xGap+10);
         enemies[num].text.setY(enemies[num].fixedY + frame.time*enemies[num].yGap-20);
-        enemies[num].image.rotate(frame.timeDiff * (Math.PI / 4) / 1000);
+        //enemies[num].image.rotate(frame.timeDiff * (Math.PI / 4) / 1000);
         enemies[num].scoreKeep -= 10*enemies[num].xGap;
         Math.abs((enemies[num].fixedX-canvas.width/2));
             if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width+25 && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width+25
