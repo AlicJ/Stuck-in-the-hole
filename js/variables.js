@@ -2,6 +2,8 @@
 var gamestart = false;
 var mainInterval = null;
 var mainPosition = 0;
+var creditInterval;
+var pauseInterval;
 var creditPosition = 560;
 var count = 0;
 var counter =0;
@@ -162,7 +164,7 @@ var anim = new Array();
 var pause = false;
 
 var imageObj = new Image();
-imageObj.src = 'images/asteroid.png';
+imageObj.src = 'images/Metor.png';
 var bgImg = new Image();
 bgImg.src = "images/space.jpg";
 var baseImg = new Image();

@@ -148,6 +148,8 @@ $(document).ready(function() {
         
     });
     $('#credit').click(function(){
+        window.clearInterval(creditInterval);
+        window.clearInterval(pauseInterval);
         hideDiv('#credit');
 		creditPosition = 560;
         fadeInDiv('#menu');
