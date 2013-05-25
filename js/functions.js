@@ -370,8 +370,6 @@ function enemyMaker ()
    
     enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x)));
    
-   
-   
     layer.add(enemies[enemyNum].image);
     layer.add(enemies[enemyNum].text);
       
