@@ -130,8 +130,8 @@ $(document).ready(function() {
         hideDiv('#save');
         hideDiv('#namefield');
         fadeInDiv('#credit');
-		var creditInterval = window.setInterval(creditAnimation, 1000/30);
-        var pauseInterval = window.setInterval(function(){
+		creditInterval = window.setInterval(creditAnimation, 1000/30);
+        pauseInterval = window.setInterval(function(){
             if(creditPosition <= -1140){
                 clearInterval(creditInterval);
                 counter++;
@@ -148,6 +148,8 @@ $(document).ready(function() {
         
     });
     $('#credit').click(function(){
+        window.clearInterval(creditInterval);
+        window.clearInterval(pauseInterval);
         hideDiv('#credit');
 		creditPosition = 560;
         fadeInDiv('#menu');
