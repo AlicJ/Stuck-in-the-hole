@@ -16,7 +16,7 @@ function mainAnimation() {
 }
 function creditAnimation() {
     creditPosition--;
-	$("#credit").css({backgroundPositionY: (creditPosition) + "px"});
+	$("#credit").css({backgroundPosition: "20px " + (creditPosition) + "px"});
 }
 function splash() {
 	$('#splash').fadeOut("800");
@@ -229,16 +229,6 @@ function GameOver(){
 			$('#gameover h3').text("Our ship is destroyed!");
 			$('#gameover div').text("Retreat");
 			if(sound) destoryed.play();
-			getSave[selectSlot].level = 0;
-			getSave[selectSlot].numBomb = 0;
-			getSave[selectSlot].numEnemyKilled = 0;
-			getSave[selectSlot].numFreeze = 0;
-			getSave[selectSlot].numLives = 3;
-			getSave[selectSlot].numShield = 0;
-			if(getSave[selectSlot].score<0) getSave[selectSlot].score = 0;
-			LSupdate(getSave[selectSlot],'save'+selectSlot);
-			slot[selectSlot] = false;
-			$('.save'+(selectSlot+1)).text('Please restart to use this slot');
 		}else{
 			$('#gameover h3').text("We survived from the meteoric stream!");
 			$('#gameover div').text("Celebrate!");
@@ -479,7 +469,7 @@ function cleanEnemy (num)
          }
      }
      // Level is Cleared
-     if(counter==totalEnemies)
+     if(counter==totalEnemies&&lives>0)
      {
 		 level++;
 		 updateData(selectSlot);

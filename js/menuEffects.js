@@ -132,7 +132,7 @@ $(document).ready(function() {
         fadeInDiv('#credit');
 		creditInterval = window.setInterval(creditAnimation, 1000/30);
         pauseInterval = window.setInterval(function(){
-            if(creditPosition <= -1140){
+            if(creditPosition <= -1450){
                 clearInterval(creditInterval);
                 counter++;
             }
