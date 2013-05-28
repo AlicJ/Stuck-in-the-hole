@@ -189,3 +189,10 @@ var shieldPic =new Kinetic.Image({
     height: 320,
     image:shieldImage,
 });
+var lazer = new Kinetic.Circle({
+        x: stage.getWidth() / 2+30,
+        y: stage.getHeight() / 2+15,
+        radius: 8,
+        fill: 'red'
+      });
+

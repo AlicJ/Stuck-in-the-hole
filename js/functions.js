@@ -217,7 +217,9 @@ function GameStart(){
 	$('.level').text(level+1);
 	score = getSave[selectSlot].score;
 	$(".score").text(score);
+    lazer.hide();
     layer.add(base);
+    layer.add(lazer);
     stage.add(layer);
 }
 
@@ -299,26 +301,39 @@ function submit(){
     var correct =false
     for(var i = 0; i <enemies.length; i++ ){
         if(input == enemies[i].answer&&enemies[i].alive){
-            cleanEnemy (i);
-            var redLine = new Kinetic.Line({
-                points: [enemies[i].image.attrs.x, enemies[i].image.attrs.y, base.attrs.x+70, base.attrs.y+55],
-                stroke: 'red',
-                strokeWidth: 15,
-                lineCap: 'round',
-                lineJoin: 'round'
-            });
-            layer.add(redLine);
+           
+            
+            layer.add(lazer);
             stage.add(layer);
+            var initX = lazer.attrs.x;
+            var initY = lazer.attrs.y;
+            var enemySelect=i;
+            lazer.show();
+            var lazerAnim = new Kinetic.Animation(function(frame){
+                lazer.setX(initX + frame.time*(enemies[enemySelect].image.attrs.x-initX)/400);
+                lazer.setY(initY + frame.time*(enemies[enemySelect].image.attrs.y-initY)/400);
+                if(lazer.attrs.x>enemies[enemySelect].image.attrs.x-5&&
+                lazer.attrs.x<enemies[enemySelect].image.attrs.x+5)
+                {
+                    counter=false;
+                }
+            }, layer);
+            lazerAnim.start();
+            
             var counter=true;
             var lazerCount = window.setInterval(function()
             {
                 if(!counter)
                 {
+                    lazerAnim.stop();
+                    lazer.setX(stage.getWidth()/ 2 +30);
+                    lazer.setY(stage.getHeight()/2 + 15);
+                    lazer.hide();
+                    cleanEnemy (enemySelect);
                     clearInterval(lazerCount);
-                    redLine.hide();
                 }
-                counter=false;
-            },400);
+                
+            },100);
             score+=Math.round(enemies[i].scoreKeep);
 			numEnemyKilled ++;
 			if(sound) asteriod.play();
