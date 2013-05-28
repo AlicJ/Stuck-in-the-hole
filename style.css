@@ -45,6 +45,9 @@ ul {
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
 }
+#setting1, #help1, #highscore {
+    width:704px;
+}
 #setting1 li, #setting2 li {
 	margin: 15px 0;
     height: 80px;
@@ -244,7 +247,7 @@ ul {
     margin:20px 28px;
     padding:8px 0;
 }
-#setting2, #shop, #mainmenu, #help2 {
+#setting2, #shop, #mainmenu, #help2, #effects {
     position:absolute;
     text-align:center;
     width:768px;

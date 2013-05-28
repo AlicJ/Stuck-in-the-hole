@@ -7,6 +7,7 @@ hideDiv('#highscore');
 hideDiv('#save');
 hideDiv('#namefield');
 hideDiv('#pauseScreen');
+hideDiv('#effects')
 hideDiv('#shop');
 hideDiv('#setting2');
 hideDiv('#help2');
@@ -209,6 +210,8 @@ $(document).ready(function() {
             $('.score').text(score);
             numFreeze +=1;
             $('.numFreeze').text('Freeze: ' + numFreeze);
+            ('#effects').css();
+            fadeInDiv('#effects');
         }
     });
     $('.setting2').click(function(){
@@ -263,5 +266,9 @@ $(document).ready(function() {
         hideDiv("#levelComplete");
         $('.level').text(level+1);
 		pause = false;
+    });
+    $('.exit').click(function(){
+        window.close();
+        blackberry.app.exit();
     });
 });

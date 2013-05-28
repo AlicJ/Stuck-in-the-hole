@@ -13,7 +13,7 @@ var bgscrolling = true;
 var bgImg = new Image();
 bgImg.src = "images/space.jpg";
 var creditImg = new Image();
-creditImg.src = "images/credit.png";
+creditImg.src = "images/credit.gif";
 var music = true;
 var sound = true;
 var priceBomb = 3000;
@@ -173,6 +173,8 @@ var shieldImage = new Image();
 shieldImage.src = "images/ShipShield.png";
 var expImg = new Image();
 expImg.src = "images/explosion.png";
+var freezingImg = new Image();
+freezingImg.src = "image/freezingbackground.png";
 var base = new Kinetic.Image({
     x: stage.getWidth() / 2 -50,
     y: stage.getHeight() / 2 -50,
@@ -188,6 +190,13 @@ var shieldPic =new Kinetic.Image({
     width: 320,
     height: 320,
     image:shieldImage,
+});
+var freezePic = new Kinetic.Image({
+    x:0,
+    y:0,
+    width:768,
+    height:600,
+    image:freezingImg,
 });
 var lazer = new Kinetic.Circle({
         x: stage.getWidth() / 2+30,

@@ -302,11 +302,13 @@ function submit(){
             var lazerAnim = new Kinetic.Animation(function(frame){
                 lazer.setX(initX + frame.time*(enemies[enemySelect].image.attrs.x-initX)/400);
                 lazer.setY(initY + frame.time*(enemies[enemySelect].image.attrs.y-initY)/400);
-                if(lazer.attrs.x>enemies[enemySelect].image.attrs.x-5&&
-                lazer.attrs.x<enemies[enemySelect].image.attrs.x+5)
-                {
-                    counter=false;
-                }
+                // if(lazer.attrs.x>enemies[enemySelect].image.attrs.x-10&&
+                // lazer.attrs.x<enemies[enemySelect].image.attrs.x+10&&
+                // lazer.attrs.y>enemies[enemySelect].image.attrs.y-10&&
+                // lazer.attrs.y<enemies[enemySelect].image.attrs.y+10)
+                // {
+                //     counter=false;
+                // }
             }, layer);
             lazerAnim.start();
             
@@ -322,8 +324,8 @@ function submit(){
                     cleanEnemy (enemySelect);
                     clearInterval(lazerCount);
                 }
-                
-            },100);
+                counter=false;
+            },200);
             score+=Math.round(enemies[i].scoreKeep);
 			numEnemyKilled ++;
 			if(sound) asteriod.play();
@@ -600,8 +602,10 @@ function animate(num)
         //enemies[num].image.rotate(frame.timeDiff * (Math.PI / 4) / 1000);
         enemies[num].scoreKeep -= 10*enemies[num].xGap;
         Math.abs((enemies[num].fixedX-canvas.width/2));
-            if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width+25 && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width+25
-            && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height +25 && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height+25)
+            // if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width+25 && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width+25
+            // && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height +25 && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height+25)
+            // {
+            if(frame.time>=enemySpeed*0.8)
             {
 				cleanEnemy (num);
 				//enemies[num].explosion.setScale(Math.sin(frame.time * 2 * Math.PI / 2000) + 0.001);
