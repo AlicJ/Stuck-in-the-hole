@@ -148,6 +148,7 @@ var numFreeze = 0;
 var score = 0;
 var numEnemyKilled = 0;
 var shieldOn = false;
+var freezeOn = false
 var fail = false;
 
 var enemies;
@@ -174,7 +175,7 @@ shieldImage.src = "images/ShipShield.png";
 var expImg = new Image();
 expImg.src = "images/explosion.png";
 var freezingImg = new Image();
-freezingImg.src = "image/freezingbackground.png";
+freezingImg.src = "images/freezebackground.png";
 var base = new Kinetic.Image({
     x: stage.getWidth() / 2 -50,
     y: stage.getHeight() / 2 -50,

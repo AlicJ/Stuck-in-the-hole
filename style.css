@@ -251,6 +251,7 @@ ul {
     position:absolute;
     text-align:center;
     width:768px;
+    height:600px;
 }
 #shop {
     height: 600px;
@@ -301,6 +302,7 @@ ul {
     opacity: 0.90;
     border-radius:4px;
     background:url("images/levelbackground.png") #333;
+    z-index:-1;
 }
 #levelComplete div {
     float: left;

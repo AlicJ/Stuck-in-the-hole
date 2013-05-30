@@ -159,6 +159,7 @@ $(document).ready(function() {
     $('.pause').click(function(){
         hideDiv('#nonPause');
         $('#myCanvas').fadeTo(400, 0.5);
+        if (freezeOn) $('#myCanvas').fadeTo(400, 0.5);
         fadeInDiv('#pauseScreen');
         animStop(true);
         pause = true;
@@ -171,6 +172,7 @@ $(document).ready(function() {
         hideDiv('#mainmenu');
         fadeInDiv('#nonPause');
         $('#myCanvas').fadeTo(400, 1.0);
+        if (freezeOn) $('#effects').fadeTo(400, 1.0);
         animStop(false);
         pause =false;
     });
@@ -210,8 +212,6 @@ $(document).ready(function() {
             $('.score').text(score);
             numFreeze +=1;
             $('.numFreeze').text('Freeze: ' + numFreeze);
-            ('#effects').css();
-            fadeInDiv('#effects');
         }
     });
     $('.setting2').click(function(){

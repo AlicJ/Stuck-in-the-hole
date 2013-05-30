@@ -286,6 +286,38 @@ function saveData(i){
 		GameStart();
     }
 }
+
+function testmod() {
+    level = 15;
+    score = 500000;
+    lives = 300;
+    numShield = 100;
+    numBomb = 100;
+    numFreeze = 100;
+    GG = 0;
+	$('.lives').text(lives);
+    $('.level').text(level+1);
+    $('.score').text(score);
+	hideDiv('#main');
+	fadeInDiv('#gamefield');
+	fadeInDiv('#ui');
+	$('#gamefield').css('background', '#999');
+	fadeInDiv('#nonPause');
+	gamestart = true;
+	enemyNum = 0;
+	levelSelect(level);
+	gameLoop = window.setInterval(enemyMaker, enemyDelay);
+	bgInterval = window.setInterval(bgAnimation, 1000/30);
+	ended();
+	window.clearInterval(mainInterval);
+	$('.level').text(level+1);
+	$(".score").text(score);
+    lazer.hide();
+    layer.add(base);
+    layer.add(lazer);
+    stage.add(layer);
+
+}
 //animations
 function submit(){
     var correct =false
@@ -375,7 +407,7 @@ function enemyMaker ()
         enemies[enemyNum].image.setScale(-1, 1);
     }
    
-    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x)));
+    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+30)));
    
     layer.add(enemies[enemyNum].image);
     layer.add(enemies[enemyNum].text);
@@ -484,6 +516,9 @@ function cleanEnemy (num)
 function freeze ()
 {
     if(numFreeze>0){
+        freezeOn = true;
+        $('#effects').css('background-image','url(\'images/freezebackground.png\')');
+        fadeInDiv('#effects');
         for(var i =0;i<anim.length;i++)
         {
             anim[i].stop();
@@ -497,11 +532,13 @@ function freeze ()
             if(count==3)
             {
                 pause = false;
+                freezeOn = false;
                 for(var i =0;i<anim.length;i++)
                  {
                     anim[i].start();
                  }
                 clearInterval(timer);
+                $('#effects').fadeOut();
                 numFreeze--;
                 $('.numFreeze').text('Freeze: ' + numFreeze);
             }
