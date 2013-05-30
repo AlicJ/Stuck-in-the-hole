@@ -2,7 +2,7 @@ function texthtml(div,content){
     $(div).html(content);
 }
 function textreplace(div,content){
-$(div).html(content);
+    $(div).html(content);
 }
 
 function french(){

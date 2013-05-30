@@ -334,13 +334,6 @@ function submit(){
             var lazerAnim = new Kinetic.Animation(function(frame){
                 lazer.setX(initX + frame.time*(enemies[enemySelect].image.attrs.x-initX)/400);
                 lazer.setY(initY + frame.time*(enemies[enemySelect].image.attrs.y-initY)/400);
-                // if(lazer.attrs.x>enemies[enemySelect].image.attrs.x-10&&
-                // lazer.attrs.x<enemies[enemySelect].image.attrs.x+10&&
-                // lazer.attrs.y>enemies[enemySelect].image.attrs.y-10&&
-                // lazer.attrs.y<enemies[enemySelect].image.attrs.y+10)
-                // {
-                //     counter=false;
-                // }
             }, layer);
             lazerAnim.start();
             
@@ -407,7 +400,7 @@ function enemyMaker ()
         enemies[enemyNum].image.setScale(-1, 1);
     }
    
-    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+30)));
+    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+120)));
    
     layer.add(enemies[enemyNum].image);
     layer.add(enemies[enemyNum].text);
@@ -515,10 +508,11 @@ function cleanEnemy (num)
   
 function freeze ()
 {
-    if(numFreeze>0){
+    if(numFreeze>0&&!freezeOn){
         freezeOn = true;
         $('#effects').css('background-image','url(\'images/freezebackground.png\')');
         fadeInDiv('#effects');
+        
         for(var i =0;i<anim.length;i++)
         {
             anim[i].stop();
