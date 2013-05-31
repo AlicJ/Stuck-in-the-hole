@@ -31,7 +31,7 @@ function splash() {
 function buyItem(name,price){
 	if(score>=price){
 		score -= price;
-		$('#leftPanel .score .num').text(score);
+		$('#leftPanel #score .num').text(score);
 		name +=1;
 		$('.lives').text(name);
 	}
@@ -225,7 +225,7 @@ function GameStart(){
 	score = getSave[selectSlot].score;
 	$('#leftPanel #lives .num').text(lives);
     $('#rightPanel .level').text(level+1);
-    $('#leftPanel .score .num').text(score);
+    $('#leftPanel #score .num').text(score);
     lazer.hide();
     layer.add(base);
     layer.add(lazer);
@@ -328,7 +328,7 @@ function testmod() {
 	window.clearInterval(mainInterval);
 	$('#leftPanel #lives .num').text(lives);
     $('#rightPanel .level').text(level+1);
-    $('#leftPanel .score .num').text(score);
+    $('#leftPanel #score .num').text(score);
     lazer.hide();
     layer.add(base);
     layer.add(lazer);
@@ -378,7 +378,7 @@ function submit(){
     {
         score-=300;
     }
-	$('#leftPanel .score .num').text(score);
+	$('#leftPanel #score .num').text(score);
     input = "";
     $("#input").text(input);
 }
