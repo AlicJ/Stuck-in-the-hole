@@ -6,11 +6,12 @@
 // Include this code (with notice above ;) in your library; read below for how to use it.
 
 Date.prototype.customFormat = function(formatString){
-    var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
+    var YYYY,YY,MMMM,MMM,MMMF,MMMMF,MM,M,DDDD,DDD,DD,D,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
 	var dateObject = this;
 	YY = ((YYYY=dateObject.getFullYear())+"").slice(-2);
 	MM = (M=dateObject.getMonth()+1)<10?('0'+M):M;
     MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
+    MMMF = (MMMMF=["Janvier","Fevrier","Mars","Avril","Mai","Juin","Juillet","Ao","September","October","November","December"][M-1]).substring(0,3);
 	DD = (D=dateObject.getDate())<10?('0'+D):D;
 	DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateObject.getDay()]).substring(0,3);
 	th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';

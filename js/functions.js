@@ -16,7 +16,7 @@ function mainAnimation() {
 }
 function creditAnimation() {
     creditPosition--;
-	$("#credit").css({backgroundPosition: "0px " + (creditPosition) + "px"});
+	$("#credit").css({backgroundPosition: "20px " + (creditPosition) + "px"});
 }
 function splash() {
 	$('#splash').fadeOut("800");
@@ -217,7 +217,9 @@ function GameStart(){
 	$('.level').text(level+1);
 	score = getSave[selectSlot].score;
 	$(".score").text(score);
+    lazer.hide();
     layer.add(base);
+    layer.add(lazer);
     stage.add(layer);
 }
 
@@ -227,16 +229,6 @@ function GameOver(){
 			$('#gameover h3').text("Our ship is destroyed!");
 			$('#gameover div').text("Retreat");
 			if(sound) destoryed.play();
-			getSave[selectSlot].level = 0;
-			getSave[selectSlot].numBomb = 0;
-			getSave[selectSlot].numEnemyKilled = 0;
-			getSave[selectSlot].numFreeze = 0;
-			getSave[selectSlot].numLives = 3;
-			getSave[selectSlot].numShield = 0;
-			if(getSave[selectSlot].score<0) getSave[selectSlot].score = 0;
-			LSupdate(getSave[selectSlot],'save'+selectSlot);
-			slot[selectSlot] = false;
-			$('.save'+(selectSlot+1)).text('Please restart to use this slot');
 		}else{
 			$('#gameover h3').text("We survived from the meteoric stream!");
 			$('#gameover div').text("Celebrate!");
@@ -294,31 +286,71 @@ function saveData(i){
 		GameStart();
     }
 }
+
+function testmod() {
+    level = 15;
+    score = 500000;
+    lives = 300;
+    numShield = 100;
+    numBomb = 100;
+    numFreeze = 100;
+    GG = 0;
+	$('.lives').text(lives);
+    $('.level').text(level+1);
+    $('.score').text(score);
+	hideDiv('#main');
+	fadeInDiv('#gamefield');
+	fadeInDiv('#ui');
+	$('#gamefield').css('background', '#999');
+	fadeInDiv('#nonPause');
+	gamestart = true;
+	enemyNum = 0;
+	levelSelect(level);
+	gameLoop = window.setInterval(enemyMaker, enemyDelay);
+	bgInterval = window.setInterval(bgAnimation, 1000/30);
+	ended();
+	window.clearInterval(mainInterval);
+	$('.level').text(level+1);
+	$(".score").text(score);
+    lazer.hide();
+    layer.add(base);
+    layer.add(lazer);
+    stage.add(layer);
+
+}
 //animations
 function submit(){
     var correct =false
     for(var i = 0; i <enemies.length; i++ ){
         if(input == enemies[i].answer&&enemies[i].alive){
-            cleanEnemy (i);
-            var redLine = new Kinetic.Line({
-                points: [enemies[i].image.attrs.x, enemies[i].image.attrs.y, base.attrs.x+70, base.attrs.y+55],
-                stroke: 'red',
-                strokeWidth: 15,
-                lineCap: 'round',
-                lineJoin: 'round'
-            });
-            layer.add(redLine);
+           
+            
+            layer.add(lazer);
             stage.add(layer);
+            var initX = lazer.attrs.x;
+            var initY = lazer.attrs.y;
+            var enemySelect=i;
+            lazer.show();
+            var lazerAnim = new Kinetic.Animation(function(frame){
+                lazer.setX(initX + frame.time*(enemies[enemySelect].image.attrs.x-initX)/400);
+                lazer.setY(initY + frame.time*(enemies[enemySelect].image.attrs.y-initY)/400);
+            }, layer);
+            lazerAnim.start();
+            
             var counter=true;
             var lazerCount = window.setInterval(function()
             {
                 if(!counter)
                 {
+                    lazerAnim.stop();
+                    lazer.setX(stage.getWidth()/ 2 +30);
+                    lazer.setY(stage.getHeight()/2 + 15);
+                    lazer.hide();
+                    cleanEnemy (enemySelect);
                     clearInterval(lazerCount);
-                    redLine.hide();
                 }
                 counter=false;
-            },400);
+            },200);
             score+=Math.round(enemies[i].scoreKeep);
 			numEnemyKilled ++;
 			if(sound) asteriod.play();
@@ -368,7 +400,7 @@ function enemyMaker ()
         enemies[enemyNum].image.setScale(-1, 1);
     }
    
-    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x)));
+    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+120)));
    
     layer.add(enemies[enemyNum].image);
     layer.add(enemies[enemyNum].text);
@@ -464,7 +496,7 @@ function cleanEnemy (num)
          }
      }
      // Level is Cleared
-     if(counter==totalEnemies)
+     if(counter==totalEnemies&&lives>0)
      {
 		 level++;
 		 updateData(selectSlot);
@@ -476,7 +508,11 @@ function cleanEnemy (num)
   
 function freeze ()
 {
-    if(numFreeze>0){
+    if(numFreeze>0&&!freezeOn){
+        freezeOn = true;
+        $('#effects').css('background-image','url(\'images/freezebackground.png\')');
+        fadeInDiv('#effects');
+        
         for(var i =0;i<anim.length;i++)
         {
             anim[i].stop();
@@ -490,11 +526,13 @@ function freeze ()
             if(count==3)
             {
                 pause = false;
+                freezeOn = false;
                 for(var i =0;i<anim.length;i++)
                  {
                     anim[i].start();
                  }
                 clearInterval(timer);
+                $('#effects').fadeOut();
                 numFreeze--;
                 $('.numFreeze').text('Freeze: ' + numFreeze);
             }
@@ -595,8 +633,10 @@ function animate(num)
         //enemies[num].image.rotate(frame.timeDiff * (Math.PI / 4) / 1000);
         enemies[num].scoreKeep -= 10*enemies[num].xGap;
         Math.abs((enemies[num].fixedX-canvas.width/2));
-            if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width+25 && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width+25
-            && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height +25 && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height+25)
+            // if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width+25 && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width+25
+            // && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height +25 && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height+25)
+            // {
+            if(frame.time>=enemySpeed*0.8)
             {
 				cleanEnemy (num);
 				//enemies[num].explosion.setScale(Math.sin(frame.time * 2 * Math.PI / 2000) + 0.001);

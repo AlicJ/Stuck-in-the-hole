@@ -7,6 +7,7 @@ hideDiv('#highscore');
 hideDiv('#save');
 hideDiv('#namefield');
 hideDiv('#pauseScreen');
+hideDiv('#effects')
 hideDiv('#shop');
 hideDiv('#setting2');
 hideDiv('#help2');
@@ -132,7 +133,7 @@ $(document).ready(function() {
         fadeInDiv('#credit');
 		creditInterval = window.setInterval(creditAnimation, 1000/30);
         pauseInterval = window.setInterval(function(){
-            if(creditPosition <= -1140){
+            if(creditPosition <= -1450){
                 clearInterval(creditInterval);
                 counter++;
             }
@@ -158,6 +159,7 @@ $(document).ready(function() {
     $('.pause').click(function(){
         hideDiv('#nonPause');
         $('#myCanvas').fadeTo(400, 0.5);
+        if (freezeOn) $('#myCanvas').fadeTo(400, 0.5);
         fadeInDiv('#pauseScreen');
         animStop(true);
         pause = true;
@@ -170,6 +172,7 @@ $(document).ready(function() {
         hideDiv('#mainmenu');
         fadeInDiv('#nonPause');
         $('#myCanvas').fadeTo(400, 1.0);
+        if (freezeOn) $('#effects').fadeTo(400, 1.0);
         animStop(false);
         pause =false;
     });
@@ -263,5 +266,9 @@ $(document).ready(function() {
         hideDiv("#levelComplete");
         $('.level').text(level+1);
 		pause = false;
+    });
+    $('.exit').click(function(){
+        window.close();
+        blackberry.app.exit();
     });
 });

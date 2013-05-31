@@ -45,6 +45,9 @@ ul {
 #menu p, #menu h2, #menu .exit {
 	opacity:0.8;
 }
+#setting1, #help1, #highscore {
+    width:704px;
+}
 #setting1 li, #setting2 li {
 	margin: 15px 0;
     height: 80px;
@@ -143,6 +146,7 @@ ul {
     border-radius:4px;
     border:#1FFFFF 2px solid;
     margin-bottom:10px;
+	background-color:white;
 }
 #setting1 li:active, #setting2 li:active, .yes:active, .no:active, #namefield span:active {
     color:red;
@@ -156,7 +160,7 @@ ul {
 #credit {
     /*position:relative;
     top:600px;*/
-	background:url(images/credit.png);
+	background:url(images/credit.gif);
 	background-repeat: no-repeat;
 	height:600px;
 }
@@ -209,20 +213,20 @@ ul {
     color:#090708;
 }
 #input {
-    background:black;
-    border-radius:16px;
-    font-size:18px;
-    width:150px;
-    height:26px;
-    line-height:26px;
+  	background: none repeat scroll 0 0 black;
+    border-radius: 24px 24px 24px 24px;
+    font-size: 30px;
+    height: 35px;
+    line-height: 35px;
     margin: 24px auto 10px;
+    width: 200px;
 }
 #result {
 	height:30px;
     font-size:18px;
 }
 #buttons {
-    margin-top: 70px;
+    margin-top: 60px;
 }
 #buttons div {
     border:#67EFE9 2px solid;
@@ -243,10 +247,11 @@ ul {
     margin:20px 28px;
     padding:8px 0;
 }
-#setting2, #shop, #mainmenu, #help2 {
+#setting2, #shop, #mainmenu, #help2, #effects {
     position:absolute;
     text-align:center;
     width:768px;
+    height:600px;
 }
 #shop {
     height: 600px;
@@ -297,6 +302,7 @@ ul {
     opacity: 0.90;
     border-radius:4px;
     background:url("images/levelbackground.png") #333;
+    z-index:2;
 }
 #levelComplete div {
     float: left;
