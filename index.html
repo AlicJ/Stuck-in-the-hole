@@ -20,7 +20,7 @@
         
     	<div id="menu">
             <span><h2><span class="bigger">C</span>yber <span class="bigger">B</span>laster</h2></span>
-            <div class="newgame" ><p>play</p></div>
+            <div class="newgame" ><p></p></div>
             <div class="setting1" ><p></p></div>
             <div class="help1" ><p></p></div>
             <div class="highscore" ><p></p></div>
@@ -121,36 +121,42 @@
         
         <div id="leftPanel">
             <div id="lives">
-                <span class="text">Lives:</span> <img src="images/Life.png" height="30" />*<span class="lives"></span>
+                <span class="text"></span>
+                &nbsp;
+                <img src="images/Life.png" height="30" />
+                *<span class="num"></span>
             </div>
             <div id="score">
-                <span class="text">Score:</span> <span class="score"></span>
+                <span class="text"></span>
+                <span class="num"></span>&nbsp;
+                <span class="score">0</span>
             </div>
         </div>
         
         <div id="rightPanel">
-            Level: <span class="level"></span>
+            <span class="text"></span>&nbsp;
+            <span class="level"></span>
         </div>
         
         <div id="shop">
             <div class="items">
                 <div>
-                    <p>Bomb</p>
+                    <p class="bomb"></p>
                     <img class="bomb" src="images/Bomb.jpg" width="100" height="100"/>
                     <p class="priceBomb"></p>
                 </div>
                 <div>
-                    <p>Shield</p>
+                    <p class="shield"></p>
                     <img class="shield" src="images/Shield.jpg" width="100" height="100"/>
                     <p class="priceShield"></p>
                 </div>
                 <div>
-                    <p>Life</p>
+                    <p class="life"></p>
                     <img class="life" src="images/Life.jpg" width="100" height="100"/>
                     <p class="priceLife"></p>
                 </div>
                 <div>
-                    <p>Freeze</p>
+                    <p class="freeze"></p>
                     <img class="freeze" src="images/Freeze.jpg" width="100" height="100"/>
                     <p class="priceFreeze"></p>
                 </div>
@@ -160,27 +166,23 @@
         <div id="effects"></div>
         
         <div id="setting2">
-            <h2>Réglage</h2>
+            <h2></h2>
             <ul>
-                <li class="music">Music ON</li>
-                <li class="sound">Sound FX ON</li>
-                <li class="bg">Background Scrolling ON</li>
+                <li class="music"></li>
+                <li class="sound"></li>
+                <li class="bg"></li>
             </ul>
         </div>
         
         <div id="help2">
-            <h2>Instructions</h2>
-            <p>You are a gallant space explorer who wishes to find and name a new planet.</p>
-            <p>One day, when you are woken up by siren, your AI tells you that the space ship encounters an asteroid field.</p>
-            <p>You have to destory all the incoming asteroids to survive!</p>
-            <p>Use the number pad on the right hand side to solve questions brought by asteroid and destory them!</p>
+            <h2></h2>
+            <span class="helpText"></span>
         </div>
         
         <div id="mainmenu">
-            <h3>Are you sure you want to go back to mainmenu?</h3>
-            <h3>All unsaved data will be lost.</h3>
-            <span class="backMain">Yes</span>
-            <span class="no">No</span>
+            <span class="confirm"></span>
+            <span class="backMain"></span>
+            <span class="no"></span>
         </div>
         
         <div id="ui">
@@ -212,11 +214,19 @@
                 </table>
                 
                 <div id="buttons">
-                    <div class="pause">Pause</div>
+                    <div class="pause"></div>
                     <!--<div class="lives">Lives: 3</div>-->
-                    <div class="numBomb" onclick="bomb()">Bomb: 0</div>
-                    <div class="numShield" onclick="shield()">Shield: 0</div>
-                    <div class="numFreeze" onclick="freeze()">Freeze: 0</div>
+                    <div class="numBomb" onclick="bomb()">
+                   		<span class="text"></span>&nbsp;
+                        <span class="num">0</span>
+                    </div>
+                    <div class="numShield" onclick="shield()">                    	<span class="text"></span>&nbsp;
+                        <span class="num">0</span>
+                    </div>
+                    <div class="numFreeze" onclick="freeze()">
+                    	<span class="text"></span>&nbsp;
+                        <span class="num">0</span>
+                    </div>
                 </div>
             </div>
             <div id="pauseScreen">

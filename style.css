@@ -21,7 +21,7 @@ ul {
 	padding:0;
 }
 /* Main menu styles*/
-.bigger {
+#menu .bigger {
     font-size:125%;
 }
 #splash {

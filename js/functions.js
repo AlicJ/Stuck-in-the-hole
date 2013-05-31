@@ -27,6 +27,16 @@ function splash() {
 		}
 	},500);
 }
+//Buy item function
+function buyItem(name,price){
+	if(score>=price){
+		score -= price;
+		$('#leftPanel .score .num').text(score);
+		name +=1;
+		$('.lives').text(name);
+	}
+}
+
 //Question Maker
     function QuestionMaker(num1, num2, operation){
 
@@ -191,7 +201,8 @@ function deleteData(num){
 	if(getSave[num]){
 		getSave[num] = new Object();
 		slot[num] = false;
-		$('.save'+(num+1)).text('Please restart to use this slot');
+		if(english) $('.save'+(num+1)).text(en_restart);
+		if(french) $('.save'+(num+1)).text(fr_restart);
 		localStorage.removeItem('save'+num);
 	}
 }
@@ -199,9 +210,6 @@ function deleteData(num){
 function GameStart(){
 	GG = 0;
 	lives = 3;
-	$('.lives').text(lives);
-    $('.level').text(level+1);
-    $('.score').text(score);
 	hideDiv('#main');
 	fadeInDiv('#gamefield');
 	fadeInDiv('#ui');
@@ -214,9 +222,10 @@ function GameStart(){
 	bgInterval = window.setInterval(bgAnimation, 1000/30);
 	ended();
 	window.clearInterval(mainInterval);
-	$('.level').text(level+1);
 	score = getSave[selectSlot].score;
-	$(".score").text(score);
+	$('#leftPanel #lives .num').text(lives);
+    $('#rightPanel .level').text(level+1);
+    $('#leftPanel .score .num').text(score);
     lazer.hide();
     layer.add(base);
     layer.add(lazer);
@@ -226,12 +235,22 @@ function GameStart(){
 function GameOver(){
 	if(GG == 0){
 		if(fail){
-			$('#gameover h3').text("Our ship is destroyed!");
-			$('#gameover div').text("Retreat");
+			if(english){
+				$('#gameover h3').text(en_destroyed);
+				$('#gameover div').text(en_retreate);
+			}else if(french){
+				$('#gameover h3').text(fr_destroyed);
+				$('#gameover div').text(fr_retreate);
+			}
 			if(sound) destoryed.play();
 		}else{
-			$('#gameover h3').text("We survived from the meteoric stream!");
-			$('#gameover div').text("Celebrate!");
+			if(english){
+				$('#gameover h3').text(en_survive);
+				$('#gameover div').text(en_celeb);
+			}else if(french){
+				$('#gameover h3').text(fr_survive);
+				$('#gameover div').text(fr_celeb);
+			}
 		}
 		$('#ui').fadeOut();
 		$('#gamefield').css('background-image', 'url(images/space.jpg)');
@@ -295,9 +314,6 @@ function testmod() {
     numBomb = 100;
     numFreeze = 100;
     GG = 0;
-	$('.lives').text(lives);
-    $('.level').text(level+1);
-    $('.score').text(score);
 	hideDiv('#main');
 	fadeInDiv('#gamefield');
 	fadeInDiv('#ui');
@@ -310,8 +326,9 @@ function testmod() {
 	bgInterval = window.setInterval(bgAnimation, 1000/30);
 	ended();
 	window.clearInterval(mainInterval);
-	$('.level').text(level+1);
-	$(".score").text(score);
+	$('#leftPanel #lives .num').text(lives);
+    $('#rightPanel .level').text(level+1);
+    $('#leftPanel .score .num').text(score);
     lazer.hide();
     layer.add(base);
     layer.add(lazer);
@@ -361,7 +378,7 @@ function submit(){
     {
         score-=300;
     }
-	$(".score").text(score);
+	$('#leftPanel .score .num').text(score);
     input = "";
     $("#input").text(input);
 }
@@ -534,7 +551,7 @@ function freeze ()
                 clearInterval(timer);
                 $('#effects').fadeOut();
                 numFreeze--;
-                $('.numFreeze').text('Freeze: ' + numFreeze);
+                $('.numFreeze .num').text(numFreeze);
             }
         }, 1000);  
     }
@@ -550,7 +567,7 @@ function bomb ()
             }
         }
         numBomb--;
-        $('.numBomb').text('Bomb: ' + numBomb);
+        $('.numBomb .num').text(numBomb);
     }
 }
 function shield() 
@@ -559,7 +576,6 @@ function shield()
         var counter = 0;
         var shieldShow = true;
          numShield--;
-        $('.numShield').text('Shield: ' + numShield);
         shieldOn = true;
         shieldPic.show();
         layer.draw();
@@ -590,8 +606,8 @@ function shield()
             {
                 clearInterval(timer);  
                 shieldOn=false;
-                 $('.numShield').text("Shield: " + numShield);
-                 layer.draw();
+        		$('.numShield .num').text(numShield);
+                layer.draw();
             }
         }, 1000);
        
