@@ -21,7 +21,7 @@ ul {
 	padding:0;
 }
 /* Main menu styles*/
-.bigger {
+#menu .bigger {
     font-size:125%;
 }
 #splash {
@@ -160,7 +160,6 @@ ul {
 #credit {
     /*position:relative;
     top:600px;*/
-	background:url(images/credit.gif);
 	background-repeat: no-repeat;
 	height:600px;
 }
@@ -302,7 +301,7 @@ ul {
     opacity: 0.90;
     border-radius:4px;
     background:url("images/levelbackground.png") #333;
-    z-index:-1;
+    z-index:2;
 }
 #levelComplete div {
     float: left;

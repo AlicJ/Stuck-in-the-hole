@@ -65,7 +65,8 @@ $(document).ready(function() {
 				//get data from localStorage
 				getSave[i] = new Object();
 				getSave[i] = JSON.parse(localStorage.getItem('save'+i));
-				$('.save'+(i+1)).text(getSave[i].name + " level " + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
+				if(english) $('.save'+(i+1)).text(getSave[i].name + " " + en_level + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
+				if(french) $('.save'+(i+1)).text(getSave[i].name + " " + fr_level + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
 			}
 		}
 	});
@@ -80,30 +81,36 @@ $(document).ready(function() {
     $('.bg').click(function(){
         if(bgscrolling){
             bgscrolling = false;
-            $('.bg').text("Background Scrolling OFF");
+            if(english) $('.bg').text(en_backscrollOFF);
+			if(french) $('.bg').text(fr_backscrollOFF);
         }else{
             bgscrolling = true;
-            $('.bg').text("Background Scrolling ON");
+            if(english) $('.bg').text(en_backscrollOn);
+			if(french) $('.bg').text(fr_backscrollOn);
         }
     });
     $('.music').click(function(){
         if(music){
             music = false;
             musicPause();
-            $('.music').text("Music OFF");
+            if(english) $('.music').text(en_musicOff);
+			if(french) $('.music').text(fr_musicOff);
         }else{
             music = true;
             musicPlay();
-            $('.music').text("Music ON");
+            if(english) $('.music').text(en_musicOn);
+			if(french) $('.music').text(fr_musicOn);
         }
     });
     $('.sound').click(function(){
         if(sound){
             sound = false;
-            $('.sound').text("Sound FX OFF");
+            if(english) $('.sound').text(en_soundOff);
+			if(french) $('.sound').text(fr_soundOff);
         }else{
             sound = true;
-            $('.sound').text("Sound FX ON");
+            if(english) $('.sound').text(en_soundOn);
+			if(french) $('.sound').text(fr_soundOn);
         }
     });
 	$('.help1').click(function(){
@@ -120,7 +127,7 @@ $(document).ready(function() {
         hideDiv('#namefield');
         fadeInDiv('#highscore');
 		sortScore();
-		$('#highscore ul').text('');
+		$('#highscore ul').text('');//reset highscore, or will add scores unlimited
 		showScore();
 	});
     $('.credit').click(function(){
@@ -183,36 +190,16 @@ $(document).ready(function() {
         fadeInDiv('#shop');
     });
     $('.bomb').click(function(){
-        if(score>=priceBomb){
-            score -= priceBomb;
-            $('.score').text(score);
-            numBomb +=1;
-            $('.numBomb').text('Bomb: ' + numBomb);
-        }
+		buyItem(numBomb, priceBomb);
     });
     $('.shield').click(function(){
-        if(score>=priceShield){
-            score -= priceShield;
-            $('.score').text(score);
-            numShield +=1;
-            $('.numShield').text('Shield: ' + numShield);
-        }
+		buyItem(numShield, priceShield);
     });
     $('.life').click(function(){
-        if(score>=priceLife){
-            score -= priceLife;
-            $('.score').text(score);
-            lives +=1;
-            $('.lives').text(lives);
-        }
+		buyItem(lives, priceLife);
     });
     $('.freeze').click(function(){
-        if(score>=priceFreeze){
-            score -= priceFreeze;
-            $('.score').text(score);
-            numFreeze +=1;
-            $('.numFreeze').text('Freeze: ' + numFreeze);
-        }
+		buyItem(numFreeze, priceFreeze);
     });
     $('.setting2').click(function(){
         hideDiv('#mainmenu');
@@ -264,7 +251,7 @@ $(document).ready(function() {
         levelSelect(level);
         enemyNum=0;
         hideDiv("#levelComplete");
-        $('.level').text(level+1);
+        $('#rightPanel .level').text(level+1);
 		pause = false;
     });
     $('.exit').click(function(){

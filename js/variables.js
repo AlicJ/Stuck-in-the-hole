@@ -1,3 +1,7 @@
+//language
+english = true;
+french = false;
+
 //Main Menu
 var gamestart = false;
 var mainInterval = null;
@@ -13,7 +17,7 @@ var bgscrolling = true;
 var bgImg = new Image();
 bgImg.src = "images/space.jpg";
 var creditImg = new Image();
-creditImg.src = "images/credit.gif";
+creditImg.src = "images/en_credit.gif";
 var music = true;
 var sound = true;
 var priceBomb = 3000;
