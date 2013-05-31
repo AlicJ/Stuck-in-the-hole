@@ -1,13 +1,8 @@
 function texthtml(div,content){
     $(div).html(content);
 }
-<<<<<<< HEAD
-function textreplace(div,content){
-    $(div).html(content);
-=======
 function textrepl(div,content){
-$(div).html(content);
->>>>>>> 49ec4d895e8b642a2a93ab6f2518c00245d04a11
+    $(div).html(content);
 }
 
 function french(){
@@ -26,13 +21,13 @@ var fr_backscrollOff = 'movement the scéne non';
 var fr_helpText = '';
 var fr_slot = 'fente';
 var fr_delete = 'effacer';
-var fr_inputName = '';
-var fr_launch = '';
-var fr_levelComplete = '';
-var fr_continue = '';
-var fr_rest = '';
+var fr_inputName = 'Entrez votre nom';
+var fr_launch = 'Lancer';
+var fr_levelComplete = 'niveau complet';
+var fr_continue = 'continuer';
+var fr_rest = 'reste';
 var fr_lives = 'vies';
-var fr_score = '';
+var fr_score = 'score';
 var fr_level = 'niveau';
 var fr_shop = 'Magasin';
 var fr_bomb = 'bombe';
@@ -40,12 +35,12 @@ var fr_shield = 'bouclier';
 var fr_life = 'vie';
 var fr_freeze = 'geler';
 var fr_mainConfirm = '';
-var fr_yes = '';
-var fr_no = '';
-var fr_clear = '';
-var fr_submit = '';
-var fr_pause = '';
-var fr_mainMenu = '';
+var fr_yes = 'oui';
+var fr_no = 'non';
+var fr_clear = 'effacer';
+var fr_submit = 'soumettre';
+var fr_pause = 'pause';
+var fr_mainMenu = 'menu principal';
 
 }
 
@@ -97,6 +92,13 @@ textrepl('#setting1 .music', en_musicOn);
 textrepl('#setting1 .sound', en_soundOn);
 textrepl('#setting1 .bg', en_backscrollOn);
 texthtml('#help1 h2', en_help);
-texthtml('#help1 span', en_helpText);
+texthtml('#help1 .helpText', en_helpText);
+texthtml('#highscore h2', en_highscore);
+$('#credit').css('background-image', 'url(images/en_credit.gif)');
+for (var i = 1; i <= 5; i ++){
+    textrepl('#save .save' + i, en_slot + i);
+    textrepl('#save .delete' + i, en_delete);
 }
-english()
+
+}
+english();

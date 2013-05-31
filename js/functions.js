@@ -400,7 +400,7 @@ function enemyMaker ()
         enemies[enemyNum].image.setScale(-1, 1);
     }
    
-    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+120)));
+    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+130)));
    
     layer.add(enemies[enemyNum].image);
     layer.add(enemies[enemyNum].text);
@@ -555,7 +555,7 @@ function bomb ()
 }
 function shield() 
 {
-    if(numShield>0){
+    if(numShield>0&&!shieldOn){
         var counter = 0;
         var shieldShow = true;
          numShield--;
