@@ -1,7 +1,3 @@
-//language
-english = true;
-french = false;
-
 //Main Menu
 var gamestart = false;
 var mainInterval = null;
@@ -11,7 +7,7 @@ var pauseInterval;
 var creditPosition = 560;
 var count = 0;
 var counter =0;
-var splashscreen;
+var splashscree;n
 var main;
 var bgscrolling = true;
 var bgImg = new Image();

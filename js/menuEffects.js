@@ -39,6 +39,14 @@ loadTrack(currentTrack);
     stage.add(layer);
 
 
+if(english){
+    $('.engilsh').css('color', 'red');
+    en_toggle();
+}else if(french){
+    $('.french').css('color', 'red');
+    fr_toggle();
+}
+ 
 
 mainInterval = window.setInterval(mainAnimation, 1000/60);
 
@@ -76,13 +84,17 @@ $(document).ready(function() {
 		hideDiv('#highscore');
         hideDiv('#namefield');
 		fadeInDiv('#setting1');
-        
+        if(english){
+            $('.engilsh').css('color', 'red');
+        }else if(french){
+            $('.french').css('color', 'red');
+        }
 	});
     $('.bg').click(function(){
         if(bgscrolling){
             bgscrolling = false;
-            if(english) $('.bg').text(en_backscrollOFF);
-			if(french) $('.bg').text(fr_backscrollOFF);
+            if(english) $('.bg').text(en_backscrollOff);
+			if(french) $('.bg').text(fr_backscrollOff);
         }else{
             bgscrolling = true;
             if(english) $('.bg').text(en_backscrollOn);
@@ -112,6 +124,20 @@ $(document).ready(function() {
             if(english) $('.sound').text(en_soundOn);
 			if(french) $('.sound').text(fr_soundOn);
         }
+    });
+    $('.english').click(function(){
+        french = false;
+        english = true;
+        en_toggle(); 
+        $('.english').css('color', 'red');
+        $('.french').css('color', 'inherit');
+    });
+    $('.french').click(function(){
+        english = false;
+        french = true;
+        fr_toggle();
+        $('.french').css('color', 'red');
+        $('.english').css('color', 'inherit');
     });
 	$('.help1').click(function(){
         hideDiv('#setting1');
@@ -190,16 +216,38 @@ $(document).ready(function() {
         fadeInDiv('#shop');
     });
     $('.bomb').click(function(){
-		buyItem(numBomb, priceBomb);
+        if(score>=priceBomb){
+    		score -= priceBomb;
+    		$('#leftPanel #score .num').text(score);
+    		numBomb +=1;
+            textrepl('.numBomb .num', numBomb);
+        }
     });
     $('.shield').click(function(){
-		buyItem(numShield, priceShield);
+        if(score>=priceShield){
+        	score -= priceShield;
+    		$('#leftPanel #score .num').text(score);
+    		numShield +=1;
+            textrepl('.numShield .num', numShield);
+        }
     });
     $('.life').click(function(){
-		buyItem(lives, priceLife);
+        if(score>=priceLife){
+            score -= priceLife;
+    		$('#leftPanel #score .num').text(score);
+    		lives +=1;
+            textrepl('#lives .num', lives);
+        }
+
     });
     $('.freeze').click(function(){
-		buyItem(numFreeze, priceFreeze);
+        if(score>=priceFreeze){
+            score -= priceFreeze;
+        	$('#leftPanel #score .num').text(score);
+    		numFreeze +=1;
+            textrepl('.numFreeze .num', numFreeze);
+        }
+
     });
     $('.setting2').click(function(){
         hideDiv('#mainmenu');

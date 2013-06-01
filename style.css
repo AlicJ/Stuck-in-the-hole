@@ -20,6 +20,20 @@ ul {
     list-style:none;
 	padding:0;
 }
+
+tr {
+    display: inline;
+    vertical-align: top;
+}
+
+table {
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.red {
+    color:red;
+}
 /* Main menu styles*/
 #menu .bigger {
     font-size:125%;
@@ -49,9 +63,13 @@ ul {
     width:704px;
 }
 #setting1 li, #setting2 li {
-	margin: 15px 0;
-    height: 80px;
+	margin: 15px 25px;
+    height: 70px;
     line-height: 70px;
+}
+#setting1 table, #setting2 table {
+    text-align: center;
+    margin: 0 auto;
 }
 #highscore li {
 	height: 50px;

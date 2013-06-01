@@ -27,15 +27,7 @@ function splash() {
 		}
 	},500);
 }
-//Buy item function
-function buyItem(name,price){
-	if(score>=price){
-		score -= price;
-		$('#leftPanel #score .num').text(score);
-		name +=1;
-		$('.lives').text(name);
-	}
-}
+
 
 //Question Maker
     function QuestionMaker(num1, num2, operation){
@@ -386,8 +378,21 @@ function enemyMaker ()
 {
      if(gamestart&&enemyNum<totalEnemies&&!pause)
     {
+    var questionDiff=true; 
     var side= Math.floor((Math.random())*4+1);
     var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
+    while(questionDiff)
+    {
+        questionDiff=false;
+        for(var i=0;i<enemies.length;i++)
+        {
+            if(question.answer==enemies[i].answer)
+            {
+                questionDiff=true;
+                var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
+            }
+        }
+    }
     var x=0;
     var y=0;
     if(side==2||side==4)
@@ -551,7 +556,10 @@ function freeze ()
                 clearInterval(timer);
                 $('#effects').fadeOut();
                 numFreeze--;
-                $('.numFreeze .num').text(numFreeze);
+                texthtml('.numFreeze', '<span class="text"></span>&nbsp<span class=num></span>');
+                textrepl('.numFreeze .num', numShield);
+                if(english) textrepl('.numFreeze .text', en_freeze);
+                if(french) textrepl('.numFreeze .text', fr_freeze);
             }
         }, 1000);  
     }
@@ -575,7 +583,7 @@ function shield()
     if(numShield>0&&!shieldOn){
         var counter = 0;
         var shieldShow = true;
-         numShield--;
+        numShield--;
         shieldOn = true;
         shieldPic.show();
         layer.draw();
@@ -606,7 +614,10 @@ function shield()
             {
                 clearInterval(timer);  
                 shieldOn=false;
-        		$('.numShield .num').text(numShield);
+                texthtml('.numShield', '<span class="text"></span>&nbsp<span class=num></span>');
+                textrepl('.numShield .num', numShield);
+                if(english) textrepl('.numShield .text', en_shield);
+                if(french) textrepl('.numShield .text', fr_shield);
                 layer.draw();
             }
         }, 1000);
@@ -660,7 +671,7 @@ function animate(num)
                 if(!shieldOn){
 					if(sound) beenhit.play();
                     lives-=1;
-                    $('.lives').text(lives);
+                    textrepl('#lives .num', lives);
                 }
             }
             
