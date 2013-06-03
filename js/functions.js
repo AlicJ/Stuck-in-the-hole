@@ -27,6 +27,22 @@ function splash() {
 		}
 	},500);
 }
+function englishfy (){
+    french = false;
+    english = true;
+    en_toggle(); 
+    $('.english').css('color', 'red');
+    $('.french').css('color', 'inherit');
+	localStorage.setItem('lang','en');
+}
+function frenchify (){
+	english = false;
+    french = true;
+    fr_toggle();
+    $('.french').css('color', 'red');
+    $('.english').css('color', 'inherit');
+	localStorage.setItem('lang','fr');
+}
 
 
 //Question Maker
@@ -201,7 +217,6 @@ function deleteData(num){
 
 function GameStart(){
 	GG = 0;
-	lives = 3;
 	hideDiv('#main');
 	fadeInDiv('#gamefield');
 	fadeInDiv('#ui');
@@ -215,6 +230,7 @@ function GameStart(){
 	ended();
 	window.clearInterval(mainInterval);
 	score = getSave[selectSlot].score;
+	lives = getSave[selectSlot].numLives;
 	$('#leftPanel #lives .num').text(lives);
     $('#rightPanel .level').text(level+1);
     $('#leftPanel #score .num').text(score);

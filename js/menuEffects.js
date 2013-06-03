@@ -37,16 +37,27 @@ loadTrack(currentTrack);
     shieldPic.hide();
     layer.add(shieldPic);
     stage.add(layer);
-
-
-if(english){
-    $('.engilsh').css('color', 'red');
-    en_toggle();
-}else if(french){
-    $('.french').css('color', 'red');
-    fr_toggle();
+//load configurations
+if(!localStorage.sound){
+	localStorage.setItem('music',JSON.stringify(music));
+	localStorage.setItem('sound',JSON.stringify(sound));
+	localStorage.setItem('bgscrolling',JSON.stringify(bgscrolling));
 }
- 
+music = JSON.parse(localStorage.getItem('music'));
+sound = JSON.parse(localStorage.getItem('sound'));
+bgscrolling = JSON.parse(localStorage.getItem('bgscrolling'));
+var lang = localStorage.getItem('lang');
+if (lang == 'fr') {
+	french = true;
+	english = false;
+}
+if(english){
+    en_toggle();
+	$('.english').css('color', 'red');
+}else{
+    fr_toggle();
+$('.french').css('color', 'red');
+}
 
 mainInterval = window.setInterval(mainAnimation, 1000/60);
 
@@ -84,11 +95,6 @@ $(document).ready(function() {
 		hideDiv('#highscore');
         hideDiv('#namefield');
 		fadeInDiv('#setting1');
-        if(english){
-            $('.engilsh').css('color', 'red');
-        }else if(french){
-            $('.french').css('color', 'red');
-        }
 	});
     $('.bg').click(function(){
         if(bgscrolling){
@@ -100,6 +106,7 @@ $(document).ready(function() {
             if(english) $('.bg').text(en_backscrollOn);
 			if(french) $('.bg').text(fr_backscrollOn);
         }
+		localStorage.setItem('bgscrolling',JSON.stringify(bgscrolling));
     });
     $('.music').click(function(){
         if(music){
@@ -113,6 +120,7 @@ $(document).ready(function() {
             if(english) $('.music').text(en_musicOn);
 			if(french) $('.music').text(fr_musicOn);
         }
+		localStorage.setItem('music',JSON.stringify(music));
     });
     $('.sound').click(function(){
         if(sound){
@@ -124,20 +132,20 @@ $(document).ready(function() {
             if(english) $('.sound').text(en_soundOn);
 			if(french) $('.sound').text(fr_soundOn);
         }
+		localStorage.setItem('sound',JSON.stringify(sound));
     });
+	$('.lang').click(function(){
+		if(english){
+			frenchify ()
+		}else{
+			englishfy ()
+		}
+	})
     $('.english').click(function(){
-        french = false;
-        english = true;
-        en_toggle(); 
-        $('.english').css('color', 'red');
-        $('.french').css('color', 'inherit');
+		englishfy();
     });
     $('.french').click(function(){
-        english = false;
-        french = true;
-        fr_toggle();
-        $('.french').css('color', 'red');
-        $('.english').css('color', 'inherit');
+		frenchify();
     });
 	$('.help1').click(function(){
         hideDiv('#setting1');
@@ -268,7 +276,7 @@ $(document).ready(function() {
         fadeInDiv('#mainmenu');
     });
     $('.backMain').click(function(){
-		updateData(selectSlot);
+		//updateData(selectSlot);
         gamestart = false;
         bgscrolling = true;
         clearInterval(gameLoop);
