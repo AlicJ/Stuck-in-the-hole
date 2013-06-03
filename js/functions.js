@@ -1,10 +1,11 @@
-//Main Menu
+//Fades in and out the varius divs
 function hideDiv (div){
     $(div).css('display','none');
 }
 function fadeInDiv (div){
     $(div).fadeIn();
 }
+//Animation for the scrolling background
 function mainAnimation() {
     if(bgscrolling){
         mainPosition--;
@@ -14,10 +15,12 @@ function mainAnimation() {
 	}
     }
 }
+//Animation for the scrolling credits
 function creditAnimation() {
     creditPosition--;
 	$("#credit").css({backgroundPosition: "20px " + (creditPosition) + "px"});
 }
+//Makes the splash screen appear and dissapear, no longer used
 function splash() {
 	$('#splash').fadeOut("800");
 	main = window.setInterval(function () {
@@ -31,7 +34,7 @@ function splash() {
 
 //Question Maker
     function QuestionMaker(num1, num2, operation){
-
+        //Creates two random numbers
         if (Math.max(num1, num2)== num2){
             switcher = num2;
     		num2=num1;
@@ -80,6 +83,7 @@ function splash() {
             $("#input").text(input);
         }
 	}
+//Clear keypd
 	function clean(){
 		input = "";
 		$("#input").text(input);
@@ -97,7 +101,7 @@ function sortScore(){
 	}
 	high9 = high.slice(0,9);
 }
-
+//Shows the
 function showScore(){
 	for(var h=0; h<high9.length; h++){
 		$('#highscore ul').append('<li><span class="score">' + high9[h].score + '</span><span class="user">' + high9[h].user + '</span></li>');
@@ -198,7 +202,7 @@ function deleteData(num){
 		localStorage.removeItem('save'+num);
 	}
 }
-
+//Changes to the ingame screen
 function GameStart(){
 	GG = 0;
 	lives = 3;
@@ -297,7 +301,7 @@ function saveData(i){
 		GameStart();
     }
 }
-
+//Testmode with infinite resources, disabled in real version
 function testmod() {
     level = 15;
     score = 500000;
@@ -327,7 +331,8 @@ function testmod() {
     stage.add(layer);
 
 }
-//animations
+//Checks if the submitted answer matches an actual answer
+//Also animates the lazer to fly towards the asteroid
 function submit(){
     var correct =false
     for(var i = 0; i <enemies.length; i++ ){
@@ -340,6 +345,7 @@ function submit(){
             var initY = lazer.attrs.y;
             var enemySelect=i;
             lazer.show();
+            //lazer animation
             var lazerAnim = new Kinetic.Animation(function(frame){
                 lazer.setX(initX + frame.time*(enemies[enemySelect].image.attrs.x-initX)/400);
                 lazer.setY(initY + frame.time*(enemies[enemySelect].image.attrs.y-initY)/400);
@@ -374,12 +380,15 @@ function submit(){
     input = "";
     $("#input").text(input);
 }
+//Makes a new enemy
 function enemyMaker ()
 {
      if(gamestart&&enemyNum<totalEnemies&&!pause)
     {
+    //Creates a new question and answer.
+    //Makes sure no two asteriods have the same answer while alive.
     var questionDiff=true; 
-    var side= Math.floor((Math.random())*4+1);
+    
     var question = new QuestionMaker(Math.floor(Math.random()*20)+1, Math.floor(Math.random()*20)+1,Math.floor(Math.random()*4)+1 );
     while(questionDiff)
     {
@@ -393,6 +402,8 @@ function enemyMaker ()
             }
         }
     }
+    //Sets a random side for the enemy to appear from
+    var side= Math.floor((Math.random())*4+1);
     var x=0;
     var y=0;
     if(side==2||side==4)
@@ -415,13 +426,13 @@ function enemyMaker ()
             y=-50;
         }
     }
-  
+    //New enemy object is created  
     enemies[enemyNum]= new enemy(x, y, question.question, question.answer, side);
     if(enemies[enemyNum].image.attrs.x<base.attrs.x)
     {
         enemies[enemyNum].image.setScale(-1, 1);
     }
-   
+    //Image is rotated using trig ratios
     enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+130)));
    
     layer.add(enemies[enemyNum].image);
@@ -435,12 +446,14 @@ function enemyMaker ()
     enemyNum++;
     }
 }
+//Changes the diffculty based on level
 function levelSelect (level)
 {
     totalEnemies = 1 +3*level;
     enemySpeed = 100000/(5+level);
     enemyDelay = 30000/(5+level);
 }
+//Enemy object constructor
 function enemy (x_bron, y_bron, question, answer, side)
 {
     this.answer = answer;
@@ -452,6 +465,7 @@ function enemy (x_bron, y_bron, question, answer, side)
     this.xGap = ((canvas.width/2)-x_bron)/enemySpeed;
     this.yGap = ((canvas.height/2)-y_bron)/enemySpeed;
     this.scoreKeep=1000;
+    //Meteor image
     this.image = new Kinetic.Image({
             x: x_bron,
             y: y_bron,
@@ -460,6 +474,7 @@ function enemy (x_bron, y_bron, question, answer, side)
             image:imageObj, 
             offset: [25, 30],
     });
+    //Text showing the question
     this.text = new Kinetic.Text({
         x: x_bron,
         y: y_bron,
@@ -468,6 +483,7 @@ function enemy (x_bron, y_bron, question, answer, side)
         fontFamily: 'TIEWing',
         fill: '#67EFE9'
     });
+    //Explosion image
 	this.explosion = new Kinetic.Image({
 		x: 0,
 		y: 0,
@@ -488,7 +504,7 @@ function bgAnimation() {
 	    }
     }
 }
-
+//Clears an enemy after it is destroyed, as well as animate the explosion
 function cleanEnemy (num)
 {
     anim[num].stop();
@@ -497,7 +513,8 @@ function cleanEnemy (num)
 	layer.add(enemies[num].explosion);
 	stage.add(layer);
     anim[num] = new Kinetic.Animation(function (frame){
-     enemies[num].explosion.setScale(1+frame.time/500);
+    //EXPLOSIONS
+    enemies[num].explosion.setScale(1+frame.time/500);
      if(frame.time>500)
      {
          anim[num].stop();
@@ -527,7 +544,8 @@ function cleanEnemy (num)
      }
 }
   
-  
+//Freeze is used
+//Enemies stop for a few seconds
 function freeze ()
 {
     if(numFreeze>0&&!freezeOn){
@@ -564,6 +582,7 @@ function freeze ()
         }, 1000);  
     }
 }
+//Destroys all enemies on the screen
 function bomb ()
 {
     if(numBomb>0){
@@ -578,6 +597,7 @@ function bomb ()
         $('.numBomb .num').text(numBomb);
     }
 }
+//Protects the ship from losing lives for a few seconds
 function shield() 
 {
     if(numShield>0&&!shieldOn){
@@ -624,6 +644,7 @@ function shield()
        
     }
 }
+//Stops the metor animations when paused
 function animStop (isPaused)
 {
     if(isPaused)
@@ -639,6 +660,7 @@ function animStop (isPaused)
     }
     }
 }
+//Animates the ship to move up and down
 function shipAnimate()
 {
     var animate = new Kinetic.Animation(function(frame){
@@ -648,6 +670,7 @@ function shipAnimate()
     }, layer);
     animate.start();
 }
+//Animation for the asteriods 
 function animate(num) 
 {
     var scoreRate =  Math.abs(1000*enemies[num].xGap/(enemies[num].fixedX-canvas.width/2));
@@ -663,11 +686,10 @@ function animate(num)
             // if(enemies[num].alive && enemies[num].image.attrs.x < base.attrs.x+base.attrs.width+25 && enemies[num].image.attrs.x > base.attrs.x-enemies[num].image.attrs.width+25
             // && enemies[num].image.attrs.y < base.attrs.y+base.attrs.height +25 && enemies[num].image.attrs.y > base.attrs.y-enemies[num].image.attrs.height+25)
             // {
+            //Enemy has hit the ship
             if(frame.time>=enemySpeed*0.8)
             {
 				cleanEnemy (num);
-				//enemies[num].explosion.setScale(Math.sin(frame.time * 2 * Math.PI / 2000) + 0.001);
-				score -=1000;
                 if(!shieldOn){
 					if(sound) beenhit.play();
                     lives-=1;
