@@ -117,7 +117,7 @@ function sortScore(){
 	}
 	high9 = high.slice(0,9);
 }
-//Shows the
+//Shows the high score
 function showScore(){
 	for(var h=0; h<high9.length; h++){
 		$('#highscore ul').append('<li><span class="score">' + high9[h].score + '</span><span class="user">' + high9[h].user + '</span></li>');
@@ -190,12 +190,12 @@ function LSupdate(pending,update){
 	//update the version
 	localStorage.setItem(update,JSON.stringify(pending));
 }
-
+//get data from localStorage
 function LSget(pending,getData){
 	//get data from localStorage
 	pending = JSON.parse(localStorage.getItem(getData));
 }
-
+//update data to localStorage
 function updateData(num){
 	getSave[num].level = level;
 	getSave[num].score = score;
