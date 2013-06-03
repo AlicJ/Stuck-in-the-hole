@@ -428,13 +428,26 @@ function enemyMaker ()
     }
     //New enemy object is created  
     enemies[enemyNum]= new enemy(x, y, question.question, question.answer, side);
-    if(enemies[enemyNum].image.attrs.x<base.attrs.x)
+    if(base.attrs.x-x<30)
     {
-        enemies[enemyNum].image.setScale(-1, 1);
+        if(base.attrs.y>y)
+        {
+            enemies[enemyNum].rotate(-Math.PI/2);
+        }
+        else
+        {
+            enemies[enemyNum].rotate(Math.PI/2);
+        }
     }
-    //Image is rotated using trig ratios
-    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+130)));
-   
+    else
+    {    
+        if(enemies[enemyNum].image.attrs.x<base.attrs.x)
+        {
+            enemies[enemyNum].image.setScale(-1, 1);
+        }
+        //Image is rotated using trig ratios
+        enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+120)));
+    }
     layer.add(enemies[enemyNum].image);
     layer.add(enemies[enemyNum].text);
       
