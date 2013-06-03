@@ -7,7 +7,7 @@ var pauseInterval;
 var creditPosition = 560;
 var count = 0;
 var counter =0;
-var splashscree;n
+var splashscree;
 var main;
 var bgscrolling = true;
 var bgImg = new Image();
