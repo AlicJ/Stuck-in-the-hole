@@ -1,4 +1,4 @@
-//Main Menu
+//Main Menu----------------------------------------------
 var gamestart = false;
 var mainInterval = null;
 var mainPosition = 0;
@@ -23,15 +23,15 @@ var priceFreeze = 2000;
 var level =0;
 var gameLoop;
 
-//Question Maker
+//Question Maker----------------------------------------------
 var switcher=0;
-//Keypad
+//Keypad----------------------------------------------
 var input = "";
-//Highscore
+//Highscore----------------------------------------------
 var high = new Array();
 var temp;
 var high9 = new Object();
-//Music Player
+//Music Player----------------------------------------------
 var playlist = [
     {
 		mp3: 'music/01.mp3',
@@ -113,11 +113,11 @@ var playlist = [
 var isPlaying,  currentTrack,
 	currentTrack = 0,
 	autoplay = true;
-//Sound Effect
+//Sound Effect----------------------------------------------
 var asteriod = new Audio('music/asteriod.ogg');    	//destruction of an asteriod
 var destoryed = new Audio('music/destoryed.ogg');	//destruction of the main ship
 var beenhit = new Audio('music/beenhit.ogg');		//main ship been hit
-//Save files
+//Save files----------------------------------------------
 var creat = new Date();
 var now = new Date();
 var getSave = new Array();
@@ -128,8 +128,7 @@ var GG = 0;
 for(var i=0; i<5; i++){
 	slot[i] = true;
 }
-
-//Animation
+//Animation----------------------------------------------
 var canvas = document.getElementById('myCanvas');
 canvas.width = $('#myCanvas').width();
 canvas.height = $('#myCanvas').height();

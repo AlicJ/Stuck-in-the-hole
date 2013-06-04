@@ -1,4 +1,4 @@
-//Main Menu
+//Main Menu----------------------------------------------
 function hideDiv (div){
     $(div).css('display','none');
 }
@@ -27,7 +27,7 @@ function splash() {
 		}
 	},500);
 }
-
+//language toggle functions
 function englishfy (){
     french = false;
     english = true;
@@ -44,64 +44,61 @@ function frenchify (){
     $('.english').css('color', 'inherit');
 	localStorage.setItem('lang','fr');
 }
-
-
-//Question Maker
-    function QuestionMaker(num1, num2, operation){
-
-        if (Math.max(num1, num2)== num2){
-            switcher = num2;
-            num2=num1;
-			num1=switcher;
-		}
-		
-		if(operation>=3){
-			num1 = halver(num1+1);
-			num2 = halver(num2+1);
-		}
-		
-		switch(operation){
-			case 1: //addition
-                this.answer = num1 + num2;
-				//$("#question").text("What is " + num1 + " plus " + num2+ "? ");
-				this.question = num1 + " + " + num2+ " = ? ";
-                break;
-			case 2: //subtraction
-				this.answer = num1 - num2;
-				//$("#question").text("What is " + num1 + " minus " + num2+ "? ");
-				this.question = num1 + " - " + num2+ " = ? ";
-                break;
-			case 3: //multiplication
-				this.answer = num1 * num2;
-				//$("#question").text("What is " + num1 + " multiplied by " + num2+ "? ");
-				this.question = num1 + " x " + num2+ " = ? ";
-				break;
-			case 4: //division
-				num1 *= num2;
-				this.answer = num1 / num2;
-				//$("#question").text("What is " + num1 + " divided by " + num2+ "? ");
-				this.question = num1 + " / " + num2+ " = ? ";
-				break;
-		}
+//Question Maker----------------------------------------------
+function QuestionMaker(num1, num2, operation){
+    if (Math.max(num1, num2)== num2){
+        switcher = num2;
+        num2=num1;
+		num1=switcher;
+	}
+	
+	if(operation>=3){
+		num1 = halver(num1+1);
+		num2 = halver(num2+1);
+	}
+	
+	switch(operation){
+		case 1: //addition
+            this.answer = num1 + num2;
+			//$("#question").text("What is " + num1 + " plus " + num2+ "? ");
+			this.question = num1 + " + " + num2+ " = ? ";
+            break;
+		case 2: //subtraction
+			this.answer = num1 - num2;
+			//$("#question").text("What is " + num1 + " minus " + num2+ "? ");
+			this.question = num1 + " - " + num2+ " = ? ";
+            break;
+		case 3: //multiplication
+			this.answer = num1 * num2;
+			//$("#question").text("What is " + num1 + " multiplied by " + num2+ "? ");
+			this.question = num1 + " x " + num2+ " = ? ";
+			break;
+		case 4: //division
+			num1 *= num2;
+			this.answer = num1 / num2;
+			//$("#question").text("What is " + num1 + " divided by " + num2+ "? ");
+			this.question = num1 + " / " + num2+ " = ? ";
+			break;
+	}
+}
+function halver (number){
+	if(number>10){
+		number /=2;
+	}
+        return Math.floor(number);
+}
+//Keypad----------------------------------------------
+function addNum (num){
+    if(input.length<=3){
+        input += num;
+        $("#input").text(input);
     }
-	function halver (number){
-		if(number>10){
-			number /=2;
-		}
-            return Math.floor(number);
-	}
-//Keypad
-    function addNum (num){
-        if(input.length<=3){
-            input += num;
-            $("#input").text(input);
-        }
-	}
-	function clean(){
-		input = "";
-		$("#input").text(input);
-	}
-//High Scores
+}
+function clean(){
+	input = "";
+	$("#input").text(input);
+}
+//High Scores----------------------------------------------
 function sortScore(){
     for(var j=0; j<high.length-1; j++){
 		for (var i=0; i<high.length-1; i++){
@@ -130,55 +127,56 @@ function pushScore(){
 	sortScore();
 	localStorage.highscore = JSON.stringify(high9);
 }
-//Music Player
-    function musicPlay(){
-		audio.play();
-		isPlaying = true;
+//Music Player----------------------------------------------
+function musicPlay(){
+	audio.play();
+	isPlaying = true;
+}
+function musicPause(){
+	audio.pause();
+	isPlaying = false;
+}
+function switchTrack(i){
+	var track;
+	if(i<0){
+		track = currentTrack = playlist.length-1;
+	}else if(i>=playlist.length){
+		track = currentTrack = 0;
+	}else{
+		track = i;
 	}
-	function musicPause(){
-		audio.pause();
-		isPlaying = false;
+	$('audio').remove();
+	loadTrack(track);
+	if(isPlaying === true){
+		musicPlay();
 	}
-	function switchTrack(i){
-		var track;
-		if(i<0){
-			track = currentTrack = playlist.length-1;
-		}else if(i>=playlist.length){
-			track = currentTrack = 0;
-		}else{
-			track = i;
-		}
-		$('audio').remove();
-		loadTrack(track);
-		if(isPlaying === true){
-			musicPlay();
-		}
+}
+//Fire when track ended
+function ended(){
+	musicPause();
+    if(gamestart){
+        switchTrack(++currentTrack);
+    }else{
+        switchTrack(currentTrack);
+    }
+	
+}
+//
+function afterLoad(){
+	if(autoplay == true){
+		musicPlay();
 	}
-	//Fire when track ended
-	function ended(){
-		musicPause();
-        if(gamestart){
-            switchTrack(++currentTrack);
-        }else{
-            switchTrack(currentTrack);
-        }
-		
-	}
-	//
-	function afterLoad(){
-		if(autoplay == true){
-			musicPlay();
-		}
-	}
-	//Load track
-	function loadTrack(i){
-		var item = playlist[i],
-			newaudio = $('<audio>').html('<source src="' + item.ogg + '"><source src="' + item.mp3 + '">').appendTo('.bgMusic');
-		audio = newaudio[0];
-		audio.addEventListener('canplay',afterLoad, false);
-		audio.addEventListener('ended',ended, false);
-	}
-//save files
+}
+//Load track
+function loadTrack(i){
+	var item = playlist[i],
+		newaudio = $('<audio>').html('<source src="' + item.ogg + '"><source src="' + item.mp3 + '">').appendTo('.bgMusic');
+	audio = newaudio[0];
+	audio.addEventListener('canplay',afterLoad, false);
+	audio.addEventListener('ended',ended, false);
+}
+//Save functions----------------------------------------------
+//write data to localStorage
 function LSupdate(pending,update){
 	//add 1 to the version
 	pending.version ++;
@@ -187,12 +185,11 @@ function LSupdate(pending,update){
 	//update the version
 	localStorage.setItem(update,JSON.stringify(pending));
 }
-
 function LSget(pending,getData){
 	//get data from localStorage
 	pending = JSON.parse(localStorage.getItem(getData));
 }
-
+//update save file to localStorage
 function updateData(num){
 	getSave[num].level = level;
 	getSave[num].score = score;
@@ -205,7 +202,7 @@ function updateData(num){
 	getSave[num].version++;
 	LSupdate(getSave[num],'save'+num);
 }
-
+//delete save file
 function deleteData(num){
 	if(getSave[num]){
 		getSave[num] = new Object();
@@ -215,10 +212,9 @@ function deleteData(num){
 		localStorage.removeItem('save'+num);
 	}
 }
-
+//hide divs, show divs, create variable values
 function GameStart(){
-	GG = 0;
-	lives = 3;
+    GG = 0;
 	hideDiv('#main');
 	fadeInDiv('#gamefield');
 	fadeInDiv('#ui');
@@ -232,6 +228,7 @@ function GameStart(){
 	ended();
 	window.clearInterval(mainInterval);
 	score = getSave[selectSlot].score;
+	lives = getSave[selectSlot].numLives;
 	$('#leftPanel #lives .num').text(lives);
     $('#rightPanel .level').text(level+1);
     $('#leftPanel #score .num').text(score);
@@ -240,7 +237,7 @@ function GameStart(){
     layer.add(lazer);
     stage.add(layer);
 }
-
+//show game over div
 function GameOver(){
 	if(GG == 0){
 		if(fail){
@@ -269,7 +266,7 @@ function GameOver(){
 	}
 	GG ++;
 }
-
+//this function triggers when user select a saving slot
 function saveData(i){
 	//if save does not exist
     if(!getSave[i]&&slot[i]){
@@ -314,7 +311,7 @@ function saveData(i){
 		GameStart();
     }
 }
-
+//This is enable user to enter test mod
 function testmod() {
     level = 15;
     score = 500000;
@@ -342,15 +339,12 @@ function testmod() {
     layer.add(base);
     layer.add(lazer);
     stage.add(layer);
-
 }
-//animations
+//Animations----------------------------------------------
 function submit(){
     var correct =false
     for(var i = 0; i <enemies.length; i++ ){
         if(input == enemies[i].answer&&enemies[i].alive){
-           
-            
             layer.add(lazer);
             stage.add(layer);
             var initX = lazer.attrs.x;
@@ -505,7 +499,7 @@ function bgAnimation() {
 	    }
     }
 }
-
+//clean enemy function, triggered when an enemy is destroyed
 function cleanEnemy (num)
 {
     anim[num].stop();
@@ -543,8 +537,7 @@ function cleanEnemy (num)
          fadeInDiv("#levelComplete");
      }
 }
-  
-  
+//functions for items  
 function freeze ()
 {
     if(numFreeze>0&&!freezeOn){
@@ -701,4 +694,4 @@ function animate(num)
     if(!pause){
         anim[num].start();
     }
-  }
+}
