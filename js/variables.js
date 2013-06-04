@@ -10,8 +10,6 @@ var counter =0;
 var splashscree;
 var main;
 var bgscrolling = true;
-var bgImg = new Image();
-bgImg.src = "images/space.jpg";
 var creditImg = new Image();
 creditImg.src = "images/en_credit.gif";
 var music = true;
@@ -110,7 +108,7 @@ var playlist = [
 		ogg: 'music/19.ogg'
 	},
 ];
-var isPlaying,  currentTrack,
+var isPlaying,
 	currentTrack = 0,
 	autoplay = true;
 //Sound Effect----------------------------------------------
@@ -132,7 +130,6 @@ for(var i=0; i<5; i++){
 var canvas = document.getElementById('myCanvas');
 canvas.width = $('#myCanvas').width();
 canvas.height = $('#myCanvas').height();
-var gamestart = false;
 var stage = new Kinetic.Stage({
         container: 'myCanvas',
         width: canvas.width,
@@ -150,7 +147,6 @@ var shieldOn = false;
 var freezeOn = false
 var fail = false;
 
-var enemies;
 var enemyNum = 0;
 var totalEnemies=1;
 var enemyDelay=5000;
