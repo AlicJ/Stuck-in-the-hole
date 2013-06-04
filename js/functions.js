@@ -12,7 +12,7 @@ function mainAnimation() {
         $("#main").css({backgroundPosition: (mainPosition * 2) + "px 0px"});
         if(Math.abs(mainPosition)>=bgImg.width){
     	mainPosition = 0;
-	}
+	    }
     }
 }
 //Animation for the scrolling credits
@@ -29,22 +29,6 @@ function splash() {
 			count+=1;
 		}
 	},500);
-}
-function englishfy (){
-    french = false;
-    english = true;
-    en_toggle(); 
-    $('.english').css('color', 'red');
-    $('.french').css('color', 'inherit');
-	localStorage.setItem('lang','en');
-}
-function frenchify (){
-	english = false;
-    french = true;
-    fr_toggle();
-    $('.french').css('color', 'red');
-    $('.english').css('color', 'inherit');
-	localStorage.setItem('lang','fr');
 }
 
 
@@ -219,6 +203,21 @@ function deleteData(num){
 	}
 }
 //Changes to the ingame screen
+function GameStart(){
+	GG = 0;
+	hideDiv('#main');
+	fadeInDiv('#gamefield');
+	fadeInDiv('#ui');
+	$('#gamefield').css('background', '#999');
+	fadeInDiv('#nonPause');
+	gamestart = true;
+	enemyNum = 0;
+	levelSelect(level);
+	gameLoop = window.setInterval(enemyMaker, enemyDelay);
+	bgInterval = window.setInterval(bgAnimation, 1000/30);
+	ended();
+	window.clearInterval(mainInterval);
+	score = getSave[selectSlot].score;
 function GameStart(){
 	GG = 0;
 	hideDiv('#main');
