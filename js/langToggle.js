@@ -87,11 +87,11 @@ var fr_submit = 'soumettre';
 var fr_pause = 'pause';
 var fr_mainMenu = 'menu principal';
 
-var en_restart = 'S\'il vous plaît redémarrer pour utiliser cet emplacement';
-var en_destroyed = 'Notre vaisseau est détruit!';
-var en_retreate = 'reculer';
-var en_survive = 'Nous avons survécu le domaine d\'astéroïdes!';
-var en_celeb = 'Célébrer!';
+var fr_restart = 'S\'il vous plaît redémarrer pour utiliser cet emplacement';
+var fr_destroyed = 'Notre vaisseau est détruit!';
+var fr_retreate = 'reculer';
+var fr_survive = 'Nous avons survécu le domaine d\'astéroïdes!';
+var fr_celeb = 'Célébrer!';
 
 
 //functions----------------------------------------------------------
