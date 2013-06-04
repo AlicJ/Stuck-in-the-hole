@@ -209,7 +209,7 @@ function en_toggle(){
 	textrepl('#pauseScreen .help2', en_help);
 	textrepl('#pauseScreen .mainmenu', en_mainMenu);
 	textrepl('#levelComplete .backMain', en_rest);
-	
+    
 	if (music) textrepl('#setting1 .music', en_musicOn);
 	if (sound) textrepl('#setting1 .sound', en_soundOn);
 	if (bgscrolling) textrepl('#setting1 .bg', en_backscrollOn);

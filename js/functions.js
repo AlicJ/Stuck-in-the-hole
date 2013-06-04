@@ -28,6 +28,23 @@ function splash() {
 	},500);
 }
 
+function englishfy (){
+    french = false;
+    english = true;
+    en_toggle(); 
+    $('.english').css('color', 'red');
+    $('.french').css('color', 'inherit');
+    localStorage.setItem('lang','en');
+}
+function frenchify (){
+	english = false;
+    french = true;
+    fr_toggle();
+    $('.french').css('color', 'red');
+    $('.english').css('color', 'inherit');
+	localStorage.setItem('lang','fr');
+}
+
 
 //Question Maker
     function QuestionMaker(num1, num2, operation){
