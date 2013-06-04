@@ -37,7 +37,7 @@ function splash() {
         //Creates two random numbers
         if (Math.max(num1, num2)== num2){
             switcher = num2;
-    		num2=num1;
+            num2=num1;
 			num1=switcher;
 		}
 		
