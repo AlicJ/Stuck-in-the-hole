@@ -30,6 +30,22 @@ function splash() {
 		}
 	},500);
 }
+function englishfy (){
+    french = false;
+    english = true;
+    en_toggle(); 
+    $('.english').css('color', 'red');
+    $('.french').css('color', 'inherit');
+	localStorage.setItem('lang','en');
+}
+function frenchify (){
+	english = false;
+    french = true;
+    fr_toggle();
+    $('.french').css('color', 'red');
+    $('.english').css('color', 'inherit');
+	localStorage.setItem('lang','fr');
+}
 
 
 //Question Maker
@@ -101,7 +117,7 @@ function sortScore(){
 	}
 	high9 = high.slice(0,9);
 }
-//Shows the
+//Shows the high score
 function showScore(){
 	for(var h=0; h<high9.length; h++){
 		$('#highscore ul').append('<li><span class="score">' + high9[h].score + '</span><span class="user">' + high9[h].user + '</span></li>');
@@ -174,12 +190,12 @@ function LSupdate(pending,update){
 	//update the version
 	localStorage.setItem(update,JSON.stringify(pending));
 }
-
+//get data from localStorage
 function LSget(pending,getData){
 	//get data from localStorage
 	pending = JSON.parse(localStorage.getItem(getData));
 }
-
+//update data to localStorage
 function updateData(num){
 	getSave[num].level = level;
 	getSave[num].score = score;
@@ -205,7 +221,6 @@ function deleteData(num){
 //Changes to the ingame screen
 function GameStart(){
 	GG = 0;
-	lives = 3;
 	hideDiv('#main');
 	fadeInDiv('#gamefield');
 	fadeInDiv('#ui');
@@ -219,6 +234,7 @@ function GameStart(){
 	ended();
 	window.clearInterval(mainInterval);
 	score = getSave[selectSlot].score;
+	lives = getSave[selectSlot].numLives;
 	$('#leftPanel #lives .num').text(lives);
     $('#rightPanel .level').text(level+1);
     $('#leftPanel #score .num').text(score);
