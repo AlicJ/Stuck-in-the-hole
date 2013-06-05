@@ -1,3 +1,4 @@
+//hide uneccessary divs----------------------------------------------
 hideDiv('#gamefield');
 //hideDiv('#menu');
 hideDiv('#setting1');
@@ -25,19 +26,19 @@ if(count === 0){
     clearInterval(splashscreen); 
 }
 ***/
-//load highscores
+//load highscores----------------------------------------------
 if(!localStorage.highscore){
     localStorage.highscore = high;
 }else{
     high = JSON.parse(localStorage.highscore);
 }
-//load music
+//load music------------------------------------------------------------------------------------------------------------------------------------------
 loadTrack(currentTrack);
-//hide pictures
-    shieldPic.hide();
-    layer.add(shieldPic);
-    stage.add(layer);
-//load configurations
+//hide pictures--------------------------------------------------------------------------------------------
+shieldPic.hide();
+layer.add(shieldPic);
+stage.add(layer);
+//load configurations----------------------------------------------
 if(!localStorage.sound){
 	localStorage.setItem('music',JSON.stringify(music));
 	localStorage.setItem('sound',JSON.stringify(sound));
@@ -58,20 +59,18 @@ if(english){
     fr_toggle();
 $('.french').css('color', 'red');
 }
-
+//start background animation----------------------------------------------
 mainInterval = window.setInterval(mainAnimation, 1000/60);
-
+//write item prices----------------------------------------------
 $('.priceBomb').text(priceBomb);
 $('.priceShield').text(priceShield);
 $('.priceLife').text(priceLife);
 $('.priceFreeze').text(priceFreeze);
-
+//main function for every click effects----------------------------------------------
 $(document).ready(function() {
     //for main menu selections
 	$('.newgame').click(function(){
         //below is the saving slot, refer line 139-234 for relevant funcitons
-        //comment out the next five line, and uncomment the blue lines,
-        //will start the game directly when "start" button is clicked 
         hideDiv('#help1');
 		hideDiv('#highscore');
         hideDiv('#setting1');

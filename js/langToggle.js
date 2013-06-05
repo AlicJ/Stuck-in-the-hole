@@ -1,4 +1,4 @@
-//language
+//language variables----------------------------------------------
 var english = true;
 var french = false;
 //English words----------------------------------------------------------
@@ -87,22 +87,20 @@ var fr_submit = 'soumettre';
 var fr_pause = 'pause';
 var fr_mainMenu = 'menu principal';
 
-var en_restart = 'S\'il vous plaît redémarrer pour utiliser cet emplacement';
-var en_destroyed = 'Notre vaisseau est détruit!';
-var en_retreate = 'reculer';
-var en_survive = 'Nous avons survécu le domaine d\'astéroïdes!';
-var en_celeb = 'Célébrer!';
+var fr_restart = 'S\'il vous plaît redémarrer pour utiliser cet emplacement';
+var fr_destroyed = 'Notre vaisseau est détruit!';
+var fr_retreate = 'reculer';
+var fr_survive = 'Nous avons survécu le domaine d\'astéroïdes!';
+var fr_celeb = 'Célébrer!';
 
 
 //functions----------------------------------------------------------
-
 function texthtml(div,content){
     $(div).html(content);
 }
 function textrepl(div,content){
     $(div).html(content);
 }
-
 function fr_toggle(){
     texthtml('#menu .newgame p', fr_newgame);
 	texthtml('#menu .setting1 p', fr_setting);
@@ -153,12 +151,10 @@ function fr_toggle(){
 	textrepl('#pauseScreen .help2', fr_help);
 	textrepl('#pauseScreen .mainmenu', fr_mainMenu);
 	textrepl('#levelComplete .backMain', fr_rest);
-	
 	if (music) textrepl('#setting1 .music', fr_musicOn);
 	if (sound) textrepl('#setting1 .sound', fr_soundOn);
 	if (bgscrolling) textrepl('#setting1 .bg', fr_backscrollOn);
 }
-
 function en_toggle(){
 	texthtml('#menu .newgame p', en_newgame);
 	texthtml('#menu .setting1 p', en_setting);
@@ -209,9 +205,7 @@ function en_toggle(){
 	textrepl('#pauseScreen .help2', en_help);
 	textrepl('#pauseScreen .mainmenu', en_mainMenu);
 	textrepl('#levelComplete .backMain', en_rest);
-	
 	if (music) textrepl('#setting1 .music', en_musicOn);
 	if (sound) textrepl('#setting1 .sound', en_soundOn);
 	if (bgscrolling) textrepl('#setting1 .bg', en_backscrollOn);
 }
-
