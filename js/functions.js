@@ -34,6 +34,7 @@ function englishfy (){
     en_toggle(); 
     $('.english').css('color', 'red');
     $('.french').css('color', 'inherit');
+    $('#clear, #submit').css('line-height', '55px');
     localStorage.setItem('lang','en');
 }
 function frenchify (){
@@ -42,6 +43,7 @@ function frenchify (){
     fr_toggle();
     $('.french').css('color', 'red');
     $('.english').css('color', 'inherit');
+    $('#clear, #submit').css('line-height', '28px');
 	localStorage.setItem('lang','fr');
 }
 //Question Maker----------------------------------------------
