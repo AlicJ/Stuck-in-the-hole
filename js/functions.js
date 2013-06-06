@@ -387,7 +387,7 @@ function submit(){
 }
 function enemyMaker ()
 {
-     if(gamestart&&enemyNum<totalEnemies&&!pause)
+     if(gamestart&&enemyNum<totalEnemies&&!pause&&!freezeOn)
     {
     var questionDiff=true; 
     var side= Math.floor((Math.random())*4+1);
@@ -428,13 +428,25 @@ function enemyMaker ()
     }
   
     enemies[enemyNum]= new enemy(x, y, question.question, question.answer, side);
-    if(enemies[enemyNum].image.attrs.x<base.attrs.x)
+    if(Math.abs(base.attrs.x-x+40)<30)
     {
-        enemies[enemyNum].image.setScale(-1, 1);
+        if(y>base.attrs.y)
+        {
+            enemies[enemyNum].image.rotate(Math.PI/2);
+        }
+        else
+        {
+            enemies[enemyNum].image.rotate(-Math.PI/2);
+        }
     }
-   
-    enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+130)));
-   
+    else{
+        if(enemies[enemyNum].image.attrs.x<base.attrs.x)
+        {
+            enemies[enemyNum].image.setScale(-1, 1);
+        }
+       
+        enemies[enemyNum].image.rotate(Math.atan((base.attrs.y-y)/(base.attrs.x-x+100)));
+    }
     layer.add(enemies[enemyNum].image);
     layer.add(enemies[enemyNum].text);
       
@@ -549,15 +561,16 @@ function freeze ()
         {
             anim[i].stop();
         }
-        pause = true;
         var count = 0;
          $('.numFreeze').text(3-count);
         var timer = window.setInterval(function(){
-            count++;
+            if(!pause){
+                count++;
+            }
             $('.numFreeze').text(3-count);
             if(count==3)
             {
-                pause = false;
+
                 freezeOn = false;
                 for(var i =0;i<anim.length;i++)
                  {
@@ -598,7 +611,9 @@ function shield()
         shieldPic.show();
         layer.draw();
         var timer = window.setInterval(function(){
-            counter ++;
+            if(!pause){
+                counter ++;
+            }
             $('.numShield').text(5-counter);
             if(counter==4)
             {
