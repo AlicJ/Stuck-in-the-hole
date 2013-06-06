@@ -1,27 +1,14 @@
 @charset "utf-8";
 /* CSS Document */
 @font-face {
-    font-family: Xizor;
-    src: url('Xizor.ttf') format("truetype");
+    font-family: mega;
+    src: url('Megatron.ttf') format("truetype");
 }
-@font-face {
-    font-family: TIEWing;
-    src: url('TIEWing.ttf') format("truetype");
-}
-@font-face {
-    font-family: Starjedi;
-    src: url('Starjedi.ttf') format("truetype");
-}
-@font-face {
-    font-family: sse;
-    src: url('sse.ttf') format("truetype");
-}
-
 body {
     margin: 0px;
     padding: 0px;
     cursor:default;
-    font-family: Xizor, Starjedi, sse, TIEWing;
+    font-family: mega;
 }
 ul {
     list-style:none;
@@ -40,6 +27,12 @@ table {
 }
 .red {
     color:red;
+}
+h2 {
+	line-height:140%;
+}
+p {
+	line-height:135%;
 }
 /* Main menu styles*/
 #menu .bigger {
@@ -144,7 +137,7 @@ table {
     margin:150px 0 0 0; 
 }
 #namefield .name {
-    font-family: TIEWing;
+    font-family: mega;
     font-size: 24px;
     border-radius: 16px;
     border: none;

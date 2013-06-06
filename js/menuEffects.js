@@ -160,7 +160,7 @@ $(document).ready(function() {
         hideDiv('#namefield');
         fadeInDiv('#highscore');
 		sortScore();
-		$('#highscore ul').text('');//reset highscore, or will add scores unlimited
+		//$('#highscore ul').text('');//reset highscore, or will add scores unlimited
 		showScore();
 	});
     $('.credit').click(function(){

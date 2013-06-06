@@ -487,7 +487,7 @@ function enemy (x_bron, y_bron, question, answer, side)
         y: y_bron,
         text: question,
         fontSize: 20,
-        fontFamily: 'TIEWing',
+        fontFamily: 'mega',
         fill: '#67EFE9'
     });
 	this.explosion = new Kinetic.Image({
