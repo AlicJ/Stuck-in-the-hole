@@ -112,9 +112,9 @@ var isPlaying,
 	currentTrack = 0,
 	autoplay = true;
 //Sound Effect----------------------------------------------
-var asteriod = new Audio('music/asteriod.ogg');    	//destruction of an asteriod
-var destoryed = new Audio('music/destoryed.ogg');	//destruction of the main ship
-var beenhit = new Audio('music/beenhit.ogg');		//main ship been hit
+var asteriod = new Audio('music/asteriod.mp3');    	//destruction of an asteriod
+var destoryed = new Audio('music/destoryed.mp3');	//destruction of the main ship
+var beenhit = new Audio('music/beenhit.mp3');		//main ship been hit
 //Save files----------------------------------------------
 var creat = new Date();
 var now = new Date();
