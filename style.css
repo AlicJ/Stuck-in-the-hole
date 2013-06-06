@@ -1,20 +1,27 @@
 @charset "utf-8";
 /* CSS Document */
 @font-face {
-    font-family: Orena;
-    src: url('Orena.ttf') format("truetype");
+    font-family: Xizor;
+    src: url('Xizor.ttf') format("truetype");
 }
 @font-face {
     font-family: TIEWing;
     src: url('TIEWing.ttf') format("truetype");
 }
-
+@font-face {
+    font-family: Starjedi;
+    src: url('Starjedi.ttf') format("truetype");
+}
+@font-face {
+    font-family: sse;
+    src: url('sse.ttf') format("truetype");
+}
 
 body {
     margin: 0px;
     padding: 0px;
     cursor:default;
-    font-family: TIEWing;
+    font-family: Xizor, Starjedi, sse, TIEWing;
 }
 ul {
     list-style:none;
