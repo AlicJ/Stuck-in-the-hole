@@ -12,7 +12,7 @@
 		
 	</description>
 	
-  <rim:orientation mode="auto"/>
+  <rim:orientation mode="landscape"/>
  
   <rim:loadingScreen backgroundImage="images/space.jpg"
                      foregroundImage="images/logo.jpg"
@@ -31,5 +31,7 @@
   <icon src="images/icon.png"/>
  
   <content src="index.html"/>
+  
+  <feature id="blackberry.app"/>
  
 </widget>
