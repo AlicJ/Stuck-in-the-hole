@@ -204,6 +204,7 @@ $(document).ready(function() {
         animStop(true);
         pause = true;
     });
+    //close pause screen
     $('.resume').click(function(){
         hideDiv('#pauseScreen');
         hideDiv('#setting2');
@@ -213,15 +214,20 @@ $(document).ready(function() {
         fadeInDiv('#nonPause');
         $('#myCanvas').fadeTo(400, 1.0);
         if (freezeOn) $('#effects').fadeTo(400, 1.0);
-        animStop(false);
+        if(!freezeOn)
+        {
+            animStop(false);
+        }
         pause =false;
     });
+    //open the shop
     $('.shop').click(function(){
         hideDiv('#mainmenu');
         hideDiv('#setting2');
         hideDiv('#help2');
         fadeInDiv('#shop');
     });
+    //buy various items
     $('.bomb').click(function(){
         if(score>=priceBomb){
     		score -= priceBomb;
