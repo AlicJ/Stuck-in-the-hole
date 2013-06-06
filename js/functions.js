@@ -373,7 +373,6 @@ function submit(){
             },200);
             score+=Math.round(enemies[i].scoreKeep);
 			numEnemyKilled ++;
-			if(sound) asteriod.play();
             correct=true;
         }
     }
@@ -525,6 +524,7 @@ function cleanEnemy (num)
      {
          anim[num].stop();
          enemies[num].explosion.hide();
+		 if(sound) asteriod.play();
      }
     }, layer);
     anim[num].start();

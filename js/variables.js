@@ -137,7 +137,7 @@ var stage = new Kinetic.Stage({
     });
 var layer = new Kinetic.Layer();
 
-var lives = 3;
+var lives;
 var numShield = 0;
 var numBomb = 0;
 var numFreeze = 0;
