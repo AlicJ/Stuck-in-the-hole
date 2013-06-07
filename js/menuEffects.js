@@ -158,7 +158,7 @@ $(document).ready(function() {
         hideDiv('#namefield');
         fadeInDiv('#highscore');
 		sortScore();
-		//$('#highscore ul').text('');//reset highscore, or will add scores unlimited
+		$('#highscore ul').text('');//reset highscore, or will add scores unlimited
 		showScore();
 	});
     $('.credit').click(function(){
@@ -169,9 +169,9 @@ $(document).ready(function() {
         hideDiv('#save');
         hideDiv('#namefield');
         fadeInDiv('#credit');
-		//creditInterval = window.setInterval(creditAnimation, 1000/30);
+		creditInterval = window.setInterval(creditAnimation, 1000/60);
         pauseInterval = window.setInterval(function(){
-            if(creditPosition <= -1450){
+            if(creditPosition <= -1750){
                 clearInterval(creditInterval);
                 counter++;
             }

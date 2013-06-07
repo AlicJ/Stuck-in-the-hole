@@ -16,7 +16,7 @@ function mainAnimation() {
 }
 function creditAnimation() {
     creditPosition--;
-	$("#credit").css({backgroundPosition: "20px " + (creditPosition) + "px"});
+	$("#credit").css({backgroundPosition: "5px " + (creditPosition) + "px"});
 }
 function splash() {
 	$('#splash').fadeOut("800");
