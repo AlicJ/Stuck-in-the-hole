@@ -514,20 +514,20 @@ function bgAnimation() {
 function cleanEnemy (num)
 {
     anim[num].stop();
-	enemies[num].explosion.attrs.x = enemies[num].image.attrs.x;
-	enemies[num].explosion.attrs.y = enemies[num].image.attrs.y;
-	layer.add(enemies[num].explosion);
-	stage.add(layer);
-    anim[num] = new Kinetic.Animation(function (frame){
-     enemies[num].explosion.setScale(1+frame.time/500);
-     if(frame.time>500)
-     {
-         anim[num].stop();
-         enemies[num].explosion.hide();
-		 if(sound) asteriod.play();
-     }
-    }, layer);
-    anim[num].start();
+	// enemies[num].explosion.attrs.x = enemies[num].image.attrs.x;
+	// enemies[num].explosion.attrs.y = enemies[num].image.attrs.y;
+	// layer.add(enemies[num].explosion);
+	// stage.add(layer);
+ //    anim[num] = new Kinetic.Animation(function (frame){
+ //     enemies[num].explosion.setScale(1+frame.time/500);
+ //     if(frame.time>500)
+ //     {
+ //         anim[num].stop();
+ //         enemies[num].explosion.hide();
+	// 	 if(sound) asteriod.play();
+ //     }
+ //    }, layer);
+ //    anim[num].start();
 	enemies[num].alive = false;
     enemies[num].image.hide();
     enemies[num].text.hide(); 
@@ -666,12 +666,12 @@ function animStop (isPaused)
 }
 function shipAnimate()
 {
-    var animate = new Kinetic.Animation(function(frame){
-        var yShift = 12*Math.sin(frame.time/1000);
-        base.setY(yShift+ stage.getHeight() / 2 -50);
-        shieldPic.setY(yShift + (stage.getHeight() / 2)-155);
-    }, layer);
-    animate.start();
+    // var animate = new Kinetic.Animation(function(frame){
+    //     var yShift = 12*Math.sin(frame.time/1000);
+    //     base.setY(yShift+ stage.getHeight() / 2 -50);
+    //     shieldPic.setY(yShift + (stage.getHeight() / 2)-155);
+    // }, layer);
+    // animate.start();
 }
 function animate(num) 
 {
