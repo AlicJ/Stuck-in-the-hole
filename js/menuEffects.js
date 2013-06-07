@@ -53,11 +53,9 @@ if (lang == 'fr') {
 	english = false;
 }
 if(english){
-    en_toggle();
-	$('.english').css('color', 'red');
+    englishfy();
 }else{
-    fr_toggle();
-$('.french').css('color', 'red');
+    frenchify();
 }
 //start background animation----------------------------------------------
 mainInterval = window.setInterval(mainAnimation, 1000/60);
@@ -83,8 +81,8 @@ $(document).ready(function() {
 				//get data from localStorage
 				getSave[i] = new Object();
 				getSave[i] = JSON.parse(localStorage.getItem('save'+i));
-				if(english) $('.save'+(i+1)).text(getSave[i].name + " " + en_level + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
-				if(french) $('.save'+(i+1)).text(getSave[i].name + " " + fr_level + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
+				if(english) $('.save'+(i+1)).text(getSave[i].name + " " + en_level + " " + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
+				if(french) $('.save'+(i+1)).text(getSave[i].name + " " + fr_level + " " + (parseInt(getSave[i].level)+1) + " - " + getSave[i].lastSave);
 			}
 		}
 	});
@@ -171,7 +169,7 @@ $(document).ready(function() {
         hideDiv('#save');
         hideDiv('#namefield');
         fadeInDiv('#credit');
-		creditInterval = window.setInterval(creditAnimation, 1000/30);
+		//creditInterval = window.setInterval(creditAnimation, 1000/30);
         pauseInterval = window.setInterval(function(){
             if(creditPosition <= -1450){
                 clearInterval(creditInterval);
