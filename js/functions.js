@@ -34,6 +34,7 @@ function englishfy (){
     en_toggle(); 
     $('.english').css('color', 'red');
     $('.french').css('color', 'inherit');
+    $('#clear, #submit').css('line-height', '55px');
     localStorage.setItem('lang','en');
 }
 function frenchify (){
@@ -42,6 +43,7 @@ function frenchify (){
     fr_toggle();
     $('.french').css('color', 'red');
     $('.english').css('color', 'inherit');
+    $('#clear, #submit').css('line-height', '28px');
 	localStorage.setItem('lang','fr');
 }
 //Question Maker----------------------------------------------
@@ -487,7 +489,7 @@ function enemy (x_bron, y_bron, question, answer, side)
         y: y_bron,
         text: question,
         fontSize: 20,
-        fontFamily: 'TIEWing',
+        fontFamily: 'mega',
         fill: '#67EFE9'
     });
 	this.explosion = new Kinetic.Image({
