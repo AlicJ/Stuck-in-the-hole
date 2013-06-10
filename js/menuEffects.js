@@ -302,6 +302,12 @@ $(document).ready(function() {
             enemies[i].image.hide();
             enemies[i].text.hide(); 
         }
+        for(var i=0; i<enemies.length;i++)
+                {
+                    anim[i].stop;
+                }
+        enemies = new Array();
+        enemyNum=0;
     });
     $('.no').click(function(){
         $('#mainmenu').fadeOut();

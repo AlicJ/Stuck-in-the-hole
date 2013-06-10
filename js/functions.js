@@ -429,7 +429,7 @@ function enemyMaker ()
     }
   
     enemies[enemyNum]= new enemy(x, y, question.question, question.answer, side);
-    if(Math.abs(base.attrs.x-x+40)<40)
+    if(Math.abs(base.attrs.x-x+60)<40)
     {
         if(y>base.attrs.y)
         {
@@ -705,6 +705,13 @@ function animate(num)
             if(lives <= 0){
 				fail = true;
                 GameOver();
+                for(var i=0;i<enemies.length;i++)
+                {
+                    if(enemies[i].alive)
+                    {
+                        cleanEnemy(i);
+                    }
+                }
             }
     }, layer);
     
