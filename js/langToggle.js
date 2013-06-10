@@ -107,7 +107,7 @@ function fr_toggle(){
 	texthtml('#menu .help1 p', fr_help);
 	texthtml('#menu .highscore p', fr_highscore);
 	texthtml('#menu .credit p', fr_credit);
-	texthtml('#menu .exit p', fr_exit);
+	//texthtml('#menu .exit p', fr_exit);
 	texthtml('#setting1 h2', fr_setting);
 	textrepl('#setting1 .music', fr_musicOff);
 	textrepl('#setting1 .sound', fr_soundOff);
@@ -164,7 +164,7 @@ function en_toggle(){
 	texthtml('#menu .help1 p', en_help);
 	texthtml('#menu .highscore p', en_highscore);
 	texthtml('#menu .credit p', en_credit);
-	texthtml('#menu .exit p', en_exit);
+	//texthtml('#menu .exit p', en_exit);
 	texthtml('#setting1 h2', en_setting);
 	textrepl('#setting1 .music', en_musicOff);
 	textrepl('#setting1 .sound', en_soundOff);
