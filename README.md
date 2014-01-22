@@ -10,3 +10,5 @@ Enough time were reserved to test the game's stability and to fix bugs.
 
 I was mostly responsible for the UI design, the visual effects, and some game functions.
 Peter Kim, my paterner, is mainly responsible for the main function of the game.
+
+The games was designed to be deployed on a BlackBerry PlayBook, and was successfuly inistalled on it.
